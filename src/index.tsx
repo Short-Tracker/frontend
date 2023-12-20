@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import store from 'store/store';
 import './index.scss';
-import App from './components/app/app';
+import App from './components/App/App';
 
 const rootDiv = document.getElementById('root');
 const rootNode = createRoot(rootDiv as Element);

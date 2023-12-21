@@ -23,3 +23,10 @@
     -ms-user-select: none; /* IE / Edge */
     user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
   }
+
+@mixin Header0-Inter {
+    font-family: Inter-Bold;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 29.05px;
+  }

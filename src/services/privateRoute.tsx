@@ -1,7 +1,9 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 
-const privateRoute = ({ path = '/' }) => {
+/* eslint-disable */
+//Через props patch отправляется маршрут куда переходить при отклонении
+const PrivateRoute = ({ path = '/' }) => {
   return <Navigate to={path} />;
 };
-export default privateRoute;
+export default PrivateRoute;

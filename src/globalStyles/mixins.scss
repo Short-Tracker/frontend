@@ -15,6 +15,49 @@
     }
   }
 
+@mixin Body {
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 121%;
+}
+
+@mixin Person {
+  font-family: Inter, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 121%;
+}
+
+@mixin NavBar {
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 121%;
+}
+
+@mixin TeamTitle {
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 121%;
+}
+
+@mixin Search {
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 150%;
+}
+
+@mixin Card {
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 121%;
+}
+
+
 @mixin noselect {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -22,11 +65,4 @@
     -moz-user-select: none; /* Old versions of Firefox */
     -ms-user-select: none; /* IE / Edge */
     user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
-  }
-
-@mixin Header0-Inter {
-    font-family: Inter-Bold;
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 29.05px;
   }

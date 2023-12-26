@@ -1,0 +1,10 @@
+@import '../../globalStyles/variables.scss';
+
+.search {
+  background: url(../../assets/icons/searchIcon.svg) no-repeat center left 14px;
+  width: 772px;
+  height: 40px;
+  padding-left: 36px;
+  border-radius: 20px;
+  border-color: $search-border;
+}

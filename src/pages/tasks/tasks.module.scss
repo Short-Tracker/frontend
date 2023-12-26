@@ -1,0 +1,186 @@
+.card {
+  max-width: 256px;
+  max-height: 139px;
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  background-color: #F5F5F5;
+}
+
+/* .user {
+  background-color: #D3D3D3;
+  max-height: 22px;
+  height: 100%;
+  width: 100%;
+}
+
+.name {
+  margin: 0;
+  padding: 5px 0;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 12.1px;
+} */
+
+.task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 211px;
+  max-height: 30px;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  cursor: default;
+}
+
+.taskText:hover .textFull {
+  border: 1px solid #CCCCCC;
+  position: absolute;
+  top: 0;
+  left: 37px;
+  background-color: #FFFFFF;
+  border-radius: 7px;
+  padding: 10px;
+  height: fit-content;
+  display: block;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.5px;
+}
+
+.text {
+  margin-right: 12px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.5px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.textFull {
+  display: none;
+}
+
+.copyLink {
+  cursor: pointer;
+  border: none;
+  width: 12px;
+  height: 12px;
+  background: url(../../assets/icons/linkIcon.svg) center no-repeat;
+}
+
+.edit {
+  cursor: pointer;
+  border: none;
+  width: 12px;
+  height: 9px;
+  background: url(../../assets/icons/edit.svg) center no-repeat;
+}
+
+.other {
+  max-width: 211px;
+  max-height: 30px;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 17px;
+  padding-bottom: 10px;
+}
+
+.otherLeft {
+  display: flex;
+  align-items: center;
+}
+
+.flag {
+  cursor: pointer;
+  margin-right: 7px;
+  border: none;
+  width: 13px;
+  height: 13px;
+  background: url(../../assets/icons/flagIcon.svg) center no-repeat;
+}
+
+.date {
+  padding: 0;
+  margin: 0;
+  color: #6F6F6F;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 12.1px;
+}
+
+.otherRight {
+  display: flex;
+  align-items: center;
+  border: none;
+}
+
+.count {
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 12.1px;
+}
+
+.commetns {
+  cursor: pointer;
+  border: none;
+  background: url(../../assets/icons/comments.svg) center no-repeat;
+  background-position: right;
+  width: 13px;
+  height: 13px;
+  margin-left: 2px;
+}
+
+// строка прогресса
+
+.taskState {
+  margin: 0 16px 17px 19px;
+  padding-top: 10px;
+}
+
+.time {
+  margin: 0;
+  padding: 0;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 12px;
+  width: 27px;
+  height: 12px;
+}
+
+.taskStateContainer {
+  max-width: 189px;
+  display: flex;
+  align-items: center;
+  padding-top: 6px;
+  margin: 0 auto;
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  background-color: #ACACAC;
+  border-radius: 50%;
+}
+
+.active {
+  background-color: #000;
+}
+
+.line {
+  width: 95px;
+  border: 1px solid #B9B9B9
+}

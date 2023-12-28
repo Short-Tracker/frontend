@@ -1,7 +1,20 @@
-.main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  }
+
+
+.element{
+width: 244px;
+height: 29px;
+border-radius: 6px;
+background: #DFDFDF;
+font-family: Inter;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+display: flex;
+justify-content: center;
+align-items: center;
   }

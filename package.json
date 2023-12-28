@@ -78,6 +78,8 @@
     ]
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.8.1",
+    "@commitlint/config-conventional": "^17.8.1",
     "@storybook/addon-essentials": "^7.6.4",
     "@storybook/addon-interactions": "^7.6.4",
     "@storybook/addon-links": "^7.6.4",
@@ -91,8 +93,6 @@
     "@types/redux-logger": "^3.0.12",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
     "@typescript-eslint/parser": "^6.5.0",
-    "@commitlint/cli": "^17.7.1",
-    "@commitlint/config-conventional": "^17.7.0",
     "babel-plugin-named-exports-order": "^0.0.2",
     "commitizen": "^4.3.0",
     "cz-git": "^1.8.0",

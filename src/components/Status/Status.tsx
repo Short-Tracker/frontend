@@ -1,5 +1,5 @@
 import React from 'react';
-import StatusElement from './StatusElement';
+import StatusElement from './StatusElement/StatusElement';
 import styles from './Status.module.scss';
 
 const Status = () => {

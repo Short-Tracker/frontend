@@ -1,0 +1,18 @@
+@use '../../globalStyles/mixins.scss' as m;
+
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.element {
+  @include m.Body;
+  width: 244px;
+  height: 29px;
+  border-radius: 6px;
+  background: #dfdfdf;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,6 +1,6 @@
 import Main from 'pages';
-import Status from 'pages/Status/Status';
 import React from 'react';
+import Status from 'components/Status/Status';
 import { Routes, Route } from 'react-router-dom';
 import styles from './App.module.scss';
 

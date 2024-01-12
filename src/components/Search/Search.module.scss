@@ -1,10 +1,14 @@
-@import '../../globalStyles/variables.scss';
+@use '../../globalStyles/variables.scss' as v;
 
 .search {
-  background: url(../../assets/icons/searchIcon.svg) no-repeat center left 14px;
-  width: 772px;
-  height: 40px;
-  padding-left: 36px;
-  border-radius: 20px;
-  border-color: $search-border;
+  position: relative;
+  width: 764px;
+  &__find {
+    width: 764px;
+    height: 40px;
+    padding-left: 14px;
+    border: 1px solid v.$disabled;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
 }

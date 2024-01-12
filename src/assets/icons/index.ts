@@ -7,5 +7,13 @@ import filterIcon from './filter.svg';
 import commentsIcon from './commentsIcon.svg';
 import editIcon from './editIcon.svg';
 
-export { flagIcon, todoIcon, linkIcon, teamIcon, searchIcon, commentsIcon, editIcon, filterIcon };
-
+export {
+  flagIcon,
+  todoIcon,
+  linkIcon,
+  teamIcon,
+  searchIcon,
+  commentsIcon,
+  editIcon,
+  filterIcon,
+};

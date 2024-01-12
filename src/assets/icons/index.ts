@@ -4,5 +4,8 @@ import linkIcon from './linkIcon.svg';
 import teamIcon from './teamIcon.svg';
 import searchIcon from './searchIcon.svg';
 import filterIcon from './filter.svg';
+import commentsIcon from './commentsIcon.svg';
+import editIcon from './editIcon.svg';
 
-export { flagIcon, todoIcon, linkIcon, teamIcon, searchIcon, filterIcon };
+export { flagIcon, todoIcon, linkIcon, teamIcon, searchIcon, commentsIcon, editIcon, filterIcon };
+

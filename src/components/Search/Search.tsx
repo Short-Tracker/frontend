@@ -3,8 +3,12 @@ import { searchIcon } from 'assets/icons';
 import styles from './Search.module.scss';
 
 const Search = () => {
+  const handleSubmit = (event: React.SyntheticEvent) => {
+    event.preventDefault();
+  };
+
   return (
-    <form className={styles.search}>
+    <form className={styles.search} onSubmit={handleSubmit}>
       <input
         className={styles.search__find}
         placeholder="Ключевые слова, дата создания"

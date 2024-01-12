@@ -9,18 +9,18 @@
   cursor: pointer;
   border-radius: 8px;
   border: none;
-  background: v.$accent-color;
+  background: v.$accent;
   color: var(--white, v.$white-color);
 
   @include m.Body;
   @include m.noselect;
 
   &:hover {
-    background: v.$accent_on_hover-color;
+    background: v.$button-hover;
   }
 
   &:disabled {
-    background: v.$disabled-color;
+    background: v.$disabled;
     cursor:no-drop;
   }
 }
@@ -37,20 +37,20 @@
   cursor: pointer;
   
   border-radius: 8px;
-  border: 1px solid var(--accent, v.$accent-color);
+  border: 1px solid var(--accent, v.$accent);
 
-  color: v.$accent-color;
+  color: v.$accent;
   white-space: nowrap;
 
   &:hover {
-    color: v.$accent_on_hover-color;
-    border: 1px solid var(--accent, v.$accent-color);
+    color: v.$button-hover;
+    border: 1px solid var(--accent, v.$accent);
     background: v.$emty-hover-color;
   }
 
   &:disabled {
-    color: v.$disabled-color;
-    border: 1px solid var(--accent, v.$disabled-color);
+    color: v.$disabled;
+    border: 1px solid var(--accent, v.$disabled);
     cursor:no-drop;
   }
 }

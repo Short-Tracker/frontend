@@ -16,7 +16,7 @@ export const TodoIcon = (props: any) => <TemplateIcon {...props} icon={todoIcon}
 export const LinkIcon = (props: any) => <TemplateIcon {...props} icon={linkIcon} />;
 export const TeamIcon = (props: any) => <TemplateIcon {...props} icon={teamIcon} />;
 export const SearchIcon = (props: any) => <TemplateIcon {...props} icon={searchIcon} />;
-export const FilterIcon = (props: any) => <TemplateIcon {...props} icon={filterIcon}/>
+export const FilterIcon = (props: any) => <TemplateIcon {...props} icon={filterIcon} />;
 export const CommentsIcon = (props: any) => (
   <TemplateIcon {...props} icon={commentsIcon} />
 );

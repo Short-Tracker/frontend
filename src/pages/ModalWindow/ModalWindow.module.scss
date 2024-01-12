@@ -1,0 +1,40 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 25px;
+  background-color: rgba(0, 0, 0, 0.7);
+  transition:
+    opacity 0.8s ease,
+    visibility 0.8s ease;
+  overflow: scroll;
+  /* width: 100vw;
+  height: 100vh; */
+}
+
+.container {
+  padding: 30px 20px;
+  position: relative;
+  width: 100%;
+  min-width: 345px;
+  height: 300px;
+  border-radius: 20px;
+  background: #FFF;
+  margin: 0 auto;
+  max-width: 450px;
+}
+
+.titleBlock {
+}
+
+.buttonClose {
+  width: 24px;
+  height: 24px;
+  background-color: inherit;
+  transition: background-image 0.3s ease;
+  cursor: pointer;
+}
+
+.text {
+  text-align: center;
+}

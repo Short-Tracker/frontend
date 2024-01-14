@@ -12,7 +12,7 @@
   background: v.$accent-color;
   color: var(--white, v.$white-color);
 
-  @include m.Body;
+  @include m.ButtonLarge;
   @include m.noselect;
 
   &:hover {
@@ -26,7 +26,7 @@
 }
 
 .emptyButton {
-  @include m.Body;
+  @include m.ButtonLarge;
   @include m.noselect;
 
   display: flex;

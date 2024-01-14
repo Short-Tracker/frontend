@@ -11,8 +11,8 @@ type TTemplateIcon = {
 const TemplateIcon: FC<TTemplateIcon> = ({
   icon,
   alt,
-  width = '24',
-  height = '24',
+  width,
+  height,
   className = '',
 }) => (
   <img
@@ -24,8 +24,8 @@ const TemplateIcon: FC<TTemplateIcon> = ({
 );
 TemplateIcon.defaultProps = {
   alt: 'Картинка',
-  width: '24',
-  height: '24',
+  width: '16',
+  height: '16',
   className: '',
 };
 

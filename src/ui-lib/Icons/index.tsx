@@ -7,6 +7,8 @@ import {
   commentsIcon,
   editIcon,
   filterIcon,
+  eyeIcon,
+  eyeClosedIcon,
 } from 'assets/icons';
 
 import TemplateIcon from './TemplateIcon/TemplateIcon';
@@ -19,5 +21,11 @@ export const SearchIcon = (props: any) => <TemplateIcon {...props} icon={searchI
 export const FilterIcon = (props: any) => <TemplateIcon {...props} icon={filterIcon} />;
 export const CommentsIcon = (props: any) => (
   <TemplateIcon {...props} icon={commentsIcon} />
+);
+export const EyeIcon = (props: any) => (
+  <TemplateIcon {...props} icon={eyeIcon} width={16} height={16} />
+);
+export const EyeClosedIcon = (props: any) => (
+  <TemplateIcon {...props} icon={eyeClosedIcon} />
 );
 export const EditIcon = (props: any) => <TemplateIcon {...props} icon={editIcon} />;

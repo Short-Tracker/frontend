@@ -1,3 +1,4 @@
 import Main from './Main/Main';
+import Login from './Login/Login';
 
-export default Main;
+export { Main, Login };

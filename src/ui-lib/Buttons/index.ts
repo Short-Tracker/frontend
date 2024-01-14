@@ -1,3 +1,4 @@
 import UniversalButton from './UniversalButton/UniversalButton';
+import PasswordFieldButton from './PasswordFieldButton/PasswordFieldButton';
 
-export { UniversalButton };
+export { UniversalButton, PasswordFieldButton };

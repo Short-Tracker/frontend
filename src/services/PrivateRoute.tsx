@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
+import { useSelector } from './hooks';
 
-/* eslint-disable */
-//Через props patch отправляется маршрут куда переходить при отклонении
-const PrivateRoute = ({ path = '/' }) => {
-  return <Navigate to={path} />;
+// Здесь нужно написать нормальный интерфейс вместо any
+const PrivateRoute = ({ path, children }: any) => {
+  const { isLoggedIn } = useSelector((state) => state.system);
+  console.log(children);
+  if (!isLoggedIn) {
+    return <Navigate to={path} />;
+  }
+  return <> {children} </>;
 };
 export default PrivateRoute;

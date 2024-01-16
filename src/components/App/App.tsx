@@ -1,5 +1,6 @@
 import { Main, Login } from 'pages';
 import { Routes, Route } from 'react-router-dom';
+import PrivateRoute from 'services/PrivateRoute';
 import styles from './App.module.scss';
 
 const App = () => {
@@ -7,7 +8,14 @@ const App = () => {
     <div className={styles.App}>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/main" element={<Main />} />
+        <Route
+          path="/main"
+          element={
+            <PrivateRoute path="/">
+              <Main />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </div>
   );

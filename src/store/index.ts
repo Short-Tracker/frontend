@@ -1,11 +1,4 @@
-import {
-  onLogin,
-  onLogout,
-  isLoadingOn,
-  isLoadingOff,
-  // isLocalLoadingOn,
-  isLocalLoadingOff,
-} from './systemSlice';
+import { onLogin, onLogout, isLoadingOn, isLoadingOff } from './systemSlice';
 import { setUser, clearUser, setUserDataTemp } from './userSlice';
 
 export {
@@ -16,6 +9,4 @@ export {
   setUserDataTemp,
   isLoadingOn,
   isLoadingOff,
-  // isLocalLoadingOn,
-  isLocalLoadingOff,
 };

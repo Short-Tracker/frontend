@@ -1,15 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-type TSystemState = {
-  isLoggedIn: boolean;
-  isLoading: boolean;
-  isLocalLoading: boolean;
-};
+import { TSystemState } from 'types/types';
 
 const initialState: TSystemState = {
   isLoading: true,
-  isLocalLoading: false,
-  isLoggedIn: true,
+  isLoggedIn: false,
 };
 
 const systemSlice = createSlice({
@@ -18,21 +12,11 @@ const systemSlice = createSlice({
   reducers: {
     isLoadingOn: (state: TSystemState) => ({ ...state, isLoading: true }),
     isLoadingOff: (state: TSystemState) => ({ ...state, isLoading: false }),
-    // isLocalLoadingOn: (state: TSystemState) => ({ ...state, isLocalLoading: true }),
-    isLocalLoadingOff: (state: TSystemState) => ({ ...state, isLocalLoading: false }),
-    // onLogin: (state: TSystemState) => ({ ...state, isLoggedIn: true }),
-    onLogin: (state: TSystemState) => ({ ...state, isLocalLoading: true }),
+    onLogin: (state: TSystemState) => ({ ...state, isLoggedIn: true }),
     onLogout: (state: TSystemState) => ({ ...state, isLoggedIn: false }),
   },
 });
 
 const systemReducer = systemSlice.reducer;
-export const {
-  isLoadingOn,
-  isLoadingOff,
-  // isLocalLoadingOn,
-  isLocalLoadingOff,
-  onLogin,
-  onLogout,
-} = systemSlice.actions;
+export const { isLoadingOn, isLoadingOff, onLogin, onLogout } = systemSlice.actions;
 export default systemReducer;

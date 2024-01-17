@@ -12,3 +12,7 @@ export type TuserDataTemp = {
   password: string;
   is_team_lead: boolean;
 };
+export type TSystemState = {
+  isLoggedIn: boolean;
+  isLoading: boolean;
+};

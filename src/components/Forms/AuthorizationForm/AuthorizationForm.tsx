@@ -2,7 +2,7 @@ import React, { SyntheticEvent, useState } from 'react';
 import EmailInput from 'ui-lib/Inputs/EmailInput/EmailInput';
 import PasswordInput from 'ui-lib/Inputs/PasswordInput/PasswordInput';
 import loginUserThunk from 'thunks/login-user-thunk';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { UniversalButton } from 'ui-lib/Buttons';
 import { useDispatch } from '../../../services/hooks';
 import styles from './AuthorizationForm.module.scss';
@@ -11,9 +11,11 @@ const AuthorizationForm = () => {
   type Values = Record<string, string>;
   const dispatch = useDispatch();
   const [values, setValues] = useState<Values>({});
+  const navigate = useNavigate();
   const onSubmitLogin = (event: SyntheticEvent) => {
     event.preventDefault();
     dispatch(loginUserThunk({ email: values.email, password: values.password }));
+    navigate('main');
   };
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { target } = event;

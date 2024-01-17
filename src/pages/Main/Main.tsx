@@ -5,6 +5,7 @@ import PasswordInput from 'ui-lib/Inputs/PasswordInput/PasswordInput';
 import EmailInput from 'ui-lib/Inputs/EmailInput/EmailInput';
 import Tasks from '../Tasks/Tasks';
 import styles from './Main.module.scss';
+import GroupTasks from '../GroupTasks/GroupTasks';
 
 const Main = () => {
   return (
@@ -15,6 +16,7 @@ const Main = () => {
       <Search />
       <EmailInput id="email" label="Логин" />
       <PasswordInput id="password" />
+      <GroupTasks />
     </main>
   );
 };

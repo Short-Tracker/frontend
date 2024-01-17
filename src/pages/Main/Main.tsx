@@ -1,24 +1,20 @@
 import React from 'react';
-import { UniversalButton } from 'ui-lib/Buttons';
-import Search from 'components/Search/Search';
-import PasswordInput from 'ui-lib/Inputs/PasswordInput/PasswordInput';
-import EmailInput from 'ui-lib/Inputs/EmailInput/EmailInput';
-import Tasks from '../Tasks/Tasks';
+import { useSelector } from 'services/hooks';
+import Login from 'pages/Login/Login';
+import Lead from './Lead/Lead';
+import User from './User/User';
 import styles from './Main.module.scss';
 import GroupTasks from '../GroupTasks/GroupTasks';
 
 const Main = () => {
+  const { isLoggedIn } = useSelector((state) => state.system);
+  const isLead = true;
   return (
     <main className={styles.main}>
-      <h1>главная страница</h1>
-      <UniversalButton>Кнопка</UniversalButton>
-      <Tasks />
-      <Search />
-      <EmailInput id="email" label="Логин" />
-      <PasswordInput id="password" />
-      <GroupTasks />
+      {!isLoggedIn && <Login />}
+      {isLoggedIn && !isLead && <User />}
+      {isLoggedIn && isLead && <Lead />}
     </main>
   );
 };
-
 export default Main;

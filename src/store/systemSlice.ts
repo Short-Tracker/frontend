@@ -9,7 +9,7 @@ type TSystemState = {
 const initialState: TSystemState = {
   isLoading: true,
   isLocalLoading: false,
-  isLoggedIn: false,
+  isLoggedIn: true,
 };
 
 const systemSlice = createSlice({

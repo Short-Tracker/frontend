@@ -2,14 +2,20 @@ import React from 'react';
 import { UniversalButton } from 'ui-lib/Buttons';
 import Search from 'components/Search/Search';
 import SideBar from 'components/SideBar/SideBar';
-import { useSelector } from 'services/hooks';
+import { useDispatch, useSelector } from 'services/hooks';
+import Login from 'pages/Login/Login';
 import Tasks from '../Tasks/Tasks';
+import Lead from './Lead';
+import User from './User';
 import styles from './Main.module.scss';
 
 const Main = () => {
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state) => state.system);
+  const isLead = false;
   return (
     <main className={styles.main}>
-      <h1>Страница лида</h1>
+      {/*       <h1>Страница лида</h1>
       <h2>Всё равно всё будет перерисовываться</h2>
       <div className={styles.main__container}>
         <SideBar />
@@ -23,7 +29,10 @@ const Main = () => {
           <Tasks />
           <Tasks />
         </div>
-      </div>
+      </div> */}
+      {!isLoggedIn && <Login />}
+      {isLoggedIn && !isLead && <User />}
+      {isLoggedIn && isLead && <Lead />}
     </main>
   );
 };

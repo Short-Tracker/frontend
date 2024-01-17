@@ -6,6 +6,7 @@ interface IUniversalButton extends React.ComponentPropsWithoutRef<'button'> {
   width?: string | number;
   height?: string | number;
   className?: string;
+  fontSize?: string | number;
 }
 
 const UniversalButton: React.FC<IUniversalButton> = ({
@@ -14,11 +15,16 @@ const UniversalButton: React.FC<IUniversalButton> = ({
   isFilled,
   type = 'submit',
   className = '',
+  fontSize,
   ...rest
 }) => (
   <button
     type={type}
-    style={{ width: `${String(width)}px`, height: `${String(height)}px` }}
+    style={{
+      width: `${String(width)}px`,
+      height: `${String(height)}px`,
+      fontSize: `${String(fontSize)}px`,
+    }}
     className={`${isFilled ? styles.filledButton : styles.emptyButton} ${className}`}
     {...rest}
   />
@@ -29,6 +35,7 @@ UniversalButton.defaultProps = {
   width: 256,
   height: 40,
   className: '',
+  fontSize: 18,
 };
 
 export default UniversalButton;

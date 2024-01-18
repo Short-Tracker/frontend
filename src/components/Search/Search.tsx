@@ -11,7 +11,7 @@ const Search = () => {
     <form className={styles.search} onSubmit={handleSubmit}>
       <input
         className={styles.search__find}
-        placeholder="Ключевые слова, дата создания"
+        placeholder="Ключевые слова, #, дата создания"
       />
       <SearchButtons type="submit" src={searchIcon} position="search" />
     </form>

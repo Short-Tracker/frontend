@@ -8,14 +8,9 @@ const App = () => {
     <div className={styles.App}>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route
-          path="/main"
-          element={
-            <PrivateRoute path="/">
-              <Main />
-            </PrivateRoute>
-          }
-        />
+        <Route element={<PrivateRoute path="/" />}>
+          <Route element={<Main />} path="/main" />
+        </Route>
       </Routes>
     </div>
   );

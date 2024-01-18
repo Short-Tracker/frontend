@@ -1,0 +1,110 @@
+@use '../../../globalStyles/variables.scss' as v;
+@use '../../../globalStyles/mixins.scss' as m;
+
+.employer {
+  margin: 0 auto;
+  max-width: 1440px;
+  height: 70px;
+  width: 100vw;
+}
+
+.container {
+  margin: 15px 39px 15px 40px;
+  display: flex;
+  align-items: center;
+}
+
+.user {
+  margin-right: 20px;
+  max-width: 325px;
+  max-height: 46px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+
+  &_button {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    outline: none;
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
+  }
+
+  &_photo {
+    display: block;
+    margin-right: 16px;
+    max-width: 46px;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+
+  &_name {
+    padding: 0;
+    margin: 0;
+    @include m.H2;
+  }
+}
+
+.linkWrapper {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  margin-right: 51px;
+  max-width: 509px;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.navLi {
+  margin-right: 32px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.navLink {
+  padding: 0;
+  margin: 0;
+  max-width: fit-content;
+  width: 100%;
+  color: v.$name-task;
+  text-decoration: none;
+  text-wrap: nowrap;
+  display: flex;
+
+  @include m.ButtonLarge;
+
+  &:hover {
+    color: v.$accent_on_hover-color;
+  }
+}
+
+.active {
+  color: v.$accent-color;
+}
+
+.count {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+  margin: 2px 0 2px 6px;
+  border-radius: 50%;
+  background-color: v.$accent-color;
+  color: v.$white-color;
+  @include m.Description;
+}
+
+.search {
+  margin-right: 16px;
+  max-width: 400px;
+  width: 100%;
+}

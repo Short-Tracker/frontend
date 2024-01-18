@@ -4,7 +4,7 @@ import Login from 'pages/Login/Login';
 import Lead from './Lead/Lead';
 import User from './User/User';
 import styles from './Main.module.scss';
-import GroupTasks from '../GroupTasks/GroupTasks';
+import GroupTasks from '../../components/GroupTasks/GroupTasks';
 
 const Main = () => {
   const { isLoggedIn } = useSelector((state) => state.system);

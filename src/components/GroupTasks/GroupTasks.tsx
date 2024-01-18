@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ListIcon } from 'ui-lib/Icons';
 import styles from './GroupTasks.module.scss';
 
 const GroupTasks = () => {
@@ -50,6 +51,7 @@ const GroupTasks = () => {
       onKeyDown={handleKeyDown}
     >
       <div className={styles.header}>
+        <ListIcon />
         <h2 className={styles.customHeading}>Командная (5/8)</h2>
       </div>
       {/* Показываем содержимое только если не свернуто */}
@@ -57,8 +59,8 @@ const GroupTasks = () => {
         <div className={styles.taskList}>
           {/* Мапим пользователей для создания карточек задач */}
           {users.map((user) => (
-            <div key={user.id} className={styles.taskCard}>
-              <p className={styles.taskUser}>{user.name}</p>
+            <div key={user.id} className={styles.taskUser}>
+              <p>{user.name}</p>
             </div>
           ))}
         </div>

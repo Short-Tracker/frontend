@@ -20,22 +20,16 @@
   align-items: center;
 }
 
-.customHeading::before {
-  content: '';
-  background: url(../../images/List.png);
-  display: inline-block;
-  width: 16px;
-  height: 16px;
+.taskList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.taskUser{
+.taskUser {
   font-weight: 400;
   font-size: 12px;
   line-height: 133.33%;
-}
-
-.taskCard {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }

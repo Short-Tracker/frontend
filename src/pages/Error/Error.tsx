@@ -15,7 +15,9 @@ const Error = () => {
         <p className={styles.subtitle}>
           Зато есть доска с задачами, которые ждут перевода в статус
         </p>
-        <UniversalButton isFilled={false}>Перейти на экран с задачами</UniversalButton>
+        <UniversalButton fontSize={16} isFilled={false}>
+          Перейти на экран с задачами
+        </UniversalButton>
       </div>
     </>
   );

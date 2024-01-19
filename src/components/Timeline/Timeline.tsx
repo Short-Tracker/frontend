@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './Timeline.module.scss';
 
 // Определение типов пропсов
 interface TimelineProps {
@@ -6,11 +7,15 @@ interface TimelineProps {
 }
 
 const Timeline: React.FC<TimelineProps> = ({ date }) => {
+  const formattedDate = new Intl.DateTimeFormat('ru-RU', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(date);
   return (
-    <div className="timeline">
-      <div className="timeline-item">
-        <div className="timeline-date">{date.toDateString()}</div>
-      </div>
+    <div className={styles.timeline}>
+      <div className={styles.timelineDate}>{formattedDate.replace(' г.', '')}</div>
+      <hr className={styles.timelineSeparator} />
     </div>
   );
 };

@@ -9,6 +9,7 @@ import {
   filterIcon,
   eyeIcon,
   eyeClosedIcon,
+  plusIcon,
 } from 'assets/icons';
 
 import TemplateIcon from './TemplateIcon/TemplateIcon';
@@ -29,3 +30,4 @@ export const EyeClosedIcon = (props: any) => (
   <TemplateIcon {...props} icon={eyeClosedIcon} />
 );
 export const EditIcon = (props: any) => <TemplateIcon {...props} icon={editIcon} />;
+export const PlusIcon = (props: any) => <TemplateIcon {...props} icon={plusIcon} />;

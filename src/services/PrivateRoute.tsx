@@ -1,9 +1,13 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
+import React, { FC, ReactNode, useEffect } from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
+import { useSelector } from './hooks';
 
-/* eslint-disable */
-//Через props patch отправляется маршрут куда переходить при отклонении
-const PrivateRoute = ({ path = '/' }) => {
-  return <Navigate to={path} />;
+interface IPrivateRoute {
+  path: string;
+}
+// path - это путь куда юзер отправляется если он неавторизован
+const PrivateRoute: FC<IPrivateRoute> = ({ path }) => {
+  const { isLoggedIn } = useSelector((state) => state.system);
+  return isLoggedIn ? <Outlet /> : <Navigate to={path} />;
 };
 export default PrivateRoute;

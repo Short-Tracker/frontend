@@ -1,0 +1,33 @@
+@use '../../../globalStyles/variables.scss' as v;
+@use '../../../globalStyles/mixins.scss' as m;
+
+.plusButton {
+  padding: 0;
+  margin: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  background: v.$accent-color;
+  color: var(--white, v.$white-color);
+
+  @include m.noselect;
+
+  &:hover {
+    background: v.$accent_on_hover-color;
+  }
+
+  &:disabled {
+    background: v.$disabled-color;
+    cursor:no-drop;
+  }
+}
+
+.icon {
+  display: block;
+}

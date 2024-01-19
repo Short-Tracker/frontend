@@ -3,13 +3,15 @@
 .search {
   position: relative;
   max-width: 764px;
+  width: 100%;
   &__find {
-    width: 764px;
     height: 40px;
     padding-left: 14px;
     border: 1px solid v.$disabled-color;
     border-radius: 8px;
     box-sizing: border-box;
     outline: none;
+    max-width: 764px;
+    width: 100%;
   }
 }

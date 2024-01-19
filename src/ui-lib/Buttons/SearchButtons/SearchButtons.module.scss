@@ -1,0 +1,20 @@
+@use '../../../globalStyles/variables.scss' as v;
+
+.button {
+  background-color: v.$light-blue;
+  height: 40px;
+  width: 41px;
+  border: 1px solid v.$disabled-color;
+  border-radius: 8px;
+  padding: 0;
+  cursor: pointer;
+  &__search {
+    position: absolute;
+    right: 0;
+  }
+}
+
+.image {
+  height: 16px;
+  width: 16px;
+}

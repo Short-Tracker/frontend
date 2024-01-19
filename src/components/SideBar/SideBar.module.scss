@@ -1,0 +1,102 @@
+@import '../../globalStyles/variables.scss';
+@import '../../globalStyles/mixins.scss';
+
+.SideBar {
+  max-width: 296px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-shrink: 0;
+  background-color: $sidebar;
+}
+
+.userWrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 296px;
+  padding-top: 30px;
+  padding-left: 70px;
+}
+
+.userImg {
+  background-position: center;
+  object-fit: cover;
+  width: 47.862px;
+  height: 47.862px;
+  border-radius: 50%;
+  font-size: 8px;
+  background-color: black;
+}
+
+.userName {
+  @include Person;
+  color: $black-color;
+}
+
+.linkWrapper {
+  list-style: none;
+  margin: 0;
+  width: 100%;
+  padding: 29px 0;
+  border-bottom: 1px solid #acacac;
+  display: grid;
+  gap: 10px;
+}
+
+.navLi {
+  height: 40px;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  padding-left: 40px;
+  text-decoration: none;
+  width: 100%;
+  height: 43px;
+  color: $black1B-color;
+  @include NavBar;
+  transition: 0.3s;
+  &:hover {
+    transform: scale(1.04);
+    cursor: pointer;
+    opacity: 0.7;
+  }
+}
+.active {
+  background-color: $white-color;
+}
+
+.teamWrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-top: 20px;
+  padding-left: 70px;
+}
+
+.teamName {
+  margin: 0;
+  @include TeamTitle;
+}
+
+.teamImg {
+  background-image: url('../../assets/icons/teamIcon.svg');
+  border: none;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
+  transition: 0.3s;
+  &:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+    opacity: 0.8;
+  }
+}
+
+.membersWrapper {
+  width: 100%;
+}

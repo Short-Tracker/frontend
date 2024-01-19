@@ -10,6 +10,7 @@ import {
   eyeIcon,
   eyeClosedIcon,
   listIcon,
+  plusIcon,
 } from 'assets/icons';
 
 import TemplateIcon from './TemplateIcon/TemplateIcon';
@@ -31,3 +32,4 @@ export const EyeClosedIcon = (props: any) => (
 );
 export const EditIcon = (props: any) => <TemplateIcon {...props} icon={editIcon} />;
 export const ListIcon = (props: any) => <TemplateIcon {...props} icon={listIcon} />;
+export const PlusIcon = (props: any) => <TemplateIcon {...props} icon={plusIcon} />;

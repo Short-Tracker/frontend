@@ -1,0 +1,38 @@
+@use '../../globalStyles/mixins.scss' as m;
+@use '../../globalStyles/variables.scss' as v;
+
+.pageWrapper {
+  display: flex;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+.errorImage {
+  height: 256px;
+  width: 209px;
+  margin-bottom: 40px;
+}
+
+.title {
+  margin: 0;
+  @include m.H1;
+}
+
+.subtitle {
+  margin: 8px 0 28px 0;
+  @include m.Status;
+}
+
+.buttonWrapper {
+  display: flex;
+}
+
+.logo {
+  width: 100%;
+}

@@ -9,6 +9,7 @@ import editIcon from './editIcon.svg';
 import eyeIcon from './eye.svg';
 import eyeClosedIcon from './eyeClosed.svg';
 import listIcon from './listIcon.svg';
+import plusIcon from './plusIcon.svg';
 
 export {
   flagIcon,
@@ -22,4 +23,5 @@ export {
   eyeIcon,
   eyeClosedIcon,
   listIcon,
+  plusIcon,
 };

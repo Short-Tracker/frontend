@@ -1,0 +1,59 @@
+@import '../../globalStyles/variables.scss';
+@import '../../globalStyles/mixins.scss';
+
+.section {
+  position: absolute;
+  left: 199px;
+  top: 16px;
+  display: grid;
+  padding: 16px;
+  width: 154px;
+  height: 92px;
+  box-shadow: 0px 4px 20px 0px rgba(177, 177, 195, 0.2);
+  background-color: $white-color;
+  border-radius: 8px;
+  z-index: 1;
+}
+
+.sectionClose {
+  display: none;
+}
+
+.button {
+  border: none;
+  background-color: transparent;
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+  @include Description;
+  color: $black-color;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+  &:nth-child(1) {
+    &::before {
+      content: '';
+      background-image: url('../../assets/icons/PersonalAreaIcon.svg');
+      background-repeat: no-repeat;
+      width: 20px;
+      height: 20px;
+      margin: 0 6px;
+    }
+  }
+  &:nth-child(2) {
+    &::before {
+      content: '';
+      background-image: url('../../assets/icons/ExitIcon.svg');
+      background-repeat: no-repeat;
+      width: 20px;
+      height: 20px;
+      margin: 0 6px;
+    }
+  }
+  &:hover {
+    cursor: pointer;
+    background-color: $login-background;
+    border-radius: 8px;
+  }
+}

@@ -44,17 +44,17 @@
 }
 
 @mixin Card {
-  font-family: Inter, sans-serif;
+  font-family: Onest, sans-serif;
   font-size: 12px;
   font-weight: 400;
-  line-height: 121%;
+  line-height: 133%;
 }
 
 @mixin CardBottom {
-  font-family: Inter, sans-serif;
+  font-family: Onest, sans-serif;
   font-size: 10px;
   font-weight: 400;
-  line-height: 121%;
+  line-height: 120%;
 }
 
 @mixin SideBarUser {

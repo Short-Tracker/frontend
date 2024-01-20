@@ -11,6 +11,9 @@ import {
   eyeClosedIcon,
   listIcon,
   plusIcon,
+  clockIcon,
+  trashIcon,
+  ballpenIcon,
 } from 'assets/icons';
 
 import TemplateIcon from './TemplateIcon/TemplateIcon';
@@ -33,3 +36,10 @@ export const EyeClosedIcon = (props: any) => (
 export const EditIcon = (props: any) => <TemplateIcon {...props} icon={editIcon} />;
 export const ListIcon = (props: any) => <TemplateIcon {...props} icon={listIcon} />;
 export const PlusIcon = (props: any) => <TemplateIcon {...props} icon={plusIcon} />;
+export const ClockIcon = (props: any) => <TemplateIcon {...props} icon={clockIcon} />;
+export const TrashIcon = (props: any) => (
+  <TemplateIcon {...props} icon={trashIcon} width={20} height={20} />
+);
+export const BallpenIcon = (props: any) => (
+  <TemplateIcon {...props} icon={ballpenIcon} width={20} height={20} />
+);

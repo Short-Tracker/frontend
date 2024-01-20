@@ -12,7 +12,6 @@
   padding: 16px;
   border-radius: 8px;
   box-shadow: 0px 4px 20px 0px #B1B1C333;
-  cursor: default;
   max-width: 152px;
   @include m.Description;
   color: v.$black2-color;
@@ -21,6 +20,7 @@
 .edit_buttons {
   display: grid;
   gap: 8px;
+  cursor: pointer;
 }
 
 .edit_button {
@@ -52,6 +52,8 @@
     grid-template-columns: 16px auto;
     align-items: center;
     padding: 1.5px 0;
+    cursor: pointer;
+
 
     &_input:checked {
       accent-color: v.$accent-color;

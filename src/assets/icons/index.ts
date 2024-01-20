@@ -10,6 +10,9 @@ import eyeIcon from './eye.svg';
 import eyeClosedIcon from './eyeClosed.svg';
 import listIcon from './listIcon.svg';
 import plusIcon from './plusIcon.svg';
+import clockIcon from './clockIcon.svg';
+import trashIcon from './trashIcon.svg';
+import ballpenIcon from './ballpenIcon.svg';
 
 export {
   flagIcon,
@@ -24,4 +27,7 @@ export {
   eyeClosedIcon,
   listIcon,
   plusIcon,
+  clockIcon,
+  trashIcon,
+  ballpenIcon,
 };

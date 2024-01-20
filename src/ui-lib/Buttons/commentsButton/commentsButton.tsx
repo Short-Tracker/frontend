@@ -7,8 +7,8 @@ const CommentsButton: FC = () => {
     <button className={styles.commentsButton} type="button">
       <CommentsIcon
         alt="Текстовое сообщение"
-        width="13"
-        height="13"
+        width="16"
+        height="16"
         className={styles.icon}
       />
     </button>

@@ -8,6 +8,9 @@ import commentsIcon from './commentsIcon.svg';
 import editIcon from './editIcon.svg';
 import eyeIcon from './eye.svg';
 import eyeClosedIcon from './eyeClosed.svg';
+import clockIcon from './clockIcon.svg';
+import trashIcon from './trashIcon.svg';
+import ballpenIcon from './ballpenIcon.svg';
 
 export {
   flagIcon,
@@ -20,4 +23,7 @@ export {
   filterIcon,
   eyeIcon,
   eyeClosedIcon,
+  clockIcon,
+  trashIcon,
+  ballpenIcon,
 };

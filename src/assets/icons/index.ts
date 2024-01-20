@@ -8,6 +8,7 @@ import commentsIcon from './commentsIcon.svg';
 import editIcon from './editIcon.svg';
 import eyeIcon from './eye.svg';
 import eyeClosedIcon from './eyeClosed.svg';
+import listIcon from './listIcon.svg';
 import plusIcon from './plusIcon.svg';
 
 export {
@@ -21,5 +22,6 @@ export {
   filterIcon,
   eyeIcon,
   eyeClosedIcon,
+  listIcon,
   plusIcon,
 };

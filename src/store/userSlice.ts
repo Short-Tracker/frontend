@@ -3,11 +3,10 @@ import { TUser, TuserDataTemp } from '../types/types';
 
 const initialState: TUser = {
   id: NaN,
-  username: '',
   telegram_nickname: '',
   email: '',
-  first_name: '',
   is_team_lead: false,
+  full_name: '',
 };
 
 const userSlice = createSlice({

@@ -1,6 +1,7 @@
 import React from 'react';
+import HeaderEmployer from 'components/Header/HeaderEmployer/HeaderEmployer';
 
 const User = () => {
-  return <h1> Страница юзера </h1>;
+  return <HeaderEmployer />;
 };
 export default User;

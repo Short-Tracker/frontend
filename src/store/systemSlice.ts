@@ -3,7 +3,7 @@ import { TSystemState } from 'types/types';
 
 const initialState: TSystemState = {
   isLoading: true,
-  isLoggedIn: true,
+  isLoggedIn: false,
 };
 
 const systemSlice = createSlice({

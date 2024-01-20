@@ -4,7 +4,7 @@
 .container {
   position: absolute;
   top: 13px;
-  left: 227px;
+  left: 226px;
   z-index: 1;
   background-color: v.$white-color;
   display: grid;
@@ -21,8 +21,6 @@
 .edit_buttons {
   display: grid;
   gap: 8px;
-  // border-top-right-radius: 8px;
-  // border-top-left-radius: 8px;
 }
 
 .edit_button {
@@ -38,11 +36,14 @@
     gap: 8px;
 
   &_button {
-    @include m.S1;
     color: v.$white-color;
     max-width: 120px;
     max-height: 28px;
     margin-top: 8px;
+
+    &_text {
+      @include m.S1;
+    }
   }
 
   &_radiobutton {
@@ -50,6 +51,7 @@
     gap: 8px;
     grid-template-columns: 16px auto;
     align-items: center;
+    padding: 1.5px 0;
 
     &_input:checked {
       accent-color: v.$accent-color;

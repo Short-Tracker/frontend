@@ -103,7 +103,7 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
             Hold
           </label>
           <UniversalButton className={styles.status_button}>
-            <p>Переместить</p>
+            <p className={styles.status_button_text}>Переместить</p>
           </UniversalButton>
         </form>
       )}

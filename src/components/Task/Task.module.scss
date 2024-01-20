@@ -6,13 +6,14 @@
   border: 1px solid v.$task-stroke;
   box-shadow: 0px 0px 8.5px 0px #E6ECF4;
   border-radius: 8px;
+  margin-top: 10px;
 }
 
 .task_header {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2px 19px;
+  padding: 2px 20px;
   background-color: #FFFAEC;
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
@@ -26,7 +27,7 @@
 
 .task_body{
   position: relative;
-  padding: 7px 19px;
+  padding: 8px 20px;
 }
 
 .task {

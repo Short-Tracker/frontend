@@ -4,7 +4,7 @@ const checkResponse = (res: Response) => {
   if (!res.ok) {
     throw new Error('Ошибка');
   }
-  res.json();
+  return res.json();
 };
 
 export const request = (url: string, config?: RequestInit): Promise<any> =>
@@ -18,3 +18,5 @@ export const authUser = (userData: any) =>
     headers: new Headers([['Content-Type', 'application/json']]),
     body: JSON.stringify(userData),
   });
+
+export const getAllTasks = () => request('tasks/', { method: 'GET' });

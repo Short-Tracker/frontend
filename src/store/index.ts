@@ -1,5 +1,6 @@
 import { onLogin, onLogout, isLoadingOn, isLoadingOff } from './systemSlice';
 import { setUser, clearUser, setUserDataTemp } from './userSlice';
+import { setTask } from './taskSlice';
 
 export {
   onLogin,
@@ -9,4 +10,5 @@ export {
   setUserDataTemp,
   isLoadingOn,
   isLoadingOff,
+  setTask,
 };

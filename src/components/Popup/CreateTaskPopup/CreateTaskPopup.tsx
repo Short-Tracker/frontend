@@ -2,6 +2,10 @@ import { FC, useState } from 'react';
 import UniversalInput from 'ui-lib/Inputs/UniversalInput/UniversalInput';
 import Calendar from 'components/Calendar/Calendar';
 import { UniversalButton } from 'ui-lib/Buttons';
+import InputMask from 'react-input-mask';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import UniversalTextarea from 'ui-lib/Inputs/Textarea/UniversalTextarea';
 import styles from './CreateTaskPopup.module.scss';
 import Popup from '../Popup';
 
@@ -28,6 +32,21 @@ const CreateTaskPopup: FC<ICreateTaskPopupProps> = ({ onClose }) => {
     setDateDropdownOpen(false);
     onClose();
   };
+
+  const formik = useFormik({
+    initialValues: {
+      timeValue: '',
+    },
+    validationSchema: yup.object({
+      timeValue: yup
+        .string()
+        .required('Введите время в формате чч:мм')
+        .matches(/^\d{2}:\d{2}$/, 'Некорректный формат времени'),
+    }),
+    onSubmit: () => {
+      console.log();
+    },
+  });
 
   return (
     <Popup isOpen onClose={onClose}>
@@ -60,11 +79,10 @@ const CreateTaskPopup: FC<ICreateTaskPopupProps> = ({ onClose }) => {
       </div>
 
       <div className={styles.textarea}>
-        <p className={styles.textarea_title}>Содержание задачи</p>
-        <textarea
-          className={styles.textarea_textarea}
+        <UniversalTextarea
+          label="Содержание задачи"
           value={textareaValue}
-          onChange={(e) => setTextareaValue(e.target.value)}
+          onChange={setTextareaValue}
         />
       </div>
 
@@ -86,13 +104,21 @@ const CreateTaskPopup: FC<ICreateTaskPopupProps> = ({ onClose }) => {
               </div>
             </div>
           )}
-          <input
+          <InputMask
             type="text"
-            value={timeValue}
-            onChange={(e) => setTimeValue(e.target.value)}
+            id="timeValue"
+            name="timeValue"
+            mask="99:99"
+            maskChar=""
+            value={formik.values.timeValue}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             placeholder="--:--"
             className={styles.calendar__textButtonInput}
           />
+          {formik.touched.timeValue && formik.errors.timeValue && (
+            <div className={styles.error}>{formik.errors.timeValue}</div>
+          )}
         </div>
       </div>
 

@@ -85,6 +85,7 @@
   }
 
   &__button {
+    max-width: 250px;
     border: 1px solid v.$disabled-color;
     border-radius: 8px;
     background-color: inherit;
@@ -115,11 +116,12 @@
   }
 
   &__textButtonInput {
+    position: relative;
+    max-width: 250px;
     border: 1px solid v.$disabled-color;
     border-radius: 8px;
     background-color: inherit;
     cursor: pointer;
-    margin-right: 16px;
     width: 100%;
     justify-content: flex-start;
     padding: 8px 16px;
@@ -158,3 +160,10 @@
   }
 }
 
+.error {
+  position: absolute;
+  bottom: -17px;
+  right: 0;
+  color: red;
+  @include m.BodyLarge;
+}

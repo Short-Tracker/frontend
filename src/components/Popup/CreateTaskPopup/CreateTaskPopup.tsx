@@ -95,7 +95,7 @@ const CreateTaskPopup: FC<ICreateTaskPopupProps> = ({ onClose }) => {
             onClick={handleDateButtonClick}
             className={styles.calendar__button}
           >
-            <p className={styles.calendar__textButton}>{'дд.мм.гггг' || dateValue}</p>
+            <p className={styles.calendar__textButton}>{dateValue || 'дд.мм.гггг'}</p>
           </UniversalButton>
           {dateDropdownOpen && (
             <div className={styles.calendar}>

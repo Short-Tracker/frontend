@@ -13,9 +13,15 @@ import {
   AllTeamIcon,
 } from 'assets/icons';
 import SideBarUserMenu from 'components/SideBarUserMenu/SideBarUserMenu';
+import { useSelector } from 'services/hooks';
+import { TTask } from 'types/types';
 import styles from './SideBar.module.scss';
 
 const SideBar: React.FC = () => {
+  const currentUser = useSelector((state) => state.user);
+  const tasks: TTask = useSelector((state) => state.task);
+  const currentUsers = useSelector((state) => state.users);
+
   const [isSidebarMenuOpen, setisSidebarMenuOpen] = useState(false);
 
   const handleToggleMenu = () => {
@@ -43,7 +49,7 @@ const SideBar: React.FC = () => {
     <section className={styles.SideBar}>
       <div onClick={handleToggleMenu} className={styles.userWrapper}>
         <img className={styles.userImg} src={lid} alt="Изображение пользователя" />
-        <h2 className={styles.userName}>Диана Наумова</h2>
+        <h2 className={styles.userName}>{currentUser.full_name}</h2>
         <SideBarUserMenu isOpen={isSidebarMenuOpen} />
       </div>
       <ul className={styles.linkWrapper}>
@@ -62,7 +68,9 @@ const SideBar: React.FC = () => {
           <button type="button" className={styles.navButton}>
             Запросы
           </button>
-          <span className={styles.requestSpan}>97</span>
+          {tasks.results.length > 0 ? (
+            <span className={styles.requestSpan}>{tasks.results.length}</span>
+          ) : null}
         </li>
         <li className={styles.navLi}>
           <img src={myTaskIcon} className={styles.navImage} alt="иконка" />
@@ -92,8 +100,8 @@ const SideBar: React.FC = () => {
           <img src={AllTeamIcon} className={styles.navImage} alt="иконка" />
           <button className={styles.allTeamButton}>Вся команда</button>
         </li>
-        {[...Array(31)].map(() => {
-          return <SideBarUser key={uuidv4()} />;
+        {currentUsers.results.map((user) => {
+          return <SideBarUser fullName={user.first_name} key={uuidv4()} />;
         })}
       </ul>
     </section>

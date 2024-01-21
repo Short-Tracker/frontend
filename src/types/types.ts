@@ -1,3 +1,4 @@
+// USER ==>
 export type TUser = {
   id: number;
   full_name: string;
@@ -11,6 +12,24 @@ export type TuserDataTemp = {
   password: string;
   is_team_lead: boolean;
 };
+
+// Надо узнать почему с Бэка приходят разные юзеры
+export type TUser2 = {
+  email: string;
+  first_name: string;
+  is_team_lead: boolean;
+  last_name: string;
+  telegram_nickname: string;
+  username: string | null;
+};
+
+export type Tusers = {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: TUser2[];
+};
+// USER <==
 export type TSystemState = {
   isLoggedIn: boolean;
   isLoading: boolean;

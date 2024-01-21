@@ -20,3 +20,4 @@ export const authUser = (userData: any) =>
   });
 
 export const getAllTasks = () => request('tasks/', { method: 'GET' });
+export const getUsers = () => request('users/', { method: 'GET' });

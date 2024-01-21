@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'services/hooks';
 import Login from 'pages/Login/Login';
 import getTaskThunk from 'thunks/get-task-thunks';
 import { TTask } from 'types/types';
+import getUsersThunk from 'thunks/get-users-thunks';
 import Lead from './Lead/Lead';
 import User from './User/User';
 import styles from './Main.module.scss';
@@ -15,6 +16,7 @@ const Main = () => {
 
   useEffect(() => {
     dispatch(getTaskThunk(isLoggedIn));
+    dispatch(getUsersThunk(isLoggedIn));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn]);
   return (

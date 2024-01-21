@@ -3,13 +3,12 @@
 
 .SideBar {
   width: 296px;
-  height: 100%;
   display: grid;
   grid-template-rows: repeat(3, 1fr), min-content;
   flex-shrink: 0;
   background-color: $white-color;
   padding: 20px 20px 0 40px;
-  height: 97vh;
+  max-height: 97vh;
 }
 
 .userWrapper {

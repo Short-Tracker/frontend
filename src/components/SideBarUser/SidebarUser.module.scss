@@ -4,20 +4,27 @@
 .memberWrapper {
   display: flex;
   width: 100%;
-  gap: 16px;
+  gap: 8px;
   align-items: center;
-  height: 54px;
-  padding: 20px 0;
 }
 
 .memberImg {
-  width: 33.911px;
-  height: 33.911px;
+  width: 32px;
+  height: 32px;
   font-size: 9px;
   border-radius: 50%;
   background-color: gray;
 }
 
 .memberName {
-  @include SideBarUser;
+  border: none;
+  background-color: transparent;
+  @include BodyLarge;
+  padding: 0;
+  transition: 0.3s;
+  &:hover {
+    transform: scale(1.08);
+    cursor: pointer;
+    opacity: 0.8;
+  }
 }

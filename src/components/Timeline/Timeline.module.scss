@@ -1,0 +1,16 @@
+@use '../../globalStyles/mixins.scss' as m;
+@use '../../globalStyles/variables.scss' as v;
+.timeline {
+  max-width: 1084px;
+  width: 100%;
+}
+
+.timelineDate {
+  @include m.Description;
+  color: v.$timeline;
+}
+
+.timelineSeparator {
+  border: 1px solid v.$timeline-separator;
+  margin-bottom: 14px;
+}

@@ -1,0 +1,35 @@
+.groupTasks {
+  border-radius: 8px;
+  border: 1px solid #DCE4F3;
+}
+
+.header {
+  width: 256px;
+  display: flex;
+  background-color:#DCE4F3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.customHeading {
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 120%;
+  display: flex;
+  align-items: center;
+}
+
+.taskList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.taskUser {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 133.33%;
+}

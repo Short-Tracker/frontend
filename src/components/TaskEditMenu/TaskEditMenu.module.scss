@@ -1,0 +1,64 @@
+@use '../../globalStyles/variables.scss' as v;
+@use '../../globalStyles/mixins.scss' as m;
+
+.container {
+  position: absolute;
+  top: 13px;
+  left: 226px;
+  z-index: 1;
+  background-color: v.$white-color;
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 20px 0px #B1B1C333;
+  max-width: 152px;
+  @include m.Description;
+  color: v.$black2-color;
+}
+
+.edit_buttons {
+  display: grid;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.edit_button {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 20px auto;
+  align-items: center;
+}
+
+.status {
+    display: grid;
+    padding-left: 2px;
+    gap: 8px;
+
+  &_button {
+    color: v.$white-color;
+    max-width: 120px;
+    max-height: 28px;
+    margin-top: 8px;
+
+    &_text {
+      @include m.S1;
+    }
+  }
+
+  &_radiobutton {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: 16px auto;
+    align-items: center;
+    padding: 1.5px 0;
+    cursor: pointer;
+
+
+    &_input:checked {
+      accent-color: v.$accent-color;
+    }
+  }
+}
+
+

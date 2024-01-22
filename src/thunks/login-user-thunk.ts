@@ -27,4 +27,5 @@ const loginUserThunk: AppThunk = (data) => async (dispatch) => {
     dispatch(isLoadingOff());
   }
 };
+
 export default loginUserThunk;

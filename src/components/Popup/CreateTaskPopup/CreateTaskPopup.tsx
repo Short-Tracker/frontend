@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { BaseSyntheticEvent, FC, SyntheticEvent, useEffect, useState } from 'react';
 import UniversalInput from 'ui-lib/Inputs/UniversalInput/UniversalInput';
 import Calendar from 'components/Calendar/Calendar';
 import { UniversalButton } from 'ui-lib/Buttons';
@@ -15,8 +15,8 @@ interface ICreateTaskPopupProps {
 
 const CreateTaskPopup: FC<ICreateTaskPopupProps> = ({ onClose }) => {
   const [dateDropdownOpen, setDateDropdownOpen] = useState(false);
-  const [dateValue, setDateValue] = useState('');
-  const [timeValue, setTimeValue] = useState('');
+  const [dateValue, setDateValue] = useState<string>('');
+  const [timeValue, setTimeValue] = useState<string>('');
   const [selectedOption, setSelectedOption] = useState('');
   const [textareaValue, setTextareaValue] = useState('');
 
@@ -44,10 +44,19 @@ const CreateTaskPopup: FC<ICreateTaskPopupProps> = ({ onClose }) => {
         .matches(/^\d{2}:\d{2}$/, 'Некорректный формат времени'),
     }),
     onSubmit: () => {
-      console.log();
+      setTimeValue(formik.values.timeValue);
     },
   });
+  useEffect(() => {
+    setTimeValue(formik.values.timeValue);
+  }, [formik.values.timeValue]);
 
+  const onChangeDateValue = (event: BaseSyntheticEvent) => {
+    setDateValue(event.target.value);
+  };
+  const onDatePick = (formattedValue: string): void => {
+    setDateValue(formattedValue);
+  };
   return (
     <Popup isOpen onClose={onClose}>
       <div className={styles.select}>
@@ -89,21 +98,20 @@ const CreateTaskPopup: FC<ICreateTaskPopupProps> = ({ onClose }) => {
       <div className={styles.calendar}>
         <p className={styles.calendar__title}>Дедлайн (по МСК)</p>
         <div className={styles.calendar__input}>
-          <UniversalButton
-            width="250px"
-            height="36px"
-            onClick={handleDateButtonClick}
+          <input
+            onFocus={handleDateButtonClick}
             className={styles.calendar__button}
-          >
-            <p className={styles.calendar__textButton}>{'дд.мм.гггг' || dateValue}</p>
-          </UniversalButton>
+            onChange={onChangeDateValue}
+            value={dateValue}
+          />
           {dateDropdownOpen && (
             <div className={styles.calendar}>
               <div className={styles.calendar__open}>
-                <Calendar />
+                <Calendar handleSubmit={onDatePick} />
               </div>
             </div>
           )}
+
           <InputMask
             type="text"
             id="timeValue"
@@ -132,7 +140,7 @@ const CreateTaskPopup: FC<ICreateTaskPopupProps> = ({ onClose }) => {
           height="40px"
           /* onClick={} */
           className={styles.button__button}
-          disabled={!selectedOption || !textareaValue || !dateValue || !timeValue}
+          disabled={!selectedOption || !textareaValue || !dateValue}
         >
           Создать
         </UniversalButton>

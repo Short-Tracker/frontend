@@ -8,19 +8,20 @@ import { ru } from 'date-fns/locale';
 import { TCalendarValue } from 'types/Calendar';
 import styles from './Calendar.module.scss';
 
-// type TProps = {
-//   onChange: (date: Date) => void;
-//   value: TCalendarValue;
-//   handleSubmit: () => void;
-//   handleClose: () => void;
-// } & CalendarProps;
+type TProps = {
+  //   onChange: (date: Date) => void;
+  //   value: TCalendarValue;
+  handleSubmit: (formattedValue: string) => void;
+  //   handleClose: () => void;
+} & CalendarProps;
 
 type ValuePiece = Date | null;
 
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-const Calendar: FC = (props) => {
+const Calendar: FC<TProps> = (props) => {
   // const { onChange, value, handleSubmit, handleClose } = props;
+  const { handleSubmit } = props;
   const [value, onChange] = useState<Value>(new Date());
 
   const formattedValue =
@@ -32,7 +33,7 @@ const Calendar: FC = (props) => {
       <div className={styles.buttonWrapper}>
         <UniversalButton
           type="submit"
-          // onClick={handleSubmit}
+          onClick={() => handleSubmit(formattedValue)}
           fontSize={12}
           width={248}
           isFilled
@@ -49,14 +50,6 @@ const Calendar: FC = (props) => {
           Отменить
         </UniversalButton>
       </div>
-      <pre
-        style={{
-          paddingTop: '10px',
-          fontSize: '12px',
-        }}
-      >
-        {formattedValue}
-      </pre>
     </section>
   );
 };

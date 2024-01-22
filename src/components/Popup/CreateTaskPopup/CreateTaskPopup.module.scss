@@ -96,7 +96,8 @@
     padding: 8px 16px;
     text-align: start;
     @include m.BodyLarge;
-    color: v.$disabled-color;
+    color: #2C2B2B;
+    //  color: v.$disabled-color;
     &:last-child {
       margin-right: 0;
     }

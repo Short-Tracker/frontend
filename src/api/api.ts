@@ -18,6 +18,11 @@ export const authUser = (userData: any) =>
     headers: new Headers([['Content-Type', 'application/json']]),
     body: JSON.stringify(userData),
   });
-
+export const createTask = (taskData: any) =>
+  request('tasks/', {
+    method: 'POST',
+    headers: new Headers([['Content-Type', 'application/json']]),
+    body: JSON.stringify(taskData),
+  });
 export const getAllTasks = () => request('tasks/', { method: 'GET' });
 export const getUsers = () => request('users/', { method: 'GET' });

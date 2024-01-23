@@ -7,10 +7,10 @@ import { TTask } from '../types/types';
 
 const getTaskThunk: AppThunk = (isLoggedIn: boolean) => async (dispatch) => {
   const getTaskErrors = (error: any) => {
-    toast(error, {
+    toast(`Ошибка: ${error.message}`, {
       duration: 3000,
       position: 'top-center',
-      style: { fontSize: '18px' },
+      style: { fontSize: '18px', fontFamily: 'Onest, sans-serif' },
     });
   };
   try {

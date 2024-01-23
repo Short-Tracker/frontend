@@ -7,10 +7,11 @@ import { TUser } from '../types/types';
 
 const loginUserThunk: AppThunk = (data) => async (dispatch) => {
   const authErrors = (error: any) => {
-    toast(error, {
+    toast(`Ошибка: ${error.message}`, {
       duration: 3000,
       position: 'top-center',
-      style: { fontSize: '18px' },
+      icon: '❌',
+      style: { fontSize: '18px', fontFamily: 'Onest, sans-serif' },
     });
   };
   try {

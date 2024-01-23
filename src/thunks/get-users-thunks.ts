@@ -7,10 +7,11 @@ import { Tusers } from '../types/types';
 
 const getUsersThunk: AppThunk = (isLoggedIn: boolean) => async (dispatch) => {
   const getTaskErrors = (error: any) => {
-    toast(error, {
+    toast(`Ошибка: ${error.message}`, {
       duration: 3000,
       position: 'top-center',
-      style: { fontSize: '18px' },
+      icon: '❌',
+      style: { fontSize: '18px', fontFamily: 'Onest, sans-serif' },
     });
   };
   try {

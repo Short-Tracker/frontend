@@ -3,7 +3,7 @@
 .button {
   background-color: v.$light-blue;
   height: 40px;
-  width: 41px;
+  width: 40px;
   border: 1px solid v.$disabled-color;
   border-radius: 8px;
   padding: 0;
@@ -11,6 +11,9 @@
   &__search {
     position: absolute;
     right: 0;
+  }
+  &__filter {
+    margin-right: 20px;
   }
 }
 

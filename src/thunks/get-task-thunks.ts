@@ -10,6 +10,7 @@ const getTaskThunk: AppThunk = (isLoggedIn: boolean) => async (dispatch) => {
     toast(`Ошибка: ${error.message}`, {
       duration: 3000,
       position: 'top-center',
+      icon: '❌',
       style: { fontSize: '18px', fontFamily: 'Onest, sans-serif' },
     });
   };

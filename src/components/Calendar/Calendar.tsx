@@ -12,7 +12,7 @@ type TProps = {
   //   onChange: (date: Date) => void;
   //   value: TCalendarValue;
   handleSubmit: (formattedValue: string) => void;
-  //   handleClose: () => void;
+  handleClose: () => void;
 } & CalendarProps;
 
 type ValuePiece = Date | null;
@@ -21,7 +21,7 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const Calendar: FC<TProps> = (props) => {
   // const { onChange, value, handleSubmit, handleClose } = props;
-  const { handleSubmit } = props;
+  const { handleSubmit, handleClose } = props;
   const [value, onChange] = useState<Value>(new Date());
 
   const formattedValue =
@@ -41,7 +41,7 @@ const Calendar: FC<TProps> = (props) => {
           Сохранить
         </UniversalButton>
         <UniversalButton
-          // onClick={handleClose}
+          onClick={handleClose}
           type="button"
           fontSize={12}
           width={248}

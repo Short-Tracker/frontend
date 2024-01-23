@@ -19,6 +19,7 @@ const CreateTaskPopup: FC<ICreateTaskPopupProps> = ({ onClose }) => {
   const [timeValue, setTimeValue] = useState<string>('');
   const [selectedOption, setSelectedOption] = useState('');
   const [textareaValue, setTextareaValue] = useState('');
+  const [showCheckboxesMenu, setShowCheckboxesMenu] = useState<boolean>(false);
 
   const handleDateButtonClick = () => {
     setDateDropdownOpen(!dateDropdownOpen);
@@ -56,10 +57,31 @@ const CreateTaskPopup: FC<ICreateTaskPopupProps> = ({ onClose }) => {
   };
   const onDatePick = (formattedValue: string): void => {
     setDateValue(formattedValue);
+    handleDateButtonClick();
   };
+  const showCheckboxes = () => {
+    setShowCheckboxesMenu(true);
+  };
+  console.log(dateValue);
   return (
     <Popup isOpen onClose={onClose}>
-      <div className={styles.select}>
+     <div >
+      <div onClick={() => showCheckboxes()}>
+         <select>
+            <option>Select an option</option>
+         </select>
+         <div ></div>
+      </div>
+        <div id="checkboxes">
+         <label htmlFor="one">
+            <input type="checkbox" id="one" />First checkbox
+         </label>
+         <label htmlFor="two">
+            <input type="checkbox" id="two" />Second checkbox
+         </label>
+      </div>
+   </div>
+{/*       <div className={styles.select}>
         <div className={styles.select__container}>
           <p className={styles.select__title}>Выберите сотрудника</p>
           <select
@@ -85,7 +107,7 @@ const CreateTaskPopup: FC<ICreateTaskPopupProps> = ({ onClose }) => {
             </option>
           </select>
         </div>
-      </div>
+      </div> */}
 
       <div className={styles.textarea}>
         <UniversalTextarea
@@ -107,7 +129,7 @@ const CreateTaskPopup: FC<ICreateTaskPopupProps> = ({ onClose }) => {
           {dateDropdownOpen && (
             <div className={styles.calendar}>
               <div className={styles.calendar__open}>
-                <Calendar handleSubmit={onDatePick} />
+                <Calendar handleSubmit={onDatePick} handleClose={handleDateButtonClick} />
               </div>
             </div>
           )}

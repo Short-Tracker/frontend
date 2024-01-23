@@ -1,9 +1,16 @@
 import { Main, Login, Error } from 'pages';
 import { Routes, Route } from 'react-router-dom';
 import PrivateRoute from 'services/PrivateRoute';
+import { useDispatch } from 'services/hooks';
+import { useEffect } from 'react';
+import refreshTokenThunk from 'thunks/refresh-token-thunk';
 import styles from './App.module.scss';
 
 const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(refreshTokenThunk());
+  }, [dispatch]);
   return (
     <div className={styles.App}>
       <Routes>

@@ -19,5 +19,20 @@ export const authUser = (userData: any) =>
     body: JSON.stringify(userData),
   });
 
+export const logoutUser = () =>
+  request('auth/logout/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({}),
+  });
+
+export const refreshAuthToken = (userData: { email: string; password: string }) =>
+  request('auth/refresh/', {
+    method: 'POST',
+    headers: new Headers([['Content-Type', 'application/json']]),
+    body: JSON.stringify(userData),
+  });
 export const getAllTasks = () => request('tasks/', { method: 'GET' });
 export const getUsers = () => request('users/', { method: 'GET' });

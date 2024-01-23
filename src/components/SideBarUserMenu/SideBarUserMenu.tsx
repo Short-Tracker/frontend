@@ -1,5 +1,7 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import logoutUserThunk from 'thunks/logout-user-thunk';
+import { useDispatch } from 'services/hooks';
 import styles from './SideBarUserMenu.module.scss';
 
 type TProps = {
@@ -7,14 +9,19 @@ type TProps = {
 };
 
 const SideBarUserMenu: FC<TProps> = ({ isOpen }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    dispatch(logoutUserThunk(navigate));
+  };
   return (
     <section className={`${!isOpen ? styles.sectionClose : styles.section}`}>
       <button type="button" className={styles.button}>
         Личный кабинет
       </button>
-      <Link to="/login" className={styles.button}>
+      <button className={styles.button} onClick={handleLogout}>
         Выход
-      </Link>
+      </button>
     </section>
   );
 };

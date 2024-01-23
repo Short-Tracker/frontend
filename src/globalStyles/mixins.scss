@@ -16,31 +16,24 @@
   }
 
 @mixin Person {
-  font-family: Inter, sans-serif;
+  font-family: Onest, sans-serif;
   font-size: 20px;
   font-weight: 700;
   line-height: 121%;
 }
 
 @mixin NavBar {
-  font-family: Inter, sans-serif;
+  font-family: Onest, sans-serif;
   font-size: 16px;
   font-weight: 300;
   line-height: 121%;
 }
 
 @mixin TeamTitle {
-  font-family: Inter, sans-serif;
+  font-family: Onest, sans-serif;
   font-size: 16px;
   font-weight: 700;
   line-height: 121%;
-}
-
-@mixin Search {
-  font-family: Inter, sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 150%;
 }
 
 @mixin Card {
@@ -58,7 +51,7 @@
 }
 
 @mixin SideBarUser {
-  font-family: Inter, sans-serif;
+  font-family: Onest, sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 121%;

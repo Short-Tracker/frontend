@@ -28,7 +28,7 @@ const Lead: FC<ITaskCard> = (props) => {
       <div className={styles.Lead__tasks}>
         <div className={styles.Lead__serchContainer}>
           <Search />
-          <UniversalButton onClick={handleOpenCreateTaskPopup}>
+          <UniversalButton onClick={handleOpenCreateTaskPopup} width="244">
             Создать задачу
             {isCreateTaskPopupOpen && (
               <CreateTaskPopup onClose={() => setCreateTaskPopupOpen(false)} />

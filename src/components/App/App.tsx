@@ -4,6 +4,7 @@ import PrivateRoute from 'services/PrivateRoute';
 import { useDispatch, useSelector } from 'services/hooks';
 import { useEffect } from 'react';
 import refreshTokenThunk from 'thunks/refresh-token-thunk';
+import { Toaster } from 'react-hot-toast';
 import CreateTask from '../Popup/CreateTask/CreateTask';
 import Popup from '../Popup/Popup';
 import { closeModal } from '../../store';
@@ -27,6 +28,7 @@ const App = () => {
         </Route>
         <Route path="/error" element={<Error />} />
       </Routes>
+      <Toaster />
       <Popup onClose={closeModalState} isOpen={createTaskModal}>
         <CreateTask />
       </Popup>

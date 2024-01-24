@@ -10,7 +10,7 @@
     padding: 0;
     width: 27px;
     height: 12px;
-    @include m.CardBottom;
+    @include m.Description;
   }
 
   &_container {

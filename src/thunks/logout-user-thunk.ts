@@ -1,17 +1,10 @@
 import { batch } from 'react-redux';
-import toast from 'react-hot-toast';
 import { logoutUser } from '../api/api';
 import { onLogout } from '../store';
 import { AppThunk } from '../types/store.types';
+import catchErrors from '../api/catch-errors';
 
 const logoutUserThunk: AppThunk = (navigate: any) => async (dispatch) => {
-  const authErrors = (error: any) => {
-    toast(error, {
-      duration: 3000,
-      position: 'top-center',
-      style: { fontSize: '18px' },
-    });
-  };
   try {
     await logoutUser();
     batch(() => {
@@ -19,7 +12,7 @@ const logoutUserThunk: AppThunk = (navigate: any) => async (dispatch) => {
     });
     navigate('/');
   } catch (error: any) {
-    authErrors(error);
+    catchErrors(error);
   }
 };
 

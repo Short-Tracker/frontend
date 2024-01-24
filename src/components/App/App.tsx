@@ -4,6 +4,7 @@ import PrivateRoute from 'services/PrivateRoute';
 import { useDispatch } from 'services/hooks';
 import { useEffect } from 'react';
 import refreshTokenThunk from 'thunks/refresh-token-thunk';
+import { Toaster } from 'react-hot-toast';
 import styles from './App.module.scss';
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
         </Route>
         <Route path="/error" element={<Error />} />
       </Routes>
+      <Toaster />
     </div>
   );
 };

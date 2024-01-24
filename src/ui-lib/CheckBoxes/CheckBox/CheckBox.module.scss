@@ -1,0 +1,40 @@
+@use '../../../globalStyles/variables' as v;
+
+.checkbox {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(0 0 0 0);
+  opacity: 0;
+
+  &__visible {
+    display: inline-block;
+    vertical-align: middle;
+    height: 16px;
+    width: 16px;
+    border: 1px solid v.$black-color;
+    border-radius: 4px;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  &__label {
+    display: flex;
+  }
+
+  &:checked + &__visible {
+    border: none;
+    background: v.$accent-color url(../../../assets/icons/checkmark.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &:disabled + &__visible {
+    border: 1px solid grey;
+  }
+
+  &:focus + &__visible {
+    box-shadow: 0 0 5px #fff6c5;
+  }
+}

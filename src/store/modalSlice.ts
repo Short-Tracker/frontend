@@ -1,23 +1,35 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-  isOpen: false,
+type TSystemState = {
+  createTaskModal: boolean;
+  createTask: boolean;
+};
+
+const initialState: TSystemState = {
+  createTaskModal: false,
+  createTask: false,
 };
 
 const modalSlice = createSlice({
-  name: 'modal',
+  name: 'modals',
   initialState,
   reducers: {
-    openModal: (state) => {
-      state.isOpen = true;
-    },
-    closeModal: (state) => {
-      state.isOpen = false;
-    },
+    openCreateTaskModal: (state: TSystemState) => ({
+      ...state,
+      createTaskModal: true,
+    }),
+    openCreateTask: (state: TSystemState) => ({
+      ...state,
+      createTask: true,
+    }),
+    closeModal: (state: TSystemState) => ({
+      ...state,
+      ...initialState,
+    }),
   },
 });
 
 const modalReducer = modalSlice.reducer;
 
-export const { openModal, closeModal } = modalSlice.actions;
+export const { openCreateTaskModal, openCreateTask, closeModal } = modalSlice.actions;
 export default modalReducer;

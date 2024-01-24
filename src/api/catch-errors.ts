@@ -13,6 +13,8 @@ const catchErrors = (error: any) => {
 
   if (typeof error === 'string') {
     throwErr(error);
+  } else if (error instanceof Error) {
+    throwErr(`Ошибка: ${error.message}`);
   } else if (typeof error === 'object') {
     // eslint-disable-next-line guard-for-in,no-restricted-syntax
     for (const key in error) {

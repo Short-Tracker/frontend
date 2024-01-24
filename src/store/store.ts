@@ -5,6 +5,7 @@ import userReducer from './userSlice';
 import taskReducer from './taskSlice';
 import usersReducer from './usersSlice';
 import modalReducer from './modalSlice';
+import createTaskReducer from './createTaskSlice';
 
 const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
     task: taskReducer,
     users: usersReducer,
     modals: modalReducer,
+    createTask: createTaskReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
   // eslint-disable-next-line no-undef

@@ -2,8 +2,8 @@
 
 .popup {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: calc(50% - 280px);
+  left: calc(50% - 225px);
   width: 100vw;
   height: 100vh;
   margin: 0 auto;
@@ -28,7 +28,7 @@
     max-width: 560px;
     width: 100%;
     min-height: 150px;
-    padding: 24px;
+    padding: 25px;
     border-radius: 10px;
     box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.08);
     background: #F6F7FB;

@@ -21,6 +21,7 @@ export type TUser2 = {
   last_name: string;
   telegram_nickname: string;
   username: string | null;
+  id: string;
 };
 
 export type Tusers = {
@@ -70,3 +71,11 @@ export type TPerformers = {
   is_team_lead: boolean | null;
 };
 // конец типов Task
+
+export type TCreateTask = {
+  description: string;
+  status: string;
+  deadline_date: string;
+  link: string;
+  performers: number[];
+};

@@ -4,24 +4,44 @@ import styles from './Tasks.module.scss';
 
 import { TaskProps, Task } from '../../components/Task/Task';
 import { TaskStateProps } from '../../components/TaskState/TaskState';
+import { TResults } from '../../types/types';
 
-const Tasks: FC = () => {
-  const tasksData: (TaskProps & TaskStateProps)[] = [
+interface ITask {
+  key: string;
+  tasksData: TResults;
+}
+
+const Tasks: FC<ITask> = ({ key, tasksData }) => {
+  // const tasksDataReformat: (TaskProps & TaskStateProps)[] = [
+  //   {
+  //     text: 'Здесь текст какой-нибудь задачи и если не хватит места, то при ховере она вот так может открываться целиком',
+  //     date: '27 декабря, 15:00',
+  //     headerText: 'Маша Васильева',
+  //     startTime: '15:00',
+  //     isLead: true,
+  //     ownTask: true,
+  //     movedTime: '',
+  //     completedTime: '',
+  //   },
+  // ];
+  const tasksDataReformat: (TaskProps & TaskStateProps & { taskID: string })[] = [
     {
-      text: 'Здесь текст какой-нибудь задачи и если не хватит места, то при ховере она вот так может открываться целиком',
-      date: '27 декабря, 15:00',
-      headerText: 'Маша Васильева',
+      text: tasksData.description,
+      date: tasksData.create_date,
+      headerText: tasksData.creator.full_name,
       startTime: '15:00',
-      isLead: true,
+      isLead:
+        tasksData.creator.is_team_lead === null ? true : tasksData.creator.is_team_lead,
       ownTask: true,
       movedTime: '',
       completedTime: '',
+      taskID: '',
     },
   ];
 
   return (
     <div className={styles.card}>
-      {tasksData.map((task) => (
+      {tasksDataReformat.map((task) => (
         <Task key={uuidv4()} {...task} />
       ))}
     </div>
@@ -29,4 +49,3 @@ const Tasks: FC = () => {
 };
 
 export default Tasks;
-//

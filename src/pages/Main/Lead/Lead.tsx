@@ -22,6 +22,8 @@ const Lead: FC<ITaskCard> = (props) => {
     setCreateTaskPopupOpen(true);
   };
 
+  // results.map((task) => console.log(task));
+
   return (
     <div className={styles.Lead__container}>
       <SideBar />
@@ -36,8 +38,8 @@ const Lead: FC<ITaskCard> = (props) => {
           </UniversalButton>
         </div>
         <Status />
-        {results.map(() => (
-          <Tasks key={uuidv4()} />
+        {results.map((tasksData) => (
+          <Tasks key={uuidv4()} tasksData={tasksData} />
         ))}
       </div>
     </div>

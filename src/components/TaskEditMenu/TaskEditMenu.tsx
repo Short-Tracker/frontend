@@ -8,17 +8,19 @@ export interface TaskEditMenuProps {
   isLead: boolean;
   ownTask: boolean;
   handleToggleEditMenu: () => void;
+  status: string;
 }
 
 export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
   isLead,
   ownTask,
   handleToggleEditMenu,
+  status,
 }) => {
   const notOwnLeadTask = isLead && !ownTask;
   const notOwnPerformerTask = !isLead && !ownTask;
 
-  const [status, setStatus] = React.useState('Done');
+  const [currentStatus, setStatus] = React.useState(status);
   const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setStatus(evt.target.value);
   };
@@ -67,7 +69,7 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
               className={styles.status_radiobutton_input}
               type="radio"
               value="Todo"
-              checked={status === 'Todo'}
+              checked={currentStatus === 'to do'}
               onChange={onChange}
             />
             Todo
@@ -77,7 +79,7 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
               className={styles.status_radiobutton_input}
               type="radio"
               value="InProgress"
-              checked={status === 'InProgress'}
+              checked={currentStatus === 'in progress'}
               onChange={onChange}
             />
             In progress
@@ -87,7 +89,7 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
               className={styles.status_radiobutton_input}
               type="radio"
               value="Done"
-              checked={status === 'Done'}
+              checked={currentStatus === 'done'}
               onChange={onChange}
             />
             Done
@@ -96,8 +98,18 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
             <input
               className={styles.status_radiobutton_input}
               type="radio"
+              value="Archived"
+              checked={currentStatus === 'archived'}
+              onChange={onChange}
+            />
+            Archived
+          </label>
+          <label className={styles.status_radiobutton}>
+            <input
+              className={styles.status_radiobutton_input}
+              type="radio"
               value="Hold"
-              checked={status === 'Hold'}
+              checked={currentStatus === 'hold'}
               onChange={onChange}
             />
             Hold

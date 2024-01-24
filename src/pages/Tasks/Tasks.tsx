@@ -24,7 +24,8 @@ const Tasks: FC<ITask> = ({ key, tasksData }) => {
   //     completedTime: '',
   //   },
   // ];
-  const tasksDataReformat: (TaskProps & TaskStateProps & { taskID: string })[] = [
+  const tasksDataReformat: (TaskProps &
+    TaskStateProps & { taskID: string; status: string })[] = [
     {
       text: tasksData.description,
       date: tasksData.create_date,
@@ -36,6 +37,7 @@ const Tasks: FC<ITask> = ({ key, tasksData }) => {
       movedTime: '',
       completedTime: '',
       taskID: '',
+      status: tasksData.status,
     },
   ];
 

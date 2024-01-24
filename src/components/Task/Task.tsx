@@ -11,6 +11,7 @@ export interface TaskProps {
   headerText: string;
   isLead: boolean;
   ownTask: boolean;
+  status: string;
 }
 
 export const Task: React.FC<TaskProps> = ({
@@ -19,6 +20,7 @@ export const Task: React.FC<TaskProps> = ({
   headerText,
   isLead,
   ownTask,
+  status,
 }) => {
   const [isMenuOpened, setIsMenuOpened] = React.useState(false);
 
@@ -48,6 +50,7 @@ export const Task: React.FC<TaskProps> = ({
             isLead={isLead}
             ownTask={ownTask}
             handleToggleEditMenu={handleToggleEditMenu}
+            status={status}
           />
         )}
 

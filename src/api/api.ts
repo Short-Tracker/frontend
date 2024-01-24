@@ -2,7 +2,10 @@ import { baseUrl as api } from 'constants/baseUrl';
 
 const checkResponse = (res: Response) => {
   if (!res.ok) {
-    throw new Error('Ошибка');
+    return res.json().then((json) => {
+      throw json;
+    });
+    // throw new Error('Ошибка');
   }
   return res.json();
 };

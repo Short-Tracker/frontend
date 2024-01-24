@@ -94,7 +94,7 @@
     margin: 0;
     margin-left: 4px;
     color: v.$disabled-color;
-    @include m.CardBottom;
+    @include m.Description;
   }
 
   &_right {
@@ -103,6 +103,6 @@
   }
 
   &_count {
-    @include m.CardBottom;
+    @include m.Description;
   }
 }

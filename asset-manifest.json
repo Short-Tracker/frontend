@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/frontend/static/css/main.4b1238f0.css",
-    "main.js": "/frontend/static/js/main.4904032b.js",
+    "main.css": "/frontend/static/css/main.354a9e4a.css",
+    "main.js": "/frontend/static/js/main.be001cc3.js",
     "static/media/lid.svg": "/frontend/static/media/lid.bce7aafe3b69aff12021e22a05d96170.svg",
     "static/media/Onest-Bold.woff": "/frontend/static/media/Onest-Bold.84c45abdcd89adf6e2ab.woff",
     "static/media/Onest-Medium.woff": "/frontend/static/media/Onest-Medium.7203559f5c1a870c4bea.woff",
@@ -25,7 +25,7 @@
     "static/media/teamIcon.svg": "/frontend/static/media/teamIcon.989ab7d56c99eb8778253c7be22f11ef.svg",
     "static/media/RequestsIcon.svg": "/frontend/static/media/RequestsIcon.9dac932b657fadac850c9f2a0948901f.svg",
     "static/media/clockIcon.svg": "/frontend/static/media/clockIcon.4c6393d3c2033496f2a52a7a894e0967.svg",
-    "static/media/checkmark.svg": "/frontend/static/media/checkmark.3e77bc79d81400cff523c38da9576d5a.svg",
+    "static/media/checkmark.svg": "/frontend/static/media/checkmark.ff0a70376daec99d303b6a7e34a9b338.svg",
     "static/media/PersonalAreaIcon.svg": "/frontend/static/media/PersonalAreaIcon.ad10a6177195d3aae24ea4f59d921b99.svg",
     "static/media/ArchiveIcon.svg": "/frontend/static/media/ArchiveIcon.83c86274e3fa9e36d78ef44670b54dca.svg",
     "static/media/ExitIcon.svg": "/frontend/static/media/ExitIcon.7f04dd3bb5404bb2d2ed37854d13eaae.svg",
@@ -40,11 +40,11 @@
     "static/media/listIcon.svg": "/frontend/static/media/listIcon.51d91f95792f9dfcee5ca359684f5600.svg",
     "static/media/flagIcon.svg": "/frontend/static/media/flagIcon.81b17d81c3d9b0fb3af8e1e2d33cff17.svg",
     "static/media/plusIcon.svg": "/frontend/static/media/plusIcon.cc601f1f1c3e5a1dd8bcf67e6cb5eacc.svg",
-    "main.4b1238f0.css.map": "/frontend/static/css/main.4b1238f0.css.map",
-    "main.4904032b.js.map": "/frontend/static/js/main.4904032b.js.map"
+    "main.354a9e4a.css.map": "/frontend/static/css/main.354a9e4a.css.map",
+    "main.be001cc3.js.map": "/frontend/static/js/main.be001cc3.js.map"
   },
   "entrypoints": [
-    "static/css/main.4b1238f0.css",
-    "static/js/main.4904032b.js"
+    "static/css/main.354a9e4a.css",
+    "static/js/main.be001cc3.js"
   ]
 }

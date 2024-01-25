@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TTask } from 'types/types';
+import { TResults, TTask } from 'types/types';
 
 const initialState: TTask = {
   count: 0,
@@ -7,6 +7,7 @@ const initialState: TTask = {
   previous: null,
   results: [
     {
+      id: 0,
       description: '',
       status: '',
       create_date: '',
@@ -45,8 +46,16 @@ const taskSlice = createSlice({
       ...state,
       ...action.payload,
     }),
+    updateTaskStore(state, action: PayloadAction<TResults>) {
+      // state.results[state.results.findIndex((elem: TResults) => elem['id'] == action.payload.id)] = action.payload,
+      // ...action.payload,
+      const elemIndex = state.results.findIndex(
+        (elem: TResults) => elem.id === action.payload.id
+      );
+      state.results[elemIndex] = action.payload;
+    },
   },
 });
 const taskReducer = taskSlice.reducer;
-export const { setTask } = taskSlice.actions;
+export const { setTask, updateTaskStore } = taskSlice.actions;
 export default taskReducer;

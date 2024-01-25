@@ -43,6 +43,7 @@ export type TTask = {
   results: TResults[];
 };
 export type TResults = {
+  id: number;
   description: string;
   status: string;
   create_date: string;

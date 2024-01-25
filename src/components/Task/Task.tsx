@@ -9,7 +9,7 @@ export interface TaskProps {
   text: string;
   date: string;
   headerText: string;
-  isLead: boolean;
+  isLead: boolean | null;
   ownTask: boolean;
 }
 

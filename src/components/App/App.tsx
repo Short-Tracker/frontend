@@ -5,12 +5,9 @@ import { useDispatch, useSelector } from 'services/hooks';
 import { useEffect } from 'react';
 import refreshTokenThunk from 'thunks/refresh-token-thunk';
 import { Toaster } from 'react-hot-toast';
-<<<<<<< HEAD
 import CreateTask from '../Popup/CreateTask/CreateTask';
 import Popup from '../Popup/Popup';
 import { closeModal } from '../../store';
-=======
->>>>>>> e939b11202bd8bedea68871c6fd38c9cad54b802
 import styles from './App.module.scss';
 
 const App = () => {
@@ -32,12 +29,9 @@ const App = () => {
         <Route path="/error" element={<Error />} />
       </Routes>
       <Toaster />
-<<<<<<< HEAD
       <Popup onClose={closeModalState} isOpen={createTaskModal}>
         <CreateTask />
       </Popup>
-=======
->>>>>>> e939b11202bd8bedea68871c6fd38c9cad54b802
     </div>
   );
 };

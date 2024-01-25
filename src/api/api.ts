@@ -51,3 +51,4 @@ export const updateTaskApi = (taskData: any) =>
   });
 export const getAllTasks = () => request('tasks/?limit=99&offset=0', { method: 'GET' });
 export const getUsers = () => request('users/', { method: 'GET' });
+export const getUserMe = () => request('users/me/', { method: 'GET' });

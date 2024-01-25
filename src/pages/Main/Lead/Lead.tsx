@@ -4,21 +4,21 @@ import Tasks from 'pages/Tasks/Tasks';
 import React, { FC, useEffect, useState } from 'react';
 import { UniversalButton } from 'ui-lib/Buttons';
 import Status from 'components/Status/Status';
-import { TPerformers, TResults, TTask } from 'types/types';
+import { TPerformers, TResults, TTask, TUser } from 'types/types';
 import { v4 as uuidv4 } from 'uuid';
-import { useDispatch, useSelector } from 'services/hooks';
+import { useDispatch } from 'services/hooks';
 import { openCreateTaskModal } from 'store';
 import styles from './Lead.module.scss';
 
 interface ITaskCard {
   allTasks: TTask;
+  currentUser: TUser;
 }
 
 const Lead: FC<ITaskCard> = (props) => {
-  const { allTasks } = props;
+  const { allTasks, currentUser } = props;
   const { count, results } = allTasks;
   const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.user);
 
   const openCreateTask = () => {
     dispatch(openCreateTaskModal());

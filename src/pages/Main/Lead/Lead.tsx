@@ -22,7 +22,6 @@ const Lead: FC<ITaskCard> = (props) => {
 
   const openCreateTask = () => {
     dispatch(openCreateTaskModal());
-    console.log('Х');
   };
 
   // eslint-disable-next-line react-hooks/rules-of-hooks

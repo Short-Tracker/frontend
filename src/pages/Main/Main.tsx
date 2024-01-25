@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'services/hooks';
 import Login from 'pages/Login/Login';
 import getTaskThunk from 'thunks/get-task-thunks';
@@ -7,8 +7,10 @@ import getUsersThunk from 'thunks/get-users-thunks';
 import Lead from './Lead/Lead';
 import User from './User/User';
 import styles from './Main.module.scss';
+import store from '../../store/store';
 
 const Main = () => {
+  const [isUpdated, setIsUpdated] = useState<boolean>(false);
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state) => state.system);
   const isLead = useSelector((state) => state.user);
@@ -18,7 +20,8 @@ const Main = () => {
     dispatch(getTaskThunk(isLoggedIn));
     dispatch(getUsersThunk(isLoggedIn));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoggedIn]);
+  }, [isLoggedIn, tasks.results.length]);
+
   return (
     <main className={styles.main}>
       {!isLoggedIn && <Login />}

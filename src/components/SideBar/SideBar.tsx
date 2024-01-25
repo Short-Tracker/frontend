@@ -15,7 +15,6 @@ import {
 import SideBarUserMenu from 'components/SideBarUserMenu/SideBarUserMenu';
 import { useSelector } from 'services/hooks';
 import { TTask } from 'types/types';
-import CreateTaskPopup from 'components/Popup/CreateTaskPopup/CreateTaskPopup';
 import styles from './SideBar.module.scss';
 
 const SideBar: React.FC = () => {
@@ -24,7 +23,6 @@ const SideBar: React.FC = () => {
   const currentUsers = useSelector((state) => state.users);
 
   const [isSidebarMenuOpen, setisSidebarMenuOpen] = useState(false);
-  const [isCreateTaskPopupOpen, setCreateTaskPopupOpen] = useState(false);
 
   const handleToggleMenu = () => {
     setisSidebarMenuOpen(!isSidebarMenuOpen);
@@ -39,11 +37,6 @@ const SideBar: React.FC = () => {
       handleCloseMenu();
     }
   };
-
-  const handleOpenCreateTaskPopup = () => {
-    setCreateTaskPopupOpen(true);
-  };
-
   useEffect(() => {
     document.addEventListener('keydown', handleEscapeClick);
     return () => {
@@ -99,10 +92,7 @@ const SideBar: React.FC = () => {
       </ul>
       <div className={styles.teamWrapper}>
         <h2 className={styles.teamName}>Команда</h2>
-        <button className={styles.teamImg} onClick={handleOpenCreateTaskPopup} />
-        {isCreateTaskPopupOpen && (
-          <CreateTaskPopup onClose={() => setCreateTaskPopupOpen(false)} />
-        )}
+        <button className={styles.teamImg} />
       </div>
       <ul className={styles.membersWrapper}>
         <li className={styles.teamLi}>

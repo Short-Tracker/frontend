@@ -2,7 +2,10 @@ import { baseUrl as api } from 'constants/baseUrl';
 
 const checkResponse = (res: Response) => {
   if (!res.ok) {
-    throw new Error('Ошибка');
+    return res.json().then((json) => {
+      throw json;
+    });
+    // throw new Error('Ошибка');
   }
   return res.json();
 };
@@ -34,5 +37,11 @@ export const refreshAuthToken = (userData: { email: string; password: string }) 
     headers: new Headers([['Content-Type', 'application/json']]),
     body: JSON.stringify(userData),
   });
-export const getAllTasks = () => request('tasks/', { method: 'GET' });
+export const createTask = (taskData: any) =>
+  request('tasks/', {
+    method: 'POST',
+    headers: new Headers([['Content-Type', 'application/json']]),
+    body: JSON.stringify(taskData),
+  });
+export const getAllTasks = () => request('tasks/?limit=99&offset=0', { method: 'GET' });
 export const getUsers = () => request('users/', { method: 'GET' });

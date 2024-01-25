@@ -12,7 +12,7 @@ const rootNode = createRoot(rootDiv as Element);
 rootNode.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <BrowserRouter>
         <App />
       </BrowserRouter>
     </Provider>

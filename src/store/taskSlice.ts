@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, current, PayloadAction } from '@reduxjs/toolkit';
 import { TResults, TTask } from 'types/types';
 
 const initialState: TTask = {
@@ -38,6 +38,11 @@ const initialState: TTask = {
   ],
 };
 
+type TUpdateStore = {
+  res: TResults;
+  id: number;
+};
+
 const taskSlice = createSlice({
   name: 'task',
   initialState,
@@ -46,13 +51,11 @@ const taskSlice = createSlice({
       ...state,
       ...action.payload,
     }),
-    updateTaskStore(state, action: PayloadAction<TResults>) {
-      // state.results[state.results.findIndex((elem: TResults) => elem['id'] == action.payload.id)] = action.payload,
-      // ...action.payload,
-      const elemIndex = state.results.findIndex(
-        (elem: TResults) => elem.id === action.payload.id
+    updateTaskStore(state, action: PayloadAction<TUpdateStore>) {
+      const elemIndex = current(state).results.findIndex(
+        (elem) => elem.id === action.payload.id
       );
-      state.results[elemIndex] = action.payload;
+      state.results[elemIndex].status = action.payload.res.status;
     },
   },
 });

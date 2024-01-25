@@ -11,7 +11,7 @@ const updateTaskThunk: AppThunk = (data) => async (dispatch) => {
     dispatch(isLoadingOn());
     const res: TResults = await updateTaskApi(data);
     batch(() => {
-      dispatch(updateTaskStore(res));
+      dispatch(updateTaskStore({ res, id: data.id }));
     });
   } catch (error: any) {
     catchErrors(error);

@@ -9,6 +9,8 @@ import { UniversalButton } from '../../../ui-lib/Buttons';
 import { useDispatch, useSelector } from '../../../services/hooks';
 import { closeModal } from '../../../store';
 import createTaskThunk from '../../../thunks/create-task-thunk';
+import getTaskThunk from '../../../thunks/get-task-thunks';
+import { TTask } from '../../../types/types';
 
 type CheckboxValues = Record<string, boolean>;
 const CreateTask = () => {
@@ -24,6 +26,7 @@ const CreateTask = () => {
   const [dateDropdownOpen, setDateDropdownOpen] = useState<boolean>(false);
   const [dateValue, setDateValue] = useState<string>('');
 
+  const tasks: TTask = useSelector((state) => state.task);
   const createTaskState = (event: SyntheticEvent) => {
     event.preventDefault();
     dispatch(
@@ -33,6 +36,7 @@ const CreateTask = () => {
         performers: [2],
       })
     );
+    dispatch(getTaskThunk(true));
     dispatch(closeModal());
   };
   const showCheckboxes = () => {

@@ -1,0 +1,38 @@
+@use '../../globalStyles/mixins.scss' as m;
+@use '../../globalStyles/variables.scss' as v;
+
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.element {
+  @include m.Body;
+  width: 256px;
+  height: 24px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.todo {
+  color: v.$todo-text;
+  background: v.$todo;
+}
+
+.inProgress {
+  color: v.$ip-text;
+  background: v.$ip;
+}
+
+.hold {
+  color: v.$hold-text;
+  background: v.$hold;
+}
+
+.done {
+  color: v.$done-text;
+  background: v.$done;
+}

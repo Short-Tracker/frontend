@@ -8,7 +8,9 @@ interface SearchButtonsProps extends React.ComponentPropsWithoutRef<'button'> {
 
 const SearchButtons = ({ type, src, position }: SearchButtonsProps) => (
   <button
-    className={`${styles.button} ${position === 'search' ? styles.button__search : ''}`}
+    className={`${styles.button} ${position === 'search' ? styles.button__search : ''} ${
+      position === 'filter' ? styles.button__filter : ''
+    }`}
     type={type}
   >
     <img src={src} className={styles.image} alt="Поиск" />

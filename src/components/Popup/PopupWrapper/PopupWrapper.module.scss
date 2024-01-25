@@ -1,0 +1,21 @@
+@use '../../../globalStyles/variables' as v;
+
+.popupWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 98;
+
+  &:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: v.$black-color;
+    opacity: .5;
+  }
+}

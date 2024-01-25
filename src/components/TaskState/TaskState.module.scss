@@ -1,0 +1,39 @@
+@use '../../globalStyles/variables.scss' as v;
+@use '../../globalStyles/mixins.scss' as m;
+
+.taskState {
+  margin: 0 16px 17px 19px;
+  padding-top: 10px;
+
+  &_time {
+    margin: 0;
+    padding: 0;
+    width: 27px;
+    height: 12px;
+    @include m.Description;
+  }
+
+  &_container {
+    max-width: 189px;
+    display: flex;
+    align-items: center;
+    padding-top: 6px;
+    margin: 0 20px 0 12px;
+  }
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  background-color: #ACACAC;
+  border-radius: 50%;
+}
+
+.active {
+  background-color: #000;
+}
+
+.line {
+  width: 89px;
+  border: 1px solid #B9B9B9
+}

@@ -2,7 +2,7 @@
   "name": "short-tracker",
   "version": "0.1.0",
   "private": true,
-  "homepage": "./",
+  "homepage": "https://short-tracker.github.io/frontend/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.17.0",
@@ -13,11 +13,13 @@
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.17",
     "date-fns": "^3.2.0",
+    "formik": "^2.4.5",
     "react": "^18.2.0",
     "react-calendar": "^4.8.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.49.2",
     "react-hot-toast": "^2.4.1",
+    "react-input-mask": "^2.0.4",
     "react-redux": "^8.1.2",
     "react-router": "^6.21.2",
     "react-router-dom": "^6.21.0",
@@ -28,7 +30,8 @@
     "sass": "^1.69.5",
     "typescript": "^4.9.5",
     "uuid": "^9.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^1.3.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -94,6 +97,7 @@
     "@storybook/react-webpack5": "^7.6.4",
     "@storybook/test": "^7.6.4",
     "@storybook/testing-library": "^0.2.2",
+    "@types/react-input-mask": "^3.0.5",
     "@types/redux-logger": "^3.0.12",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
     "@typescript-eslint/parser": "^6.5.0",

@@ -93,6 +93,9 @@ const Lead: FC<ITaskCard> = (props) => {
                 startTime={task.create_date}
                 movedTime={task.inprogress_date}
                 completedTime={task.deadline_date}
+                status={task.status}
+                taskID={task.id}
+                performers={task.performers}
               />
             ))}
           </div>
@@ -108,6 +111,9 @@ const Lead: FC<ITaskCard> = (props) => {
                 startTime={task.create_date}
                 movedTime={task.inprogress_date}
                 completedTime={task.deadline_date}
+                status={task.status}
+                taskID={task.id}
+                performers={task.performers}
               />
             ))}
           </div>
@@ -123,6 +129,9 @@ const Lead: FC<ITaskCard> = (props) => {
                 startTime={task.create_date}
                 movedTime={task.inprogress_date}
                 completedTime={task.deadline_date}
+                status={task.status}
+                taskID={task.id}
+                performers={task.performers}
               />
             ))}
           </div>
@@ -138,6 +147,9 @@ const Lead: FC<ITaskCard> = (props) => {
                 startTime={task.create_date}
                 movedTime={task.inprogress_date}
                 completedTime={task.deadline_date}
+                status={task.status}
+                taskID={task.id}
+                performers={task.performers}
               />
             ))}
           </div>

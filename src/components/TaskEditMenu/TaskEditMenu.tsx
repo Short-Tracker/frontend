@@ -3,22 +3,39 @@ import React from 'react';
 import { UniversalButton } from 'ui-lib/Buttons';
 import { BallpenIcon, TrashIcon } from 'ui-lib/Icons';
 import styles from './TaskEditMenu.module.scss';
+import { useDispatch } from '../../services/hooks';
+import { updateTaskStore } from '../../store/taskSlice';
+import updateTaskThunk from '../../thunks/update-task-thunk';
+import { TPerformers } from '../../types/types';
+import createTaskThunk from '../../thunks/create-task-thunk';
+// import { changeTaskStatus } from '../../store/taskSlice';
 
 export interface TaskEditMenuProps {
   isLead: boolean | null;
   ownTask: boolean;
   handleToggleEditMenu: () => void;
+  status: string;
+  taskID: number;
+  performers: TPerformers[];
+  deadlineDate: string;
+  description: string;
 }
 
 export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
   isLead,
   ownTask,
   handleToggleEditMenu,
+  status,
+  performers,
+  deadlineDate,
+  description,
+  taskID,
 }) => {
+  const dispatch = useDispatch();
   const notOwnLeadTask = isLead && !ownTask;
   const notOwnPerformerTask = !isLead && !ownTask;
 
-  const [status, setStatus] = React.useState('Done');
+  const [currentStatus, setStatus] = React.useState(status);
   const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setStatus(evt.target.value);
   };
@@ -27,6 +44,21 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
     if (evt.key === 'Enter' || evt.key === ' ') {
       handleToggleEditMenu();
     }
+  };
+
+  const updateTaskStatus = () => {
+    dispatch(
+      updateTaskThunk({
+        id: taskID,
+        data: {
+          description,
+          status: currentStatus,
+          deadline_date: deadlineDate,
+          // performers,
+          performers: [2],
+        },
+      })
+    );
   };
 
   return (
@@ -66,8 +98,8 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
             <input
               className={styles.status_radiobutton_input}
               type="radio"
-              value="Todo"
-              checked={status === 'Todo'}
+              value="to do"
+              checked={currentStatus === 'to do'}
               onChange={onChange}
             />
             Todo
@@ -76,8 +108,8 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
             <input
               className={styles.status_radiobutton_input}
               type="radio"
-              value="InProgress"
-              checked={status === 'InProgress'}
+              value="in progress"
+              checked={currentStatus === 'in progress'}
               onChange={onChange}
             />
             In progress
@@ -86,23 +118,37 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
             <input
               className={styles.status_radiobutton_input}
               type="radio"
-              value="Done"
-              checked={status === 'Done'}
+              value="done"
+              checked={currentStatus === 'done'}
               onChange={onChange}
             />
             Done
           </label>
+          {/* <label className={styles.status_radiobutton}> */}
+          {/*  <input */}
+          {/*    className={styles.status_radiobutton_input} */}
+          {/*    type="radio" */}
+          {/*    value="archived" */}
+          {/*    checked={currentStatus === 'archived'} */}
+          {/*    onChange={onChange} */}
+          {/*  /> */}
+          {/*  Archived */}
+          {/* </label> */}
           <label className={styles.status_radiobutton}>
             <input
               className={styles.status_radiobutton_input}
               type="radio"
-              value="Hold"
-              checked={status === 'Hold'}
+              value="hold"
+              checked={currentStatus === 'hold'}
               onChange={onChange}
             />
             Hold
           </label>
-          <UniversalButton className={styles.status_button}>
+          <UniversalButton
+            className={styles.status_button}
+            type="button"
+            onClick={updateTaskStatus}
+          >
             <p className={styles.status_button_text}>Переместить</p>
           </UniversalButton>
         </form>

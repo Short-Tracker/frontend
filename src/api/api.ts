@@ -43,5 +43,11 @@ export const createTask = (taskData: any) =>
     headers: new Headers([['Content-Type', 'application/json']]),
     body: JSON.stringify(taskData),
   });
+export const updateTaskApi = (taskData: any) =>
+  request(`tasks/${taskData.id}`, {
+    method: 'PATCH',
+    headers: new Headers([['Content-Type', 'application/json']]),
+    body: JSON.stringify(taskData.data),
+  });
 export const getAllTasks = () => request('tasks/?limit=99&offset=0', { method: 'GET' });
 export const getUsers = () => request('users/', { method: 'GET' });

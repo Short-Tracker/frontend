@@ -3,6 +3,7 @@ import { ClockIcon, CommentsIcon, FlagIcon } from 'ui-lib/Icons';
 import EditButton from 'ui-lib/Buttons/editTaskButton/editTaskButton';
 import { TaskEditMenu } from 'components/TaskEditMenu/TaskEditMenu';
 import styles from './Task.module.scss';
+import { TPerformers } from '../../types/types';
 
 // содержимое карточки
 export interface TaskProps {
@@ -11,6 +12,10 @@ export interface TaskProps {
   headerText: string;
   isLead: boolean | null;
   ownTask: boolean;
+  status: string;
+  taskID: number;
+  performers: TPerformers[];
+  completedTime: string;
 }
 
 export const Task: React.FC<TaskProps> = ({
@@ -19,6 +24,10 @@ export const Task: React.FC<TaskProps> = ({
   headerText,
   isLead,
   ownTask,
+  status,
+  taskID,
+  performers,
+  completedTime,
 }) => {
   const [isMenuOpened, setIsMenuOpened] = React.useState(false);
 
@@ -48,6 +57,11 @@ export const Task: React.FC<TaskProps> = ({
             isLead={isLead}
             ownTask={ownTask}
             handleToggleEditMenu={handleToggleEditMenu}
+            status={status}
+            taskID={taskID}
+            performers={performers}
+            deadlineDate={completedTime}
+            description={text}
           />
         )}
 

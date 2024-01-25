@@ -5,7 +5,7 @@ import { BallpenIcon, TrashIcon } from 'ui-lib/Icons';
 import styles from './TaskEditMenu.module.scss';
 
 export interface TaskEditMenuProps {
-  isLead: boolean;
+  isLead: boolean | null;
   ownTask: boolean;
   handleToggleEditMenu: () => void;
 }

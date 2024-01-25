@@ -43,5 +43,5 @@ export const createTask = (taskData: any) =>
     headers: new Headers([['Content-Type', 'application/json']]),
     body: JSON.stringify(taskData),
   });
-export const getAllTasks = () => request('tasks/', { method: 'GET' });
+export const getAllTasks = () => request('tasks/?limit=99&offset=0', { method: 'GET' });
 export const getUsers = () => request('users/', { method: 'GET' });

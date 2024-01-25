@@ -2,7 +2,7 @@
   "name": "short-tracker",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://short-tracker.github.io/frontend/",
+  "homepage": "./",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.17.0",

@@ -10,7 +10,7 @@ const PopupWrapper: FC<PopupWrapperProps> = ({ children, isOpen, onClose }) => {
   const [overlay, setOverlay] = useState<Element | null>(null);
 
   useEffect(() => {
-    setOverlay(document.querySelector(`.${styles.popupWrapper}`));
+    setOverlay(document.querySelector(`.${CSS.escape(styles.popupWrapper)}`));
     if (isOpen) {
       document.body.classList.add('no-scroll');
     } else {

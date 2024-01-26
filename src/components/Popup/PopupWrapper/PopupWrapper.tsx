@@ -42,7 +42,7 @@ const PopupWrapper: FC<PopupWrapperProps> = ({ children, isOpen, onClose }) => {
       <section
         className={styles.popupWrapper}
         style={{ display: isOpen ? 'block' : 'none' }}
-        // onMouseDown={handleClickOverlay}
+        onMouseDown={handleClickOverlay}
       >
         {children}
       </section>

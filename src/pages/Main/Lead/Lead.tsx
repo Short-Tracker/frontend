@@ -8,6 +8,8 @@ import { TPerformers, TResults, TTask } from 'types/types';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from 'services/hooks';
 import { openCreateTaskModal } from 'store';
+import type { DroppableProvided } from '@hello-pangea/dnd';
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import styles from './Lead.module.scss';
 
 interface ITaskCard {
@@ -68,6 +70,30 @@ const Lead: FC<ITaskCard> = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [results]);
 
+  const onDragEnd = (result: any) => {
+    const { source, destination } = result;
+
+    // dropped outside the list
+    if (!destination) {
+      return;
+    }
+    const sInd = +source.droppableId;
+    const dInd = +destination.droppableId;
+
+    // if (sInd === dInd) {
+    //   const items = reorder(state[sInd], source.index, destination.index);
+    //   const newState = [...state];
+    //   newState[sInd] = items;
+    //   setState(newState);
+    // } else {
+    //   const result = move(state[sInd], state[dInd], source, destination);
+    //   const newState = [...state];
+    //   newState[sInd] = result[sInd];
+    //   newState[dInd] = result[dInd];
+    //
+    //   setState(newState.filter(group => group.length));
+  };
+
   return (
     <div className={styles.Lead__container}>
       <SideBar />
@@ -80,24 +106,42 @@ const Lead: FC<ITaskCard> = (props) => {
         </div>
         <Status />
         <div className={styles.tasksWrapper}>
-          <div className={styles.taskColumn}>
-            {todoTasks.map((task) => (
-              <Tasks
-                key={uuidv4()}
-                isLead={task.creator.is_team_lead}
-                text={task.description}
-                date={task.create_date}
-                headerText={task.creator.full_name}
-                ownTask={handleCheckTaskOwner(task.performers)}
-                startTime={task.create_date}
-                movedTime={task.inprogress_date}
-                completedTime={task.deadline_date}
-                status={task.status}
-                taskID={task.id}
-                performers={task.performers}
-              />
-            ))}
-          </div>
+          <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId="todoTasks">
+              {(provided, snapshot) => (
+                <div ref={provided.innerRef} {...provided.droppableProps}>
+                  <div className={styles.taskColumn}>
+                    {todoTasks.map((task, index) => (
+                      <Draggable key={task.id} draggableId={`${task.id}`} index={index}>
+                        {/* eslint-disable-next-line @typescript-eslint/no-shadow */}
+                        {(provided, snapshot) => (
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                          >
+                            <Tasks
+                              isLead={task.creator.is_team_lead}
+                              text={task.description}
+                              date={task.create_date}
+                              headerText={task.creator.full_name}
+                              ownTask={handleCheckTaskOwner(task.performers)}
+                              startTime={task.create_date}
+                              movedTime={task.inprogress_date}
+                              completedTime={task.deadline_date}
+                              status={task.status}
+                              taskID={task.id}
+                              performers={task.performers}
+                            />
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
           <div className={styles.taskColumn}>
             {inProgressTasks.map((task) => (
               <Tasks

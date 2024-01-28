@@ -31,24 +31,24 @@ const SideBar: React.FC = () => {
   return (
     <section className={styles.SideBar}>
       <div onClick={handleToggleMenu} className={styles.userWrapper}>
-        <img className={styles.userImg} src={lid} alt="Изображение пользователя" />
+        <img className={styles.userImg} src={lid} alt='Изображение пользователя' />
         <h2 className={styles.userName}>{currentUser.full_name}</h2>
-        {isSidebarMenuOpen && <SideBarUserMenu setIsOpen={setisSidebarMenuOpen} />}
       </div>
+      {isSidebarMenuOpen && <SideBarUserMenu setIsOpen={setisSidebarMenuOpen} />}
       <ul className={styles.linkWrapper}>
         <li className={`${styles.navLi} ${styles.navLiActive}`}>
           <img
             src={allTaskIcon}
             className={`${styles.navImage} ${styles.navImageActive}`}
-            alt="иконка"
+            alt='иконка'
           />
-          <button type="button" className={styles.navButton}>
+          <button type='button' className={styles.navButton}>
             Все задачи
           </button>
         </li>
         <li className={styles.navLi}>
-          <img src={requestIcon} className={styles.navImage} alt="иконка" />
-          <button type="button" className={styles.navButton}>
+          <img src={requestIcon} className={styles.navImage} alt='иконка' />
+          <button type='button' className={styles.navButton}>
             Запросы
           </button>
           {tasks.results.length > 0 ? (
@@ -56,20 +56,20 @@ const SideBar: React.FC = () => {
           ) : null}
         </li>
         <li className={styles.navLi}>
-          <img src={myTaskIcon} className={styles.navImage} alt="иконка" />
-          <button type="button" className={styles.navButton}>
+          <img src={myTaskIcon} className={styles.navImage} alt='иконка' />
+          <button type='button' className={styles.navButton}>
             Мои Задачи
           </button>
         </li>
         <li className={styles.navLi}>
-          <img src={analyticsIcon} className={styles.navImage} alt="иконка" />
-          <button type="button" className={styles.navButton}>
+          <img src={analyticsIcon} className={styles.navImage} alt='иконка' />
+          <button type='button' className={styles.navButton}>
             Аналитика
           </button>
         </li>
         <li className={styles.navLi}>
-          <img src={archiveIcon} className={styles.navImage} alt="иконка" />
-          <button type="button" className={styles.navButton}>
+          <img src={archiveIcon} className={styles.navImage} alt='иконка' />
+          <button type='button' className={styles.navButton}>
             Архив
           </button>
         </li>
@@ -80,7 +80,7 @@ const SideBar: React.FC = () => {
       </div>
       <ul className={styles.membersWrapper}>
         <li className={styles.teamLi}>
-          <img src={AllTeamIcon} className={styles.navImage} alt="иконка" />
+          <img src={AllTeamIcon} className={styles.navImage} alt='иконка' />
           <button className={styles.allTeamButton}>Вся команда</button>
         </li>
         {currentUsers.results.map((user) => {

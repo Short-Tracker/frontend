@@ -10,7 +10,7 @@ const Error = () => {
         <Logo />
       </div>
       <div className={styles.wrapper}>
-        <img src={error} alt="Ошибка" className={styles.errorImage} />
+        <img src={error} alt='Ошибка' className={styles.errorImage} />
         <h2 className={styles.title}>Этой страницы не существует</h2>
         <p className={styles.subtitle}>
           Зато есть доска с задачами, которые ждут перевода в статус

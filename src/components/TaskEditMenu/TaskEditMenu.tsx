@@ -71,7 +71,7 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
           <div
             className={styles.edit_button}
             onClick={handleToggleEditMenu}
-            role="button"
+            role='button'
             tabIndex={0}
             onKeyDown={handleKeyDown}
           >
@@ -81,7 +81,7 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
           <div
             className={styles.edit_button}
             onClick={handleToggleEditMenu}
-            role="button"
+            role='button'
             tabIndex={0}
             onKeyDown={handleKeyDown}
           >
@@ -97,8 +97,8 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
           <label className={styles.status_radiobutton}>
             <input
               className={styles.status_radiobutton_input}
-              type="radio"
-              value="to do"
+              type='radio'
+              value='to do'
               checked={currentStatus === 'to do'}
               onChange={onChange}
             />
@@ -107,8 +107,8 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
           <label className={styles.status_radiobutton}>
             <input
               className={styles.status_radiobutton_input}
-              type="radio"
-              value="in progress"
+              type='radio'
+              value='in progress'
               checked={currentStatus === 'in progress'}
               onChange={onChange}
             />
@@ -117,8 +117,8 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
           <label className={styles.status_radiobutton}>
             <input
               className={styles.status_radiobutton_input}
-              type="radio"
-              value="done"
+              type='radio'
+              value='done'
               checked={currentStatus === 'done'}
               onChange={onChange}
             />
@@ -137,8 +137,8 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
           <label className={styles.status_radiobutton}>
             <input
               className={styles.status_radiobutton_input}
-              type="radio"
-              value="hold"
+              type='radio'
+              value='hold'
               checked={currentStatus === 'hold'}
               onChange={onChange}
             />
@@ -146,7 +146,7 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
           </label>
           <UniversalButton
             className={styles.status_button}
-            type="button"
+            type='button'
             onClick={updateTaskStatus}
           >
             <p className={styles.status_button_text}>Переместить</p>

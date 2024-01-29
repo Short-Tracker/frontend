@@ -9,10 +9,10 @@ interface IEmailInput extends React.ComponentPropsWithoutRef<'input'> {
 const EmailInput: React.FC<IEmailInput> = ({ label, id, ...rest }) => (
   <UniversalInput
     id={id}
-    type="email"
-    placeholder="Введите Email..."
+    type='email'
+    placeholder='Введите Email...'
     label={label}
-    customStyle="input__customStyle"
+    customStyle='input__customStyle'
     {...rest}
   />
 );

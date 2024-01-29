@@ -74,7 +74,7 @@ const Lead: FC<ITaskCard> = (props) => {
       <div className={styles.Lead__tasks}>
         <div className={styles.Lead__serchContainer}>
           <Search />
-          <UniversalButton onClick={openCreateTask} width="244">
+          <UniversalButton onClick={openCreateTask} width='244'>
             <p>Создать задачу</p>
           </UniversalButton>
         </div>

@@ -10,7 +10,7 @@ const Checkbox: FC<CheckboxProps> = ({ checked, onChange, ...rest }) => (
   // eslint-disable-next-line jsx-a11y/label-has-associated-control
   <label className={styles.checkbox__label}>
     <input
-      type="checkbox"
+      type='checkbox'
       checked={checked}
       onChange={onChange}
       className={styles.checkbox}

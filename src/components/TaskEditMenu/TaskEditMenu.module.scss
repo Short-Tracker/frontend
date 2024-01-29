@@ -11,7 +11,7 @@
   gap: 12px;
   padding: 16px;
   border-radius: 8px;
-  box-shadow: 0px 4px 20px 0px #B1B1C333;
+  box-shadow: 0px 4px 20px 0px #b1b1c333;
   max-width: 152px;
   @include m.Description;
   color: v.$black2-color;
@@ -31,9 +31,9 @@
 }
 
 .status {
-    display: grid;
-    padding-left: 2px;
-    gap: 8px;
+  display: grid;
+  padding-left: 2px;
+  gap: 8px;
 
   &_button {
     color: v.$white-color;
@@ -54,11 +54,8 @@
     padding: 1.5px 0;
     cursor: pointer;
 
-
     &_input:checked {
       accent-color: v.$accent-color;
     }
   }
 }
-
-

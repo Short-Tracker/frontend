@@ -45,7 +45,7 @@ const GroupTasks = () => {
   return (
     <div
       className={styles.groupTasks}
-      role="button"
+      role='button'
       tabIndex={0}
       onClick={handleToggleCollapse}
       onKeyDown={handleKeyDown}

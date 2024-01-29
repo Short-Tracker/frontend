@@ -13,7 +13,7 @@ const SearchButtons = ({ type, src, position }: SearchButtonsProps) => (
     }`}
     type={type}
   >
-    <img src={src} className={styles.image} alt="Поиск" />
+    <img src={src} className={styles.image} alt='Поиск' />
   </button>
 );
 

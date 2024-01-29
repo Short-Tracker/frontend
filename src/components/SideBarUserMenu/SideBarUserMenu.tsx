@@ -19,7 +19,7 @@ const SideBarUserMenu: FC<TProps> = ({ setIsOpen }) => {
 
   return (
     <section className={styles.section}>
-      <button type="button" className={styles.button}>
+      <button type='button' className={styles.button}>
         Личный кабинет
       </button>
       <button className={styles.button} onClick={handleLogout}>

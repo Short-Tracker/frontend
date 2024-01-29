@@ -1,34 +1,34 @@
 @use '../../../globalStyles/mixins.scss' as m;
 @use '../../../globalStyles/variables.scss' as v;
 .inputContainer {
-    display: flex;
-    width: 100%;
-    height: 36px;
-    flex-shrink: 0;
+  display: flex;
+  width: 100%;
+  height: 36px;
+  flex-shrink: 0;
 }
 .label {
-    margin-bottom: 8px;
-    @include m.S1;
-    color: v.$name-task;
+  margin-bottom: 8px;
+  @include m.S1;
+  color: v.$name-task;
 }
 .input {
-    @include m.BodyLarge;
-    border: none;
-    outline: none;
-    border-radius: 8px;
-    border: 1px solid v.$disabled-color;
-    border-color: v.$disabled-color;
-    flex-grow: 1;
-    padding-left: 16px;
-    padding-right: 16px;
+  @include m.BodyLarge;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  border: 1px solid v.$disabled-color;
+  border-color: v.$disabled-color;
+  flex-grow: 1;
+  padding-left: 16px;
+  padding-right: 16px;
 
-    &::placeholder {
-        color: v.$disabled-color;
-    }
+  &::placeholder {
+    color: v.$disabled-color;
+  }
 }
 .Container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
 }

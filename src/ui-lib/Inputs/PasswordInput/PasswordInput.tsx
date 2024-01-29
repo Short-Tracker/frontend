@@ -50,7 +50,7 @@ const PasswordInput: React.FC<IPasswordInput> = ({
         type={customInputState ? customInputState.type : inputState.type}
         placeholder={placeholder}
         label={label}
-        pos="relative"
+        pos='relative'
         {...rest}
         icon={
           <PasswordFieldButton

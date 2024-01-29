@@ -3,17 +3,17 @@
     для подключения любого шрифта и начертания
 */
 @mixin fonts($family, $style: normal, $weight: 400, $dir, $type) {
-    @font-face {
-      font-family: $family;
-      font-style: $style;
-      font-weight: $weight;
-      font-display: swap;
-      src:
-        url($dir + $family + $type) format('truetype'),
-        url($dir + $family + $type) format('woff'),
-        url($dir + $family + $type) format('woff2');
-    }
+  @font-face {
+    font-family: $family;
+    font-style: $style;
+    font-weight: $weight;
+    font-display: swap;
+    src:
+      url($dir + $family + $type) format('truetype'),
+      url($dir + $family + $type) format('woff'),
+      url($dir + $family + $type) format('woff2');
   }
+}
 
 @mixin Person {
   font-family: Onest, sans-serif;
@@ -141,10 +141,10 @@
 }
 
 @mixin noselect {
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* IE / Edge */
-    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
-  }
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* IE / Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+}

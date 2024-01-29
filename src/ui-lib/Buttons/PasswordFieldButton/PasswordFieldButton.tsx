@@ -10,7 +10,7 @@ interface IPasswordFieldButton extends ComponentPropsWithoutRef<'button'> {
 
 const PasswordFieldButton: FC<IPasswordFieldButton> = ({ isVision, onClick, error }) => {
   return (
-    <button type="button" onClick={onClick} className={styles.PasswordFieldButton}>
+    <button type='button' onClick={onClick} className={styles.PasswordFieldButton}>
       {isVision ? <EyeIcon /> : <EyeClosedIcon />}
     </button>
   );

@@ -4,7 +4,7 @@
 .container {
   background-color: v.$white-color;
   border: 1px solid v.$task-stroke;
-  box-shadow: 0px 0px 8.5px 0px #E6ECF4;
+  box-shadow: 0px 0px 8.5px 0px #e6ecf4;
   border-radius: 8px;
   margin-top: 10px;
 }
@@ -14,7 +14,7 @@
   align-items: center;
   justify-content: center;
   padding: 2px 20px;
-  background-color: #FFFAEC;
+  background-color: #fffaec;
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
 
@@ -25,7 +25,7 @@
   }
 }
 
-.task_body{
+.task_body {
   position: relative;
   padding: 8px 20px;
 }
@@ -59,7 +59,7 @@
   }
 
   &_container:hover + &_textFull {
-    border: 1px solid #CCCCCC;
+    border: 1px solid #cccccc;
     position: absolute;
     top: 0;
     left: 37px;

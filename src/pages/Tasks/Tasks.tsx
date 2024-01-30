@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import styles from './Tasks.module.scss';
 
 import { TaskProps, Task } from '../../components/Task/Task';
@@ -22,7 +23,8 @@ const Tasks: FC<TaskProps & TaskStateProps> = (props) => {
   return (
     <div className={styles.card}>
       {[props].map(() => (
-        <Task key={uuidv4()} {...props} />
+        // eslint-disable-next-line react/destructuring-assignment
+        <Task key={props.taskID} {...props} />
       ))}
     </div>
   );

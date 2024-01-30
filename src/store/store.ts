@@ -1,11 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
-import systemReducer from './systemSlice';
-import userReducer from './userSlice';
-import taskReducer from './taskSlice';
-import usersReducer from './usersSlice';
-import modalReducer from './modalSlice';
 import createTaskReducer from './createTaskSlice';
+import modalReducer from './modalSlice';
+import systemReducer from './systemSlice';
+import { taskMenuActiveReducer } from './taskMenuActiveSlice';
+import taskReducer from './taskSlice';
+import userReducer from './userSlice';
+import usersReducer from './usersSlice';
 
 const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ const store = configureStore({
     users: usersReducer,
     modals: modalReducer,
     createTask: createTaskReducer,
+    taskMenuActive: taskMenuActiveReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
   // eslint-disable-next-line no-undef

@@ -35,7 +35,7 @@ UniversalButton.defaultProps = {
   width: 256,
   height: 40,
   className: '',
-  fontSize: 18,
+  fontSize: 12,
 };
 
 export default UniversalButton;

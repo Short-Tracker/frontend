@@ -7,7 +7,7 @@
   flex-shrink: 0;
 }
 .label {
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   @include m.S1;
   color: v.$name-task;
 }

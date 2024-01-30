@@ -5,12 +5,71 @@ import React, { FC, useEffect, useState } from 'react';
 import { UniversalButton } from 'ui-lib/Buttons';
 import Status from 'components/Status/Status';
 import { TPerformers, TResults, TTask } from 'types/types';
-import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from 'services/hooks';
 import { openCreateTaskModal } from 'store';
-import type { DroppableProvided } from '@hello-pangea/dnd';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import styles from './Lead.module.scss';
+import updateTaskThunk from '../../../thunks/update-task-thunk';
+
+interface ITaskSort {
+  tasksArray: TResults[];
+  handleCheckTaskOwner: (performers: TPerformers[]) => boolean;
+  droppableId: string;
+}
+
+const TaskSort: FC<ITaskSort> = (props) => {
+  const { tasksArray, handleCheckTaskOwner, droppableId } = props;
+
+  const getStyle = (style: any, snapshot: any) => {
+    if (!snapshot.isDragging) return {};
+    if (!snapshot.isDropAnimating) {
+      return style;
+    }
+
+    return {
+      ...style,
+      transitionDuration: '0.001s',
+    };
+  };
+
+  return (
+    <Droppable droppableId={droppableId}>
+      {(provided, snapshot) => (
+        <div ref={provided.innerRef} {...provided.droppableProps}>
+          <div className={styles.taskColumn}>
+            {tasksArray.map((task, index) => (
+              <Draggable key={task.id} draggableId={`${task.id}`} index={index}>
+                {/* eslint-disable-next-line @typescript-eslint/no-shadow */}
+                {(provided, snapshot) => (
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    style={getStyle(provided.draggableProps.style, snapshot)}
+                  >
+                    <Tasks
+                      isLead={task.creator.is_team_lead}
+                      text={task.description}
+                      date={task.create_date}
+                      headerText={task.creator.full_name}
+                      ownTask={handleCheckTaskOwner(task.performers)}
+                      startTime={task.create_date}
+                      movedTime={task.inprogress_date}
+                      completedTime={task.deadline_date}
+                      status={task.status}
+                      taskID={task.id}
+                      performers={task.performers}
+                    />
+                  </div>
+                )}
+              </Draggable>
+            ))}
+          </div>
+        </div>
+      )}
+    </Droppable>
+  );
+};
 
 interface ITaskCard {
   allTasks: TTask;
@@ -71,27 +130,37 @@ const Lead: FC<ITaskCard> = (props) => {
   }, [results]);
 
   const onDragEnd = (result: any) => {
-    const { source, destination } = result;
+    const { source, destination, draggableId } = result;
 
     // dropped outside the list
     if (!destination) {
       return;
     }
-    const sInd = +source.droppableId;
-    const dInd = +destination.droppableId;
+    const sInd = source.droppableId;
+    const dInd = destination.droppableId;
+    const itemIndex = allTasks.results.findIndex(
+      (elem) => elem.id === Number(draggableId)
+    );
+    const item = allTasks.results[itemIndex];
 
-    // if (sInd === dInd) {
-    //   const items = reorder(state[sInd], source.index, destination.index);
-    //   const newState = [...state];
-    //   newState[sInd] = items;
-    //   setState(newState);
-    // } else {
-    //   const result = move(state[sInd], state[dInd], source, destination);
-    //   const newState = [...state];
-    //   newState[sInd] = result[sInd];
-    //   newState[dInd] = result[dInd];
-    //
-    //   setState(newState.filter(group => group.length));
+    const updateTaskStatus = () => {
+      dispatch(
+        updateTaskThunk({
+          id: draggableId,
+          data: {
+            description: item.description,
+            status: dInd,
+            deadline_date: item.deadline_date,
+            // performers,
+            performers: [2],
+          },
+        })
+      );
+    };
+
+    if (!(sInd === dInd)) {
+      updateTaskStatus();
+    }
   };
 
   return (
@@ -107,95 +176,27 @@ const Lead: FC<ITaskCard> = (props) => {
         <Status />
         <div className={styles.tasksWrapper}>
           <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId="todoTasks">
-              {(provided, snapshot) => (
-                <div ref={provided.innerRef} {...provided.droppableProps}>
-                  <div className={styles.taskColumn}>
-                    {todoTasks.map((task, index) => (
-                      <Draggable key={task.id} draggableId={`${task.id}`} index={index}>
-                        {/* eslint-disable-next-line @typescript-eslint/no-shadow */}
-                        {(provided, snapshot) => (
-                          <div
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                          >
-                            <Tasks
-                              isLead={task.creator.is_team_lead}
-                              text={task.description}
-                              date={task.create_date}
-                              headerText={task.creator.full_name}
-                              ownTask={handleCheckTaskOwner(task.performers)}
-                              startTime={task.create_date}
-                              movedTime={task.inprogress_date}
-                              completedTime={task.deadline_date}
-                              status={task.status}
-                              taskID={task.id}
-                              performers={task.performers}
-                            />
-                          </div>
-                        )}
-                      </Draggable>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </Droppable>
+            <TaskSort
+              tasksArray={todoTasks}
+              handleCheckTaskOwner={handleCheckTaskOwner}
+              droppableId='to do'
+            />
+            <TaskSort
+              tasksArray={inProgressTasks}
+              handleCheckTaskOwner={handleCheckTaskOwner}
+              droppableId='in progress'
+            />
+            <TaskSort
+              tasksArray={doneTasks}
+              handleCheckTaskOwner={handleCheckTaskOwner}
+              droppableId='done'
+            />
+            <TaskSort
+              tasksArray={holdTasks}
+              handleCheckTaskOwner={handleCheckTaskOwner}
+              droppableId='hold'
+            />
           </DragDropContext>
-          <div className={styles.taskColumn}>
-            {inProgressTasks.map((task) => (
-              <Tasks
-                key={uuidv4()}
-                isLead={task.creator.is_team_lead}
-                text={task.description}
-                date={task.create_date}
-                headerText={task.creator.full_name}
-                ownTask={handleCheckTaskOwner(task.performers)}
-                startTime={task.create_date}
-                movedTime={task.inprogress_date}
-                completedTime={task.deadline_date}
-                status={task.status}
-                taskID={task.id}
-                performers={task.performers}
-              />
-            ))}
-          </div>
-          <div className={styles.taskColumn}>
-            {doneTasks.map((task) => (
-              <Tasks
-                key={uuidv4()}
-                isLead={task.creator.is_team_lead}
-                text={task.description}
-                date={task.create_date}
-                headerText={task.creator.full_name}
-                ownTask={handleCheckTaskOwner(task.performers)}
-                startTime={task.create_date}
-                movedTime={task.inprogress_date}
-                completedTime={task.deadline_date}
-                status={task.status}
-                taskID={task.id}
-                performers={task.performers}
-              />
-            ))}
-          </div>
-          <div className={styles.taskColumn}>
-            {holdTasks.map((task) => (
-              <Tasks
-                key={uuidv4()}
-                isLead={task.creator.is_team_lead}
-                text={task.description}
-                date={task.create_date}
-                headerText={task.creator.full_name}
-                ownTask={handleCheckTaskOwner(task.performers)}
-                startTime={task.create_date}
-                movedTime={task.inprogress_date}
-                completedTime={task.deadline_date}
-                status={task.status}
-                taskID={task.id}
-                performers={task.performers}
-              />
-            ))}
-          </div>
         </div>
       </div>
     </div>

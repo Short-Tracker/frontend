@@ -2,18 +2,17 @@
 import React from 'react';
 import { UniversalButton } from 'ui-lib/Buttons';
 import { BallpenIcon, TrashIcon } from 'ui-lib/Icons';
-import styles from './TaskEditMenu.module.scss';
-import { useDispatch } from '../../services/hooks';
-import { updateTaskStore } from '../../store/taskSlice';
+import { useClose, useDispatch } from '../../services/hooks';
 import updateTaskThunk from '../../thunks/update-task-thunk';
 import { TPerformers } from '../../types/types';
-import createTaskThunk from '../../thunks/create-task-thunk';
+import styles from './TaskEditMenu.module.scss';
 // import { changeTaskStatus } from '../../store/taskSlice';
 
 export interface TaskEditMenuProps {
   isLead: boolean | null;
   ownTask: boolean;
   handleToggleEditMenu: () => void;
+  handleCloseEditMenu: () => void;
   status: string;
   taskID: number;
   performers: TPerformers[];
@@ -25,6 +24,7 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
   isLead,
   ownTask,
   handleToggleEditMenu,
+  handleCloseEditMenu,
   status,
   performers,
   deadlineDate,
@@ -32,6 +32,7 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
   taskID,
 }) => {
   const dispatch = useDispatch();
+  useClose(styles.container, handleCloseEditMenu);
   const notOwnLeadTask = isLead && !ownTask;
   const notOwnPerformerTask = !isLead && !ownTask;
 

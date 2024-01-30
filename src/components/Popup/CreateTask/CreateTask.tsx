@@ -75,7 +75,7 @@ const CreateTask = () => {
           className={`${styles.checkboxes__container} ${
             !showCheckboxesMenu && styles.checkboxes__show
           }`}
-          id="checkboxes"
+          id='checkboxes'
         >
           <div className={styles.checkboxes__mesh}>
             {users.map((item, index) => (
@@ -93,7 +93,7 @@ const CreateTask = () => {
       </div>
       <div className={styles.textarea__container}>
         <UniversalTextarea
-          label="Содержание задачи"
+          label='Содержание задачи'
           value={textareaValue}
           onChange={setTextareaValue}
         />
@@ -122,25 +122,25 @@ const CreateTask = () => {
         </div>
         <div className={styles.timeContainer}>
           <p className={styles.form__label}>Время (по МСК)</p>
-          <input className={styles.time} placeholder="--/--" />
+          <input className={styles.time} placeholder='--/--' />
         </div>
       </div>
       <div className={styles.linkInput}>
-        <UniversalInput id="task" label="Ссылка (необязательное поле)" />
+        <UniversalInput id='task' label='Ссылка (необязательное поле)' />
       </div>
       <div className={styles.button}>
         <UniversalButton
-          width="250px"
-          height="40px"
-          type="submit"
+          width='250px'
+          height='40px'
+          type='submit'
           className={styles.button__button}
           disabled={!checkboxValues || !textareaValue || !dateValue}
         >
           Создать
         </UniversalButton>
         <UniversalButton
-          width="250px"
-          height="40px"
+          width='250px'
+          height='40px'
           onClick={closeModalState}
           isFilled={false}
           className={styles.button__button}

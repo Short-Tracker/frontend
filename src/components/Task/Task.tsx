@@ -73,7 +73,7 @@ export const Task: React.FC<TaskProps> = ({
           <div
             className={styles.buttons}
             onClick={handleToggleEditMenu}
-            role="button"
+            role='button'
             tabIndex={0}
             onKeyDown={handleKeyDown}
           >

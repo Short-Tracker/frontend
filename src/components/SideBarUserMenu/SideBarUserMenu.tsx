@@ -1,22 +1,25 @@
-import { FC } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useClose, useDispatch } from 'services/hooks';
 import logoutUserThunk from 'thunks/logout-user-thunk';
-import { useDispatch } from 'services/hooks';
 import styles from './SideBarUserMenu.module.scss';
 
 type TProps = {
-  isOpen?: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-const SideBarUserMenu: FC<TProps> = ({ isOpen }) => {
+const SideBarUserMenu: FC<TProps> = ({ setIsOpen }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
     dispatch(logoutUserThunk(navigate));
   };
+  const handleClose = () => setIsOpen(false);
+  useClose(styles.section, handleClose);
+
   return (
-    <section className={`${!isOpen ? styles.sectionClose : styles.section}`}>
-      <button type="button" className={styles.button}>
+    <section className={styles.section}>
+      <button type='button' className={styles.button}>
         Личный кабинет
       </button>
       <button className={styles.button} onClick={handleLogout}>
@@ -24,10 +27,6 @@ const SideBarUserMenu: FC<TProps> = ({ isOpen }) => {
       </button>
     </section>
   );
-};
-
-SideBarUserMenu.defaultProps = {
-  isOpen: false,
 };
 
 export default SideBarUserMenu;

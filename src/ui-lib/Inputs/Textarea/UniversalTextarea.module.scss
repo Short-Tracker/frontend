@@ -9,7 +9,7 @@
     margin: 0;
     margin-bottom: 4px;
     color: v.$name-task;
-    @include m.S1
+    @include m.S1;
   }
 
   &__content {

@@ -22,11 +22,11 @@ const App = () => {
   return (
     <div className={styles.App}>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route element={<PrivateRoute path="/" />}>
-          <Route element={<Main />} path="/main" />
+        <Route path='/' element={<Login />} />
+        <Route element={<PrivateRoute path='/' />}>
+          <Route element={<Main />} path='/main' />
         </Route>
-        <Route path="/error" element={<Error />} />
+        <Route path='/error' element={<Error />} />
       </Routes>
       <Toaster />
       <Popup onClose={closeModalState} isOpen={createTaskModal}>

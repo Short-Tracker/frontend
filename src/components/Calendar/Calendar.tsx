@@ -32,7 +32,7 @@ const Calendar: FC<TProps> = (props) => {
       <ReactСalendar {...props} onChange={onChange} value={value} locale={ru.code} />
       <div className={styles.buttonWrapper}>
         <UniversalButton
-          type="submit"
+          type='submit'
           onClick={() => handleSubmit(formattedValue)}
           fontSize={12}
           width={248}
@@ -42,7 +42,7 @@ const Calendar: FC<TProps> = (props) => {
         </UniversalButton>
         <UniversalButton
           onClick={handleClose}
-          type="button"
+          type='button'
           fontSize={12}
           width={248}
           isFilled={false}

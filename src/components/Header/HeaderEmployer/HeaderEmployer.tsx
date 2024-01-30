@@ -16,30 +16,30 @@ const HeaderEmployer: FC = () => {
       <div className={styles.container}>
         <div className={styles.user}>
           <button className={styles.user_button}>
-            <img className={styles.user_photo} src={avatar} alt="Аватар пользователя" />
+            <img className={styles.user_photo} src={avatar} alt='Аватар пользователя' />
             <h1 className={styles.user_name}>Маша Васильева</h1>
           </button>
         </div>
 
         <ul className={styles.linkWrapper}>
           <li className={styles.navLi}>
-            <Link className={handleClassName('/objectives')} to="/objectives">
+            <Link className={handleClassName('/objectives')} to='/objectives'>
               Поставленные задачи
             </Link>
           </li>
           <li className={styles.navLi}>
-            <Link className={handleClassName('/tasks')} to="/tasks">
+            <Link className={handleClassName('/tasks')} to='/tasks'>
               Мои Задачи
             </Link>
           </li>
           <li className={styles.navLi}>
-            <Link className={handleClassName('/requests')} to="/requests">
+            <Link className={handleClassName('/requests')} to='/requests'>
               Запросы
               <span className={styles.count}>3</span>
             </Link>
           </li>
           <li className={styles.navLi}>
-            <Link className={handleClassName('/archive')} to="/archive">
+            <Link className={handleClassName('/archive')} to='/archive'>
               Архив
             </Link>
           </li>

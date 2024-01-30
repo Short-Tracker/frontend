@@ -23,14 +23,14 @@ const AuthorizationForm = () => {
   return (
     <form className={styles.AuthorizationForm} onSubmit={onSubmitLogin}>
       <div className={styles.AuthorizationForm__container}>
-        <EmailInput id="email" name="email" onChange={handleChange} />
-        <PasswordInput id="password" name="password" onChange={handleChange} />
+        <EmailInput id='email' name='email' onChange={handleChange} />
+        <PasswordInput id='password' name='password' onChange={handleChange} />
       </div>
-      <NavLink to="pass" className={styles.AuthorizationForm__question}>
+      <NavLink to='pass' className={styles.AuthorizationForm__question}>
         Забыли пароль?
       </NavLink>
       <div className={styles.AuthorizationForm__marginAfterButton}>
-        <UniversalButton type="submit">Войти</UniversalButton>
+        <UniversalButton type='submit'>Войти</UniversalButton>
       </div>
     </form>
   );

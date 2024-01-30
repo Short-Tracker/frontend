@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'services/hooks';
 import Login from 'pages/Login/Login';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'services/hooks';
 import getTaskThunk from 'thunks/get-task-thunks';
-import { TTask } from 'types/types';
 import getUsersThunk from 'thunks/get-users-thunks';
+import { TTask } from 'types/types';
 import Lead from './Lead/Lead';
-import User from './User/User';
 import styles from './Main.module.scss';
-import store from '../../store/store';
+import User from './User/User';
 
 const Main = () => {
   const [isUpdated, setIsUpdated] = useState<boolean>(false);

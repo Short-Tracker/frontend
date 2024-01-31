@@ -3,6 +3,7 @@ import Logo from 'components/Logo/Logo';
 import AuthorizationForm from 'components/Forms/AuthorizationForm/AuthorizationForm';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'services/hooks';
+import NewEmployee from 'components/NewEmployee/NewEmployee';
 import styles from './Login.module.scss';
 
 const Login = () => {
@@ -20,6 +21,7 @@ const Login = () => {
       </div>
       <h1 className={styles.Login__title}>Добро пожаловать в Шорт-трекер</h1>
       <AuthorizationForm />
+      <NewEmployee />
     </main>
   );
 };

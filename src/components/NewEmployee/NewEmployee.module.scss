@@ -1,0 +1,31 @@
+@use '../../globalStyles/variables.scss' as v;
+@use '../../globalStyles/mixins.scss' as m;
+
+.newEmployeeContainer {
+  width: 509px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.newEmployeeWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nameEmployee {
+  width: 246.5px;
+  border-radius: 8px;
+  border: 1px solid v.$disabled-color;
+  @include m.BodyLarge;
+}
+
+.newEmployeeAddButton {
+  width: 246.5px;
+  // background-color: v.$accent-color;
+  // color: v.$white-color;
+}
+
+.newEmployeeButton {
+  width: 246.5px;
+}

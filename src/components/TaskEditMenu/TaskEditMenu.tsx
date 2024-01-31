@@ -2,18 +2,17 @@
 import React from 'react';
 import { UniversalButton } from 'ui-lib/Buttons';
 import { BallpenIcon, TrashIcon } from 'ui-lib/Icons';
-import styles from './TaskEditMenu.module.scss';
-import { useDispatch } from '../../services/hooks';
-import { updateTaskStore } from '../../store/taskSlice';
+import { useClose, useDispatch } from '../../services/hooks';
 import updateTaskThunk from '../../thunks/update-task-thunk';
 import { TPerformers } from '../../types/types';
-import createTaskThunk from '../../thunks/create-task-thunk';
+import styles from './TaskEditMenu.module.scss';
 // import { changeTaskStatus } from '../../store/taskSlice';
 
 export interface TaskEditMenuProps {
   isLead: boolean | null;
   ownTask: boolean;
   handleToggleEditMenu: () => void;
+  handleCloseEditMenu: () => void;
   status: string;
   taskID: number;
   performers: TPerformers[];
@@ -25,6 +24,7 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
   isLead,
   ownTask,
   handleToggleEditMenu,
+  handleCloseEditMenu,
   status,
   performers,
   deadlineDate,
@@ -32,6 +32,7 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
   taskID,
 }) => {
   const dispatch = useDispatch();
+  useClose(styles.container, handleCloseEditMenu);
   const notOwnLeadTask = isLead && !ownTask;
   const notOwnPerformerTask = !isLead && !ownTask;
 
@@ -71,7 +72,7 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
           <div
             className={styles.edit_button}
             onClick={handleToggleEditMenu}
-            role="button"
+            role='button'
             tabIndex={0}
             onKeyDown={handleKeyDown}
           >
@@ -81,7 +82,7 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
           <div
             className={styles.edit_button}
             onClick={handleToggleEditMenu}
-            role="button"
+            role='button'
             tabIndex={0}
             onKeyDown={handleKeyDown}
           >
@@ -97,8 +98,8 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
           <label className={styles.status_radiobutton}>
             <input
               className={styles.status_radiobutton_input}
-              type="radio"
-              value="to do"
+              type='radio'
+              value='to do'
               checked={currentStatus === 'to do'}
               onChange={onChange}
             />
@@ -107,8 +108,8 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
           <label className={styles.status_radiobutton}>
             <input
               className={styles.status_radiobutton_input}
-              type="radio"
-              value="in progress"
+              type='radio'
+              value='in progress'
               checked={currentStatus === 'in progress'}
               onChange={onChange}
             />
@@ -117,8 +118,8 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
           <label className={styles.status_radiobutton}>
             <input
               className={styles.status_radiobutton_input}
-              type="radio"
-              value="done"
+              type='radio'
+              value='done'
               checked={currentStatus === 'done'}
               onChange={onChange}
             />
@@ -137,8 +138,8 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
           <label className={styles.status_radiobutton}>
             <input
               className={styles.status_radiobutton_input}
-              type="radio"
-              value="hold"
+              type='radio'
+              value='hold'
               checked={currentStatus === 'hold'}
               onChange={onChange}
             />
@@ -146,7 +147,7 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
           </label>
           <UniversalButton
             className={styles.status_button}
-            type="button"
+            type='button'
             onClick={updateTaskStatus}
           >
             <p className={styles.status_button_text}>Переместить</p>

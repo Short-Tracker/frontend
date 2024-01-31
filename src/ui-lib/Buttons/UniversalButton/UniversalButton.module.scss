@@ -12,7 +12,7 @@
   background: v.$accent-color;
   color: var(--white, v.$white-color);
 
-  @include m.ButtonLarge;
+  @include m.Button;
   @include m.noselect;
 
   &:hover {
@@ -21,12 +21,12 @@
 
   &:disabled {
     background: v.$disabled-color;
-    cursor:no-drop;
+    cursor: no-drop;
   }
 }
 
 .emptyButton {
-  @include m.ButtonLarge;
+  @include m.Button;
   @include m.noselect;
 
   display: flex;
@@ -35,11 +35,11 @@
 
   outline: none;
   cursor: pointer;
-  
+
   border-radius: 8px;
   border: 1px solid var(--accent, v.$accent-color);
 
-  background-color: v.$white-color;
+  background-color: transparent;
   color: v.$accent-color;
   white-space: nowrap;
 
@@ -52,6 +52,6 @@
   &:disabled {
     color: v.$disabled-color;
     border: 1px solid var(--accent, v.$disabled-color);
-    cursor:no-drop;
+    cursor: no-drop;
   }
 }

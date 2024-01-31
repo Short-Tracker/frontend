@@ -13,8 +13,8 @@ const ModalWindow: FC<ModalWindowProps> = ({ onClose, title }) => {
         <div className={styles.titleBlock}>
           <button
             className={styles.buttonClose}
-            type="button"
-            aria-label="Кнопка закрыть"
+            type='button'
+            aria-label='Кнопка закрыть'
             onClick={onClose}
           >
             X

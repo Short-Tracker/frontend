@@ -1,30 +1,30 @@
 @use '../../../globalStyles/variables.scss' as v;
 @use '../../../globalStyles/mixins.scss' as m;
 .AuthorizationForm {
-    max-width: 320px;
-    max-height: 285px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: v.$white-color;
-    border-radius: 12px;
-    margin-top: 60px;
+  max-width: 320px;
+  max-height: 285px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: v.$white-color;
+  border-radius: 12px;
+  margin-top: 60px;
 
-    &__container{
-        padding: 32px 32px 12px 32px;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    &__question {
-        @include m.LinkS;
-        margin-bottom: 28px;
-        color: v.$name-task;
-        text-decoration: none;
-    }
-    &__marginAfterButton {
-        margin-bottom: 32px;
-    }
+  &__container {
+    padding: 32px 32px 12px 32px;
+    width: 100%;
+    display: grid;
+    gap: 12px;
+    align-items: center;
+  }
+  &__question {
+    @include m.LinkS;
+    margin-bottom: 28px;
+    color: v.$name-task;
+    text-decoration: none;
+  }
+  &__marginAfterButton {
+    margin-bottom: 32px;
+  }
 }

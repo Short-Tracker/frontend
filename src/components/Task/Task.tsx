@@ -1,9 +1,12 @@
-import React from 'react';
-import { ClockIcon, CommentsIcon, FlagIcon } from 'ui-lib/Icons';
-import EditButton from 'ui-lib/Buttons/editTaskButton/editTaskButton';
 import { TaskEditMenu } from 'components/TaskEditMenu/TaskEditMenu';
-import styles from './Task.module.scss';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'services/hooks';
+import { resetActiveMenu, setActiveMenu } from 'store/taskMenuActiveSlice';
+import EditButton from 'ui-lib/Buttons/editTaskButton/editTaskButton';
+import { ClockIcon, CommentsIcon, FlagIcon } from 'ui-lib/Icons';
 import { TPerformers } from '../../types/types';
+import styles from './Task.module.scss';
 
 // содержимое карточки
 export interface TaskProps {
@@ -30,13 +33,33 @@ export const Task: React.FC<TaskProps> = ({
   completedTime,
 }) => {
   const [isMenuOpened, setIsMenuOpened] = React.useState(false);
+  const dispatch = useDispatch();
+  const taskMenuActiveId = useSelector((state) => state.taskMenuActive).value;
 
   const handleToggleEditMenu = () => {
-    setIsMenuOpened(!isMenuOpened);
+    if (isMenuOpened) {
+      setIsMenuOpened(false);
+      dispatch(resetActiveMenu());
+    } else {
+      setIsMenuOpened(true);
+      dispatch(setActiveMenu(taskID));
+    }
   };
+
+  const handleCloseEditMenu = () => {
+    setIsMenuOpened(false);
+  };
+
+  useEffect(() => {
+    if (taskMenuActiveId !== taskID && isMenuOpened) {
+      setIsMenuOpened(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [taskMenuActiveId, isMenuOpened]);
 
   const handleKeyDown = (evt: React.KeyboardEvent) => {
     if (evt.key === 'Enter' || evt.key === ' ') {
+      evt.preventDefault();
       handleToggleEditMenu();
     }
   };
@@ -57,6 +80,7 @@ export const Task: React.FC<TaskProps> = ({
             isLead={isLead}
             ownTask={ownTask}
             handleToggleEditMenu={handleToggleEditMenu}
+            handleCloseEditMenu={handleCloseEditMenu}
             status={status}
             taskID={taskID}
             performers={performers}
@@ -73,7 +97,7 @@ export const Task: React.FC<TaskProps> = ({
           <div
             className={styles.buttons}
             onClick={handleToggleEditMenu}
-            role="button"
+            role='button'
             tabIndex={0}
             onKeyDown={handleKeyDown}
           >

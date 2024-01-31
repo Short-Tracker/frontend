@@ -53,7 +53,7 @@ const taskSlice = createSlice({
     }),
     updateTaskStore(state, action: PayloadAction<TUpdateStore>) {
       const elemIndex = current(state).results.findIndex(
-        (elem) => elem.id === action.payload.id
+        (elem) => elem.id === Number(action.payload.id)
       );
       state.results[elemIndex].status = action.payload.res.status;
     },

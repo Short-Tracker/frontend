@@ -16,7 +16,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
   }
   &__question {
     @include m.LinkS;
@@ -27,4 +27,10 @@
   &__marginAfterButton {
     margin-bottom: 32px;
   }
+}
+
+.error {
+  color: v.$error;
+  @include m.Description;
+  margin-top: 4px;
 }

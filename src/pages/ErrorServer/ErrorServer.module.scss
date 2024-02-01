@@ -24,6 +24,7 @@
 .subtitle {
   margin: 8px 0 28px 0;
   @include m.Status;
+  cursor: pointer;
 }
 
 .subtitleReload {

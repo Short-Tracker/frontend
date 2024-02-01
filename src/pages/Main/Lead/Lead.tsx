@@ -1,15 +1,16 @@
+import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
 import Search from 'components/Search/Search';
 import SideBar from 'components/SideBar/SideBar';
-import Tasks from 'pages/Tasks/Tasks';
-import React, { FC, useEffect, useState } from 'react';
-import { UniversalButton } from 'ui-lib/Buttons';
 import Status from 'components/Status/Status';
-import { TPerformers, TResults, TTask } from 'types/types';
+import Tasks from 'pages/Tasks/Tasks';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'services/hooks';
 import { openCreateTaskModal } from 'store';
-import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import styles from './Lead.module.scss';
+import { resetActiveMenu } from 'store/taskMenuActiveSlice';
+import { TPerformers, TResults, TTask } from 'types/types';
+import { UniversalButton } from 'ui-lib/Buttons';
 import updateTaskThunk from '../../../thunks/update-task-thunk';
+import styles from './Lead.module.scss';
 
 interface ITaskSort {
   tasksArray: TResults[];
@@ -19,6 +20,10 @@ interface ITaskSort {
 
 const TaskSort: FC<ITaskSort> = (props) => {
   const { tasksArray, handleCheckTaskOwner, droppableId } = props;
+
+  const { is_team_lead: isCurrentUserLead, id: currentUserId } = useSelector(
+    (state) => state.user
+  );
 
   const getStyle = (style: any, snapshot: any) => {
     if (!snapshot.isDragging) return {};
@@ -48,7 +53,6 @@ const TaskSort: FC<ITaskSort> = (props) => {
                     style={getStyle(provided.draggableProps.style, snapshot)}
                   >
                     <Tasks
-                      isLead={task.creator.is_team_lead}
                       text={task.description}
                       date={task.create_date}
                       headerText={task.creator.full_name}
@@ -58,7 +62,9 @@ const TaskSort: FC<ITaskSort> = (props) => {
                       completedTime={task.deadline_date}
                       status={task.status}
                       taskID={task.id}
-                      performers={task.performers}
+                      taskCreatorId={task.creator.id}
+                      isCurrentUserLead={isCurrentUserLead}
+                      currentUserId={currentUserId}
                     />
                   </div>
                 )}
@@ -129,6 +135,8 @@ const Lead: FC<ITaskCard> = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [results]);
 
+  const onDragStart = () => dispatch(resetActiveMenu());
+
   const onDragEnd = (result: any) => {
     const { source, destination, draggableId } = result;
 
@@ -175,7 +183,7 @@ const Lead: FC<ITaskCard> = (props) => {
         </div>
         <Status />
         <div className={styles.tasksWrapper}>
-          <DragDropContext onDragEnd={onDragEnd}>
+          <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
             <TaskSort
               tasksArray={todoTasks}
               handleCheckTaskOwner={handleCheckTaskOwner}

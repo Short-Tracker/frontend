@@ -4,39 +4,49 @@ import { UniversalButton } from 'ui-lib/Buttons';
 import { BallpenIcon, TrashIcon } from 'ui-lib/Icons';
 import { useClose, useDispatch } from '../../services/hooks';
 import updateTaskThunk from '../../thunks/update-task-thunk';
-import { TPerformers } from '../../types/types';
 import styles from './TaskEditMenu.module.scss';
 // import { changeTaskStatus } from '../../store/taskSlice';
 
 export interface TaskEditMenuProps {
-  isLead: boolean | null;
   ownTask: boolean;
   handleToggleEditMenu: () => void;
   handleCloseEditMenu: () => void;
   status: string;
   taskID: number;
-  performers: TPerformers[];
   deadlineDate: string;
   description: string;
+  taskCreatorId: number;
+  isCurrentUserLead: boolean;
+  currentUserId: number;
 }
 
 export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
-  isLead,
   ownTask,
   handleToggleEditMenu,
   handleCloseEditMenu,
   status,
-  performers,
   deadlineDate,
   description,
   taskID,
+  taskCreatorId,
+  isCurrentUserLead,
+  currentUserId,
 }) => {
+  const [currentStatus, setStatus] = React.useState(status);
   const dispatch = useDispatch();
   useClose(styles.container, handleCloseEditMenu);
-  const notOwnLeadTask = isLead && !ownTask;
-  const notOwnPerformerTask = !isLead && !ownTask;
 
-  const [currentStatus, setStatus] = React.useState(status);
+  const isTaskEditable = currentUserId === taskCreatorId;
+  const isStatusEditable = isTaskEditable || ownTask;
+
+  const isArchivedVisible =
+    status === 'archived' || (status === 'done' && isCurrentUserLead);
+  const isHoldVisible = status === 'hold' || status === 'in progress';
+  const isDoneVisible = status === 'done' || status === 'in progress';
+  const isInProgressVisible = status === 'in progress' || status === 'to do';
+  const isToDoVisible =
+    status === 'to do' || (status === 'archived' && isCurrentUserLead);
+
   const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setStatus(evt.target.value);
   };
@@ -66,8 +76,7 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
     <div className={styles.container}>
       {/* Кнопки отображаются у лида для задачи сотруднику, */}
       {/* а также у лида и сотрудника для своей задачи */}
-      {/* как применить условие ИЛИ? */}
-      {(notOwnLeadTask || ownTask) && (
+      {isTaskEditable && (
         <div className={styles.edit_buttons}>
           <div
             className={styles.edit_button}
@@ -79,72 +88,84 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
             <BallpenIcon />
             Редактировать
           </div>
-          <div
-            className={styles.edit_button}
-            onClick={handleToggleEditMenu}
-            role='button'
-            tabIndex={0}
-            onKeyDown={handleKeyDown}
-          >
-            <TrashIcon />
-            Удалить
-          </div>
+          {(status === 'done' || status === 'archived') && (
+            <div
+              className={styles.edit_button}
+              onClick={handleToggleEditMenu}
+              role='button'
+              tabIndex={0}
+              onKeyDown={handleKeyDown}
+            >
+              <TrashIcon />
+              Удалить
+            </div>
+          )}
         </div>
       )}
       {/* Смена статуса отображаются для своих задач */}
       {/* и задачи у сотрудника от лида */}
-      {(notOwnPerformerTask || ownTask) && (
+      {isStatusEditable && (
         <form className={styles.status}>
-          <label className={styles.status_radiobutton}>
-            <input
-              className={styles.status_radiobutton_input}
-              type='radio'
-              value='to do'
-              checked={currentStatus === 'to do'}
-              onChange={onChange}
-            />
-            Todo
-          </label>
-          <label className={styles.status_radiobutton}>
-            <input
-              className={styles.status_radiobutton_input}
-              type='radio'
-              value='in progress'
-              checked={currentStatus === 'in progress'}
-              onChange={onChange}
-            />
-            In progress
-          </label>
-          <label className={styles.status_radiobutton}>
-            <input
-              className={styles.status_radiobutton_input}
-              type='radio'
-              value='done'
-              checked={currentStatus === 'done'}
-              onChange={onChange}
-            />
-            Done
-          </label>
-          {/* <label className={styles.status_radiobutton}> */}
-          {/*  <input */}
-          {/*    className={styles.status_radiobutton_input} */}
-          {/*    type="radio" */}
-          {/*    value="archived" */}
-          {/*    checked={currentStatus === 'archived'} */}
-          {/*    onChange={onChange} */}
-          {/*  /> */}
-          {/*  Archived */}
-          {/* </label> */}
-          <label className={styles.status_radiobutton}>
-            <input
-              className={styles.status_radiobutton_input}
-              type='radio'
-              value='hold'
-              checked={currentStatus === 'hold'}
-              onChange={onChange}
-            />
-            Hold
-          </label>
+          {isToDoVisible && (
+            <label className={styles.status_radiobutton}>
+              <input
+                className={styles.status_radiobutton_input}
+                type='radio'
+                value='to do'
+                checked={currentStatus === 'to do'}
+                onChange={onChange}
+              />
+              Todo
+            </label>
+          )}
+          {isInProgressVisible && (
+            <label className={styles.status_radiobutton}>
+              <input
+                className={styles.status_radiobutton_input}
+                type='radio'
+                value='in progress'
+                checked={currentStatus === 'in progress'}
+                onChange={onChange}
+              />
+              In progress
+            </label>
+          )}
+          {isDoneVisible && (
+            <label className={styles.status_radiobutton}>
+              <input
+                className={styles.status_radiobutton_input}
+                type='radio'
+                value='done'
+                checked={currentStatus === 'done'}
+                onChange={onChange}
+              />
+              Done
+            </label>
+          )}
+          {isHoldVisible && (
+            <label className={styles.status_radiobutton}>
+              <input
+                className={styles.status_radiobutton_input}
+                type='radio'
+                value='hold'
+                checked={currentStatus === 'hold'}
+                onChange={onChange}
+              />
+              Hold
+            </label>
+          )}
+          {isArchivedVisible && (
+            <label className={styles.status_radiobutton}>
+              <input
+                className={styles.status_radiobutton_input}
+                type='radio'
+                value='archived'
+                checked={currentStatus === 'archived'}
+                onChange={onChange}
+              />
+              Hold
+            </label>
+          )}
           <UniversalButton
             className={styles.status_button}
             type='button'

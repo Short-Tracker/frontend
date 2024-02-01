@@ -5,7 +5,6 @@ import { useSelector } from 'services/hooks';
 import { resetActiveMenu, setActiveMenu } from 'store/taskMenuActiveSlice';
 import EditButton from 'ui-lib/Buttons/editTaskButton/editTaskButton';
 import { ClockIcon, CommentsIcon, FlagIcon } from 'ui-lib/Icons';
-import { TPerformers } from '../../types/types';
 import styles from './Task.module.scss';
 
 // содержимое карточки
@@ -13,24 +12,26 @@ export interface TaskProps {
   text: string;
   date: string;
   headerText: string;
-  isLead: boolean | null;
   ownTask: boolean;
   status: string;
   taskID: number;
-  performers: TPerformers[];
   completedTime: string;
+  taskCreatorId: number;
+  isCurrentUserLead: boolean;
+  currentUserId: number;
 }
 
 export const Task: React.FC<TaskProps> = ({
   text,
   date,
   headerText,
-  isLead,
   ownTask,
   status,
   taskID,
-  performers,
   completedTime,
+  taskCreatorId,
+  isCurrentUserLead,
+  currentUserId,
 }) => {
   const [isMenuOpened, setIsMenuOpened] = React.useState(false);
   const dispatch = useDispatch();
@@ -67,7 +68,7 @@ export const Task: React.FC<TaskProps> = ({
   return (
     <div className={styles.container}>
       {/* Шапка отображается только для лида для не своей задачи */}
-      {isLead && !ownTask && (
+      {isCurrentUserLead && currentUserId !== taskCreatorId && (
         <div className={styles.task_header}>
           <ClockIcon />
           <p className={styles.task_header_text}>{headerText}</p>
@@ -77,15 +78,16 @@ export const Task: React.FC<TaskProps> = ({
         {/* Открытие меню редактирования */}
         {isMenuOpened && (
           <TaskEditMenu
-            isLead={isLead}
             ownTask={ownTask}
             handleToggleEditMenu={handleToggleEditMenu}
             handleCloseEditMenu={handleCloseEditMenu}
             status={status}
             taskID={taskID}
-            performers={performers}
             deadlineDate={completedTime}
             description={text}
+            taskCreatorId={taskCreatorId}
+            isCurrentUserLead={isCurrentUserLead}
+            currentUserId={currentUserId}
           />
         )}
 

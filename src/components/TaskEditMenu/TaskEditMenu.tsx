@@ -170,6 +170,7 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
             className={styles.status_button}
             type='button'
             onClick={updateTaskStatus}
+            disabled={status === currentStatus}
           >
             <p className={styles.status_button_text}>Переместить</p>
           </UniversalButton>

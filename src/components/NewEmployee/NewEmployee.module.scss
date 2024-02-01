@@ -10,6 +10,7 @@
 
 .newEmployeeWrapper {
   display: flex;
+  gap: 16px;
   justify-content: space-between;
 }
 
@@ -20,12 +21,20 @@
   @include m.BodyLarge;
 }
 
+.invalidInput {
+  border: 1px solid v.$error;
+}
+
 .newEmployeeAddButton {
   width: 246.5px;
-  // background-color: v.$accent-color;
-  // color: v.$white-color;
 }
 
 .newEmployeeButton {
   width: 246.5px;
+}
+
+.errorText {
+  color: v.$error;
+  @include m.Description;
+  margin-top: -10px;
 }

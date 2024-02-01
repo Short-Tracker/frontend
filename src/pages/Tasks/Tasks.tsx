@@ -1,9 +1,7 @@
 import { FC } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import styles from './Tasks.module.scss';
 
-import { TaskProps, Task } from '../../components/Task/Task';
+import { Task, TaskProps } from '../../components/Task/Task';
 import { TaskStateProps } from '../../components/TaskState/TaskState';
 
 const Tasks: FC<TaskProps & TaskStateProps> = (props) => {

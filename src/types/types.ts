@@ -21,7 +21,7 @@ export type TUser2 = {
   last_name: string;
   telegram_nickname: string;
   username: string | null;
-  id: string;
+  id: number;
 };
 
 export type Tusers = {
@@ -80,3 +80,11 @@ export type TCreateTask = {
   link: string;
   performers: number[];
 };
+
+export enum TaskStatus {
+  TO_DO = 'to do',
+  IN_PROGRESS = 'in progress',
+  HOLD = 'hold',
+  DONE = 'done',
+  ARCHIVED = 'archived',
+}

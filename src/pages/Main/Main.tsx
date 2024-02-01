@@ -12,7 +12,7 @@ const Main = () => {
   const [isUpdated, setIsUpdated] = useState<boolean>(false);
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state) => state.system);
-  const isLead = useSelector((state) => state.user);
+  const isLead = useSelector((state) => state.user).is_team_lead;
   const tasks: TTask = useSelector((state) => state.task);
 
   useEffect(() => {

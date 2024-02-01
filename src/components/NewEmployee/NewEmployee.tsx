@@ -34,17 +34,17 @@ const NewEmployee = () => {
           />
         </div>
         <UniversalInput
-          className={`${additionalStyles.input} ${!isValid ? styles.invalidInput : ''}`}
+          className={`${additionalStyles.input} ${isValid ? styles.invalidInput : ''}`}
           id={nickname}
           label='Telegram'
           placeholder='@BorKate'
         />
-        {!isValid && <p className={styles.errorText}>{errorText}</p>}
+        {isValid && <p className={styles.errorText}>{errorText}</p>}
         <EmailInput
-          className={`${additionalStyles.input} ${!isValid ? styles.invalidInput : ''}`}
+          className={`${additionalStyles.input} ${isValid ? styles.invalidInput : ''}`}
           id={email}
         />
-        {!isValid && <p className={styles.errorText}>{errorText}</p>}
+        {isValid && <p className={styles.errorText}>{errorText}</p>}
         <PasswordInput id={password} />
         <div className={styles.newEmployeeWrapper}>
           <UniversalButton className={styles.newEmployeeAddButton} width={246.5}>

@@ -11,8 +11,9 @@ import {
 import { lid } from 'assets/images'; // Initial image
 import SideBarUser from 'components/SideBarUser/SideBarUser';
 import SideBarUserMenu from 'components/SideBarUserMenu/SideBarUserMenu';
-import React, { useState } from 'react';
-import { useSelector } from 'services/hooks';
+import React, { KeyboardEvent, useState } from 'react';
+import { useDispatch, useSelector } from 'services/hooks';
+import { getAllTeamTasks } from 'store/tasksOfUserSlice';
 import { TTask } from 'types/types';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './SideBar.module.scss';
@@ -21,11 +22,19 @@ const SideBar: React.FC = () => {
   const currentUser = useSelector((state) => state.user);
   const tasks: TTask = useSelector((state) => state.task);
   const currentUsers = useSelector((state) => state.users);
-
+  const dispatch = useDispatch();
   const [isSidebarMenuOpen, setisSidebarMenuOpen] = useState(false);
 
   const handleToggleMenu = () => {
     setisSidebarMenuOpen(!isSidebarMenuOpen);
+  };
+
+  const showAllTasks = () => dispatch(getAllTeamTasks());
+  const handleKeyDown = (evt: KeyboardEvent) => {
+    if (evt.key === 'Enter' || evt.key === ' ') {
+      evt.preventDefault();
+      showAllTasks();
+    }
   };
 
   return (
@@ -81,10 +90,16 @@ const SideBar: React.FC = () => {
       <ul className={styles.membersWrapper}>
         <li className={styles.teamLi}>
           <img src={AllTeamIcon} className={styles.navImage} alt='иконка' />
-          <button className={styles.allTeamButton}>Вся команда</button>
+          <button
+            className={styles.allTeamButton}
+            onClick={showAllTasks}
+            onKeyDown={handleKeyDown}
+          >
+            Вся команда
+          </button>
         </li>
         {currentUsers.results.map((user) => {
-          return <SideBarUser fullName={user.first_name} key={uuidv4()} />;
+          return <SideBarUser fullName={user.first_name} id={user.id} key={uuidv4()} />;
         })}
       </ul>
     </section>

@@ -21,7 +21,7 @@ export type TUser2 = {
   last_name: string;
   telegram_nickname: string;
   username: string | null;
-  id: string;
+  id: number;
 };
 
 export type Tusers = {

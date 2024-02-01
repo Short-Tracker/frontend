@@ -1,25 +1,24 @@
+import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
 import Search from 'components/Search/Search';
 import SideBar from 'components/SideBar/SideBar';
-import Tasks from 'pages/Tasks/Tasks';
-import React, { FC, useEffect, useState } from 'react';
-import { UniversalButton } from 'ui-lib/Buttons';
 import Status from 'components/Status/Status';
-import { TPerformers, TResults, TTask } from 'types/types';
+import Tasks from 'pages/Tasks/Tasks';
+import { FC, useEffect, useMemo, useState } from 'react';
+import { handleCheckIfTaskForMe } from 'services/functions';
 import { useDispatch, useSelector } from 'services/hooks';
 import { openCreateTaskModal } from 'store';
-import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import styles from './Lead.module.scss';
+import { TResults, TTask } from 'types/types';
+import { UniversalButton } from 'ui-lib/Buttons';
 import updateTaskThunk from '../../../thunks/update-task-thunk';
+import styles from './Lead.module.scss';
 
 interface ITaskSort {
   tasksArray: TResults[];
-  handleCheckTaskOwner: (performers: TPerformers[]) => boolean;
   droppableId: string;
+  currentUserId: number;
 }
 
-const TaskSort: FC<ITaskSort> = (props) => {
-  const { tasksArray, handleCheckTaskOwner, droppableId } = props;
-
+const TaskSort: FC<ITaskSort> = ({ tasksArray, droppableId, currentUserId }) => {
   const getStyle = (style: any, snapshot: any) => {
     if (!snapshot.isDragging) return {};
     if (!snapshot.isDropAnimating) {
@@ -52,7 +51,7 @@ const TaskSort: FC<ITaskSort> = (props) => {
                       text={task.description}
                       date={task.create_date}
                       headerText={task.creator.full_name}
-                      ownTask={handleCheckTaskOwner(task.performers)}
+                      ownTask={handleCheckIfTaskForMe(currentUserId, task.performers)}
                       startTime={task.create_date}
                       movedTime={task.inprogress_date}
                       completedTime={task.deadline_date}
@@ -75,12 +74,19 @@ interface ITaskCard {
   allTasks: TTask;
 }
 
-const Lead: FC<ITaskCard> = (props) => {
-  const { allTasks } = props;
+const Lead: FC<ITaskCard> = ({ allTasks }) => {
   const { count, results } = allTasks;
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.user);
-
+  const tasksOfUserId = useSelector((state) => state.tasksOfUser).id;
+  const resultsToRender = useMemo(
+    () =>
+      tasksOfUserId !== -1
+        ? results.filter((task) => handleCheckIfTaskForMe(tasksOfUserId, task.performers))
+        : results,
+    [results, tasksOfUserId]
+  );
+  console.log(resultsToRender);
   const openCreateTask = () => {
     dispatch(openCreateTaskModal());
   };
@@ -97,18 +103,18 @@ const Lead: FC<ITaskCard> = (props) => {
     const done: TResults[] = [];
     const hold: TResults[] = [];
     // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < results.length; i++) {
-      if (results[i].status === 'to do') {
-        todo.push(results[i]);
+    for (let i = 0; i < resultsToRender.length; i++) {
+      if (resultsToRender[i].status === 'to do') {
+        todo.push(resultsToRender[i]);
       }
-      if (results[i].status === 'in progress') {
-        inProgress.push(results[i]);
+      if (resultsToRender[i].status === 'in progress') {
+        inProgress.push(resultsToRender[i]);
       }
-      if (results[i].status === 'done') {
-        done.push(results[i]);
+      if (resultsToRender[i].status === 'done') {
+        done.push(resultsToRender[i]);
       }
-      if (results[i].status === 'hold') {
-        hold.push(results[i]);
+      if (resultsToRender[i].status === 'hold') {
+        hold.push(resultsToRender[i]);
       }
     }
     setTodoTasks(todo);
@@ -116,18 +122,11 @@ const Lead: FC<ITaskCard> = (props) => {
     setDoneTasks(done);
     setHoldTasks(hold);
   };
-  // Проверка есть ли текущий пользователь в списке
-  const handleCheckTaskOwner = (performers: TPerformers[]) => {
-    const res = performers.filter((user) => user.full_name === currentUser.full_name);
-    return res.length > 0;
-  };
 
   useEffect(() => {
-    if (results.length >= 1) {
-      parseTasks();
-    }
+    parseTasks();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [results]);
+  }, [resultsToRender]);
 
   const onDragEnd = (result: any) => {
     const { source, destination, draggableId } = result;
@@ -178,23 +177,23 @@ const Lead: FC<ITaskCard> = (props) => {
           <DragDropContext onDragEnd={onDragEnd}>
             <TaskSort
               tasksArray={todoTasks}
-              handleCheckTaskOwner={handleCheckTaskOwner}
               droppableId='to do'
+              currentUserId={currentUser.id}
             />
             <TaskSort
               tasksArray={inProgressTasks}
-              handleCheckTaskOwner={handleCheckTaskOwner}
               droppableId='in progress'
+              currentUserId={currentUser.id}
             />
             <TaskSort
               tasksArray={doneTasks}
-              handleCheckTaskOwner={handleCheckTaskOwner}
               droppableId='done'
+              currentUserId={currentUser.id}
             />
             <TaskSort
               tasksArray={holdTasks}
-              handleCheckTaskOwner={handleCheckTaskOwner}
               droppableId='hold'
+              currentUserId={currentUser.id}
             />
           </DragDropContext>
         </div>

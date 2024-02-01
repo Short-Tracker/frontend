@@ -7,7 +7,8 @@ import { FC, useEffect, useMemo, useState } from 'react';
 import { handleCheckIfTaskForMe } from 'services/functions';
 import { useDispatch, useSelector } from 'services/hooks';
 import { openCreateTaskModal } from 'store';
-import { TResults, TTask } from 'types/types';
+import { resetActiveMenu } from 'store/taskMenuActiveSlice';
+import { TResults, TTask, TaskStatus } from 'types/types';
 import { UniversalButton } from 'ui-lib/Buttons';
 import updateTaskThunk from '../../../thunks/update-task-thunk';
 import styles from './Lead.module.scss';
@@ -15,10 +16,9 @@ import styles from './Lead.module.scss';
 interface ITaskSort {
   tasksArray: TResults[];
   droppableId: string;
-  currentUserId: number;
 }
 
-const TaskSort: FC<ITaskSort> = ({ tasksArray, droppableId, currentUserId }) => {
+const TaskSort: FC<ITaskSort> = ({ tasksArray, droppableId }) => {
   const { is_team_lead: isCurrentUserLead, id: currentUserId } = useSelector(
     (state) => state.user
   );
@@ -118,7 +118,7 @@ const Lead: FC<ITaskCard> = ({ allTasks }) => {
       if (resultsToRender[i].status === TaskStatus.DONE) {
         done.push(resultsToRender[i]);
       }
-      if (results[i].status === 'hold') {
+      if (resultsToRender[i].status === TaskStatus.HOLD) {
         hold.push(results[i]);
       }
     }
@@ -126,11 +126,6 @@ const Lead: FC<ITaskCard> = ({ allTasks }) => {
     setInProgressTasks(inProgress);
     setDoneTasks(done);
     setHoldTasks(hold);
-  };
-  // Проверка есть ли текущий пользователь в списке
-  const handleCheckTaskOwner = (performers: TPerformers[]) => {
-    const res = performers.filter((user) => user.full_name === currentUser.full_name);
-    return res.length > 0;
   };
 
   useEffect(() => {
@@ -209,26 +204,10 @@ const Lead: FC<ITaskCard> = ({ allTasks }) => {
         <Status />
         <div className={styles.tasksWrapper}>
           <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
-            <TaskSort
-              tasksArray={todoTasks}
-              handleCheckTaskOwner={handleCheckTaskOwner}
-              droppableId='to do'
-            />
-            <TaskSort
-              tasksArray={inProgressTasks}
-              handleCheckTaskOwner={handleCheckTaskOwner}
-              droppableId='in progress'
-            />
-            <TaskSort
-              tasksArray={doneTasks}
-              handleCheckTaskOwner={handleCheckTaskOwner}
-              droppableId='done'
-            />
-            <TaskSort
-              tasksArray={holdTasks}
-              droppableId={TaskStatus.HOLD}
-              currentUserId={currentUser.id}
-            />
+            <TaskSort tasksArray={todoTasks} droppableId='to do' />
+            <TaskSort tasksArray={inProgressTasks} droppableId='in progress' />
+            <TaskSort tasksArray={doneTasks} droppableId='done' />
+            <TaskSort tasksArray={holdTasks} droppableId={TaskStatus.HOLD} />
           </DragDropContext>
         </div>
       </div>

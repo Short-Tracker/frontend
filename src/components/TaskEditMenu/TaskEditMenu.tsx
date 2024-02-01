@@ -165,7 +165,7 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
                 checked={currentStatus === TaskStatus.ARCHIVED}
                 onChange={onChange}
               />
-              Hold
+              Archived
             </label>
           )}
           <UniversalButton

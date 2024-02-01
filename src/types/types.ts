@@ -80,3 +80,11 @@ export type TCreateTask = {
   link: string;
   performers: number[];
 };
+
+export enum TaskStatus {
+  TO_DO = 'to do',
+  IN_PROGRESS = 'in progress',
+  HOLD = 'hold',
+  DONE = 'done',
+  ARCHIVED = 'archived',
+}

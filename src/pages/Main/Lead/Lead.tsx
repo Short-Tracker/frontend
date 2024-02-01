@@ -7,7 +7,7 @@ import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'services/hooks';
 import { openCreateTaskModal } from 'store';
 import { resetActiveMenu } from 'store/taskMenuActiveSlice';
-import { TPerformers, TResults, TTask } from 'types/types';
+import { TPerformers, TResults, TTask, TaskStatus } from 'types/types';
 import { UniversalButton } from 'ui-lib/Buttons';
 import updateTaskThunk from '../../../thunks/update-task-thunk';
 import styles from './Lead.module.scss';
@@ -104,16 +104,16 @@ const Lead: FC<ITaskCard> = (props) => {
     const hold: TResults[] = [];
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < results.length; i++) {
-      if (results[i].status === 'to do') {
+      if (results[i].status === TaskStatus.TO_DO) {
         todo.push(results[i]);
       }
-      if (results[i].status === 'in progress') {
+      if (results[i].status === TaskStatus.IN_PROGRESS) {
         inProgress.push(results[i]);
       }
-      if (results[i].status === 'done') {
+      if (results[i].status === TaskStatus.DONE) {
         done.push(results[i]);
       }
-      if (results[i].status === 'hold') {
+      if (results[i].status === TaskStatus.HOLD) {
         hold.push(results[i]);
       }
     }
@@ -124,7 +124,7 @@ const Lead: FC<ITaskCard> = (props) => {
   };
   // Проверка есть ли текущий пользователь в списке
   const handleCheckTaskOwner = (performers: TPerformers[]) => {
-    const res = performers.filter((user) => user.full_name === currentUser.full_name);
+    const res = performers.filter((user) => user.id === currentUser.id);
     return res.length > 0;
   };
 
@@ -150,6 +150,28 @@ const Lead: FC<ITaskCard> = (props) => {
       (elem) => elem.id === Number(draggableId)
     );
     const item = allTasks.results[itemIndex];
+
+    const { status } = item;
+    const isCurrentUserLead = currentUser.is_team_lead;
+
+    const canDragToInProgress =
+      status === TaskStatus.TO_DO && dInd === TaskStatus.IN_PROGRESS;
+    const canDragToToDo =
+      status === TaskStatus.ARCHIVED && isCurrentUserLead && dInd === TaskStatus.TO_DO;
+    const canDragToDone = status === TaskStatus.IN_PROGRESS && dInd === TaskStatus.DONE;
+    const canDragToHold = status === TaskStatus.IN_PROGRESS && dInd === TaskStatus.HOLD;
+    const canDragToArchived =
+      status === TaskStatus.DONE && isCurrentUserLead && dInd === TaskStatus.ARCHIVED;
+
+    if (
+      !canDragToToDo &&
+      !canDragToInProgress &&
+      !canDragToDone &&
+      !canDragToHold &&
+      !canDragToArchived
+    ) {
+      return;
+    }
 
     const updateTaskStatus = () => {
       dispatch(
@@ -187,22 +209,22 @@ const Lead: FC<ITaskCard> = (props) => {
             <TaskSort
               tasksArray={todoTasks}
               handleCheckTaskOwner={handleCheckTaskOwner}
-              droppableId='to do'
+              droppableId={TaskStatus.TO_DO}
             />
             <TaskSort
               tasksArray={inProgressTasks}
               handleCheckTaskOwner={handleCheckTaskOwner}
-              droppableId='in progress'
+              droppableId={TaskStatus.IN_PROGRESS}
             />
             <TaskSort
               tasksArray={doneTasks}
               handleCheckTaskOwner={handleCheckTaskOwner}
-              droppableId='done'
+              droppableId={TaskStatus.DONE}
             />
             <TaskSort
               tasksArray={holdTasks}
               handleCheckTaskOwner={handleCheckTaskOwner}
-              droppableId='hold'
+              droppableId={TaskStatus.HOLD}
             />
           </DragDropContext>
         </div>

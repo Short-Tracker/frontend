@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
+import { TaskStatus } from 'types/types';
 import { UniversalButton } from 'ui-lib/Buttons';
 import { BallpenIcon, TrashIcon } from 'ui-lib/Icons';
 import { useClose, useDispatch } from '../../services/hooks';
@@ -40,12 +41,13 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
   const isStatusEditable = isTaskEditable || ownTask;
 
   const isArchivedVisible =
-    status === 'archived' || (status === 'done' && isCurrentUserLead);
-  const isHoldVisible = status === 'hold' || status === 'in progress';
-  const isDoneVisible = status === 'done' || status === 'in progress';
-  const isInProgressVisible = status === 'in progress' || status === 'to do';
+    status === TaskStatus.ARCHIVED || (status === TaskStatus.DONE && isCurrentUserLead);
+  const isHoldVisible = status === TaskStatus.HOLD || status === TaskStatus.IN_PROGRESS;
+  const isDoneVisible = status === TaskStatus.DONE || status === TaskStatus.IN_PROGRESS;
+  const isInProgressVisible =
+    status === TaskStatus.IN_PROGRESS || status === TaskStatus.TO_DO;
   const isToDoVisible =
-    status === 'to do' || (status === 'archived' && isCurrentUserLead);
+    status === TaskStatus.TO_DO || (status === TaskStatus.ARCHIVED && isCurrentUserLead);
 
   const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setStatus(evt.target.value);
@@ -88,7 +90,7 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
             <BallpenIcon />
             Редактировать
           </div>
-          {(status === 'done' || status === 'archived') && (
+          {(status === TaskStatus.DONE || status === TaskStatus.ARCHIVED) && (
             <div
               className={styles.edit_button}
               onClick={handleToggleEditMenu}
@@ -111,8 +113,8 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
               <input
                 className={styles.status_radiobutton_input}
                 type='radio'
-                value='to do'
-                checked={currentStatus === 'to do'}
+                value={TaskStatus.TO_DO}
+                checked={currentStatus === TaskStatus.TO_DO}
                 onChange={onChange}
               />
               Todo
@@ -123,8 +125,8 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
               <input
                 className={styles.status_radiobutton_input}
                 type='radio'
-                value='in progress'
-                checked={currentStatus === 'in progress'}
+                value={TaskStatus.IN_PROGRESS}
+                checked={currentStatus === TaskStatus.IN_PROGRESS}
                 onChange={onChange}
               />
               In progress
@@ -135,8 +137,8 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
               <input
                 className={styles.status_radiobutton_input}
                 type='radio'
-                value='done'
-                checked={currentStatus === 'done'}
+                value={TaskStatus.DONE}
+                checked={currentStatus === TaskStatus.DONE}
                 onChange={onChange}
               />
               Done
@@ -147,8 +149,8 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
               <input
                 className={styles.status_radiobutton_input}
                 type='radio'
-                value='hold'
-                checked={currentStatus === 'hold'}
+                value={TaskStatus.HOLD}
+                checked={currentStatus === TaskStatus.HOLD}
                 onChange={onChange}
               />
               Hold
@@ -159,8 +161,8 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
               <input
                 className={styles.status_radiobutton_input}
                 type='radio'
-                value='archived'
-                checked={currentStatus === 'archived'}
+                value={TaskStatus.ARCHIVED}
+                checked={currentStatus === TaskStatus.ARCHIVED}
                 onChange={onChange}
               />
               Hold

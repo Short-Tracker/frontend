@@ -11,6 +11,7 @@ import {
 import { lid } from 'assets/images'; // Initial image
 import SideBarUser from 'components/SideBarUser/SideBarUser';
 import SideBarUserMenu from 'components/SideBarUserMenu/SideBarUserMenu';
+import NewEmployeePopup from 'components/Popup/NewEmployee/NewEmployee';
 import React, { useState } from 'react';
 import { useSelector } from 'services/hooks';
 import { TTask } from 'types/types';
@@ -23,9 +24,18 @@ const SideBar: React.FC = () => {
   const currentUsers = useSelector((state) => state.users);
 
   const [isSidebarMenuOpen, setisSidebarMenuOpen] = useState(false);
+  const [isNewEmployeePopupOpen, setIsNewEmployeePopupOpen] = useState(false);
 
   const handleToggleMenu = () => {
     setisSidebarMenuOpen(!isSidebarMenuOpen);
+  };
+
+  const handleNewEmployeeButtonClick = () => {
+    setIsNewEmployeePopupOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsNewEmployeePopupOpen(false);
   };
 
   return (
@@ -76,7 +86,7 @@ const SideBar: React.FC = () => {
       </ul>
       <div className={styles.teamWrapper}>
         <h2 className={styles.teamName}>Команда</h2>
-        <button className={styles.teamImg} />
+        <button className={styles.teamImg} onClick={handleNewEmployeeButtonClick} />
       </div>
       <ul className={styles.membersWrapper}>
         <li className={styles.teamLi}>
@@ -87,6 +97,7 @@ const SideBar: React.FC = () => {
           return <SideBarUser fullName={user.first_name} key={uuidv4()} />;
         })}
       </ul>
+      {isNewEmployeePopupOpen && <NewEmployeePopup closePopup={handleCancel} />}
     </section>
   );
 };

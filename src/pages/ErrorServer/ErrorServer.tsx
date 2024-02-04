@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { error500 } from 'assets/images';
 import { UniversalButton } from 'ui-lib/Buttons';
 import Logo from 'components/Logo/Logo';
@@ -7,7 +8,7 @@ const ErrorServer = () => {
   const handleReload = () => {
     window.location.reload();
   };
-
+  const navigate = useNavigate();
   return (
     <>
       <div className={styles.logo}>
@@ -38,6 +39,7 @@ const ErrorServer = () => {
           className={styles.customUniversalButton}
           fontSize={12}
           isFilled={false}
+          onClick={() => navigate(-1)}
         >
           Вернуться назад
         </UniversalButton>

@@ -91,7 +91,6 @@ const Lead: FC<ITaskCard> = ({ allTasks }) => {
         : results,
     [results, tasksOfUserId]
   );
-  console.log(resultsToRender);
   const openCreateTask = () => {
     dispatch(openCreateTaskModal());
   };

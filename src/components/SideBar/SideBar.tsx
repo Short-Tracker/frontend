@@ -37,6 +37,7 @@ const SideBar: React.FC = () => {
 
   const handleCancel = () => {
     setIsNewEmployeePopupOpen(false);
+  };
 
   const showAllTasks = () => dispatch(getAllTeamTasks());
   const handleKeyDown = (evt: KeyboardEvent) => {

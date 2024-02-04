@@ -1,4 +1,4 @@
-import { Main, Login, Error } from 'pages';
+import { Main, Login, Error, ErrorServer } from 'pages';
 import { Routes, Route } from 'react-router-dom';
 import PrivateRoute from 'services/PrivateRoute';
 import { useDispatch, useSelector } from 'services/hooks';
@@ -27,6 +27,7 @@ const App = () => {
           <Route element={<Main />} path='/main' />
         </Route>
         <Route path='/error' element={<Error />} />
+        <Route path='/error-server' element={<ErrorServer />} />
       </Routes>
       <Toaster />
       <Popup onClose={closeModalState} isOpen={createTaskModal}>

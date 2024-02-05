@@ -1,4 +1,4 @@
-import { BaseSyntheticEvent, SyntheticEvent, useState } from 'react';
+import React, { BaseSyntheticEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './CreateTask.module.scss';
 import CheckBox from '../../../ui-lib/CheckBoxes/CheckBox/CheckBox';
@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from '../../../services/hooks';
 import { closeModal } from '../../../store';
 import createTaskThunk from '../../../thunks/create-task-thunk';
 import getTaskThunk from '../../../thunks/get-task-thunks';
-import { TTask } from '../../../types/types';
 
 type CheckboxValues = Record<string, boolean>;
 const CreateTask = () => {
@@ -18,6 +17,7 @@ const CreateTask = () => {
   const closeModalState = () => {
     dispatch(closeModal());
   };
+  const user = useSelector((state) => state.user);
   const currentUsers = useSelector((state) => state.users);
   const users = currentUsers.results;
   const [showCheckboxesMenu, setShowCheckboxesMenu] = useState<boolean>(true);
@@ -25,15 +25,15 @@ const CreateTask = () => {
   const [textareaValue, setTextareaValue] = useState<string>('');
   const [dateDropdownOpen, setDateDropdownOpen] = useState<boolean>(false);
   const [dateValue, setDateValue] = useState<string>('');
+  const [performersId, setPerformersId] = useState<number[]>([]);
 
-  const tasks: TTask = useSelector((state) => state.task);
   const createTaskState = (event: SyntheticEvent) => {
     event.preventDefault();
     dispatch(
       createTaskThunk({
         description: textareaValue,
         deadline_date: dateValue,
-        performers: [2],
+        performers: performersId,
       })
     );
     dispatch(getTaskThunk(true));
@@ -52,23 +52,75 @@ const CreateTask = () => {
     setDateValue(formattedValue);
     handleDateButtonClick();
   };
+  const encodeTo = (word: string) => {
+    return decodeURI(word);
+  };
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { target } = event;
-    const { name, value } = target;
+    const { name, id } = target;
     setCheckboxValues({ ...checkboxValues, [name]: target.checked });
+    if (target.checked && target.name !== 'всем') {
+      setPerformersId([...performersId, parseInt(id, 10)]);
+    } else {
+      setPerformersId(performersId.filter((item) => item !== parseInt(id, 10)));
+    }
+    if (target.name === 'всем') {
+      // eslint-disable-next-line array-callback-return
+      currentUsers.results.map((item) => {
+        // eslint-disable-next-line @typescript-eslint/no-shadow
+        setCheckboxValues((checkboxValues) => ({
+          ...checkboxValues,
+          [item.first_name]: true,
+        }));
+      });
+      const usersIdWithoutAll = currentUsers.results.slice(1);
+      // eslint-disable-next-line array-callback-return
+      usersIdWithoutAll.map((userId) => {
+        // eslint-disable-next-line @typescript-eslint/no-shadow
+        setPerformersId((performersId) => [...performersId, userId.id]);
+      });
+    }
+    if (target.name === 'всем' && !target.checked) {
+      // eslint-disable-next-line no-restricted-syntax
+      for (const key in checkboxValues) {
+        if (checkboxValues[key]) {
+          delete checkboxValues[key];
+          setCheckboxValues({ ...checkboxValues });
+        }
+      }
+      setPerformersId([]);
+    }
   };
+  const cleanData = () => {
+    // eslint-disable-next-line guard-for-in,no-restricted-syntax
+    for (const key in checkboxValues) {
+      if (!checkboxValues[key]) {
+        delete checkboxValues[key];
+        setCheckboxValues({ ...checkboxValues });
+      }
+    }
+  };
+  useEffect(() => {
+    cleanData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [checkboxValues]);
+
   return (
     <form className={styles.form} onSubmit={createTaskState}>
       <div className={styles.checkboxes}>
         <p className={styles.form__label}>выберите сотрудника</p>
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-        <div className={styles.checkboxes__button} onClick={() => showCheckboxes()}>
+        <div className={styles.checkboxes__button} onClick={showCheckboxes}>
           <div
             className={`${styles.checkboxes__select} ${
               !showCheckboxesMenu && styles.checkboxes__borders
             }`}
           >
-            <p className={styles.calendar__title}>Выберите сотрудника</p>
+            {Object.keys(checkboxValues).map((item) => (
+              <p className={styles.name__title} key={uuidv4()}>
+                {item},
+              </p>
+            ))}
           </div>
         </div>
         <div
@@ -78,14 +130,36 @@ const CreateTask = () => {
           id='checkboxes'
         >
           <div className={styles.checkboxes__mesh}>
-            {users.map((item, index) => (
+            <div className={styles.checkboxes__label} key={uuidv4()}>
+              <CheckBox
+                id={user.id}
+                name={user.first_name}
+                checked={checkboxValues[user.first_name] || false}
+                onChange={handleChange}
+              />
+              <p className={styles.name__title}>Себе</p>
+            </div>
+            <div className={styles.checkboxes__label} key={uuidv4()}>
+              <CheckBox
+                id='-1'
+                name='всем'
+                checked={checkboxValues[encodeTo('всем')] || false}
+                onChange={handleChange}
+              />
+              <p className={styles.name__title}>Всем</p>
+            </div>
+            {users.map((item) => (
               <div className={styles.checkboxes__label} key={uuidv4()}>
                 <CheckBox
+                  id={item.id}
                   name={item.first_name}
                   checked={checkboxValues[item.first_name] || false}
                   onChange={handleChange}
                 />
-                <p className={styles.checkboxes__text}>{item.first_name}</p>
+                <p className={styles.name__title}>
+                  {item.first_name}&ensp;
+                  {item.last_name}
+                </p>
               </div>
             ))}
           </div>
@@ -121,8 +195,8 @@ const CreateTask = () => {
           </div>
         </div>
         <div className={styles.timeContainer}>
-          <p className={styles.form__label}>Время (по МСК)</p>
-          <input className={styles.time} placeholder='--/--' />
+          <p className={styles.calendar__title}>Время (по МСК)</p>
+          <input className={styles.time} placeholder='--/--' disabled />
         </div>
       </div>
       <div className={styles.linkInput}>

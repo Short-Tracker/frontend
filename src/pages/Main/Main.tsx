@@ -1,5 +1,5 @@
 import Login from 'pages/Login/Login';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'services/hooks';
 import getTaskThunk from 'thunks/get-task-thunks';
 import getUsersThunk from 'thunks/get-users-thunks';
@@ -9,12 +9,11 @@ import styles from './Main.module.scss';
 import User from './User/User';
 
 const Main = () => {
-  const [isUpdated, setIsUpdated] = useState<boolean>(false);
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state) => state.system);
   const isLead = useSelector((state) => state.user).is_team_lead;
   const tasks: TTask = useSelector((state) => state.task);
-
+  // const isLead = true;
   useEffect(() => {
     dispatch(getTaskThunk(isLoggedIn));
     dispatch(getUsersThunk(isLoggedIn));

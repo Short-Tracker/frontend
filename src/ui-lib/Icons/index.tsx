@@ -14,6 +14,7 @@ import {
   clockIcon,
   trashIcon,
   ballpenIcon,
+  close,
 } from 'assets/icons';
 
 import TemplateIcon from './TemplateIcon/TemplateIcon';
@@ -42,4 +43,7 @@ export const TrashIcon = (props: any) => (
 );
 export const BallpenIcon = (props: any) => (
   <TemplateIcon {...props} icon={ballpenIcon} width={20} height={20} />
+);
+export const CloseIcon = (props: any) => (
+  <TemplateIcon {...props} icon={close} width={24} height={24} />
 );

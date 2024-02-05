@@ -22,6 +22,7 @@ import exitIcon from './ExitIcon.svg';
 import personalAreaIcon from './PersonalAreaIcon.svg';
 import AllTeamIcon from './AllTeamIcon.svg';
 import checkmark from './checkmark.svg';
+import close from './close.svg';
 
 export {
   flagIcon,
@@ -48,4 +49,5 @@ export {
   personalAreaIcon,
   AllTeamIcon,
   checkmark,
+  close,
 };

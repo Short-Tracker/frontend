@@ -13,8 +13,6 @@ const Main = () => {
   const { isLoggedIn } = useSelector((state) => state.system);
   const isLead = useSelector((state) => state.user).is_team_lead;
   const tasks: TTask = useSelector((state) => state.task);
-  console.log(isLoggedIn);
-  console.log(isLead);
   // const isLead = true;
   useEffect(() => {
     dispatch(getTaskThunk(isLoggedIn));

@@ -110,7 +110,7 @@ const CreateTask = () => {
       <div className={styles.checkboxes}>
         <p className={styles.form__label}>выберите сотрудника</p>
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-        <div className={styles.checkboxes__button} onClick={() => showCheckboxes()}>
+        <div className={styles.checkboxes__button} onClick={showCheckboxes}>
           <div
             className={`${styles.checkboxes__select} ${
               !showCheckboxesMenu && styles.checkboxes__borders

@@ -1,30 +1,26 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
+import { validateField } from './validateFields';
 
-interface FormValues {
+export interface FormValues {
   [key: string]: string;
 }
 
 interface FormErrors {
-  [key: string]: string | null;
+  [key: string]: string;
 }
 
 interface UseFormProps {
   initialValues: FormValues;
-  validationFunction: (name: string, value: string) => string | null;
   onSubmit: (values: FormValues) => void;
 }
 
-export const useForm = ({
-  initialValues,
-  validationFunction,
-  onSubmit,
-}: UseFormProps) => {
+export const useForm = ({ initialValues, onSubmit }: UseFormProps) => {
   const [values, setValues] = useState<FormValues>(initialValues);
   const [errors, setErrors] = useState<FormErrors>({});
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    const error = validationFunction(name, value);
+    const error = validateField(name, value);
 
     setValues((prevValues) => ({
       ...prevValues,
@@ -42,7 +38,7 @@ export const useForm = ({
     const newErrors: FormErrors = {};
 
     Object.entries(values).forEach(([name, value]) => {
-      const error = validationFunction(name, value);
+      const error = validateField(name, value);
       if (error) {
         newErrors[name] = error;
       }

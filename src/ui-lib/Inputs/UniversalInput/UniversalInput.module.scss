@@ -25,10 +25,25 @@
   &::placeholder {
     color: v.$disabled-color;
   }
+
+  &_error{
+   border-color: v.$error;
+   color: v.$error;
+  }
 }
 .Container {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   width: 100%;
+  position: relative;
+  margin-bottom: 4px;
+}
+
+.error {
+  position: absolute;
+  right: 0;
+  bottom: -16px;
+  color: v.$error;
+  @include m.Description;
 }

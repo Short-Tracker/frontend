@@ -12,6 +12,7 @@ interface IPasswordInput extends React.ComponentPropsWithoutRef<'input'> {
   isErrorIconShow?: boolean;
   customToggleType?: () => void;
   customInputState?: { type: string; visionIcon: boolean };
+  error?: string;
 }
 
 const PasswordInput: React.FC<IPasswordInput> = ({
@@ -23,6 +24,7 @@ const PasswordInput: React.FC<IPasswordInput> = ({
   id,
   customToggleType,
   customInputState,
+  error,
   ...rest
 }) => {
   const [inputState, setInputState] = useState({
@@ -51,6 +53,7 @@ const PasswordInput: React.FC<IPasswordInput> = ({
         placeholder={placeholder}
         label={label}
         pos='relative'
+        error={error}
         {...rest}
         icon={
           <PasswordFieldButton
@@ -73,6 +76,7 @@ PasswordInput.defaultProps = {
   isErrorIconShow: true,
   customToggleType: undefined,
   customInputState: undefined,
+  error: '',
 };
 
 export default PasswordInput;

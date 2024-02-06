@@ -1,57 +1,73 @@
-import React, { useState } from 'react';
+import React from 'react';
 import UniversalInput from 'ui-lib/Inputs/UniversalInput/UniversalInput';
 import EmailInput from 'ui-lib/Inputs/EmailInput/EmailInput';
 import PasswordInput from 'ui-lib/Inputs/PasswordInput/PasswordInput';
 import { UniversalButton } from 'ui-lib/Buttons';
+import { FormValues, useForm } from 'utils/useForm';
+import { useDispatch } from 'services/hooks';
 import Popup from '../Popup';
 import styles from './NewEmployee.module.scss';
-import additionalStyles from '../../../ui-lib/Inputs/UniversalInput/UniversalInput.module.scss';
 
 const NewEmployeePopup: React.FC<{ closePopup: () => void }> = ({ closePopup }) => {
-  const name = '';
-  const lastName = '';
-  const email = '';
-  const nickname = '';
-  const password = '';
-  const errorText = '';
-  const [isValid, setIslValid] = useState(false);
+  const dispatch = useDispatch();
+
+  const onSubmitAddUser = (values: FormValues) => {
+    dispatch();
+  };
+
+  const { errors, handleChange, handleSubmit } = useForm({
+    initialValues: { email: '', password: '', nickname: '', name: '', lastName: '' },
+    onSubmit: onSubmitAddUser,
+  });
 
   const handleCancel = () => {
     closePopup();
   };
+
   return (
     <Popup isOpen onClose={closePopup}>
-      <form className={styles.newEmployee}>
+      <form className={styles.newEmployee} onSubmit={handleSubmit}>
         <div className={styles.newEmployeeContainer}>
           <div className={styles.newEmployeeWrapper}>
             <UniversalInput
-              className={styles.nameEmployee}
-              id={name}
+              id='name'
+              name='name'
               label='Имя'
               placeholder='Иван'
               width={246.5}
+              error={errors.name}
+              onChange={handleChange}
             />
             <UniversalInput
-              className={styles.nameEmployee}
-              id={lastName}
+              id='lastName'
+              name='lastName'
               label='Фамилия'
               placeholder='Иванов'
               width={246.5}
+              error={errors.lastName}
+              onChange={handleChange}
             />
           </div>
           <UniversalInput
-            className={`${additionalStyles.input} ${isValid ? styles.invalidInput : ''}`}
-            id={nickname}
+            id='nickname'
+            name='nickname'
             label='Telegram'
             placeholder='@BorKate'
+            error={errors.nickname}
+            onChange={handleChange}
           />
-          {isValid && <p className={styles.errorText}>{errorText}</p>}
           <EmailInput
-            className={`${additionalStyles.input} ${isValid ? styles.invalidInput : ''}`}
-            id={email}
+            id='email'
+            name='email'
+            error={errors.email}
+            onChange={handleChange}
           />
-          {isValid && <p className={styles.errorText}>{errorText}</p>}
-          <PasswordInput id={password} />
+          <PasswordInput
+            id='password'
+            name='password'
+            error={errors.password}
+            onChange={handleChange}
+          />
           <div className={styles.newEmployeeWrapper}>
             <UniversalButton className={styles.newEmployeeAddButton} width={246.5}>
               Добавить сотрудника

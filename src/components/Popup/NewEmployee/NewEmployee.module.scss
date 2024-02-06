@@ -21,27 +21,10 @@
   justify-content: space-between;
 }
 
-.nameEmployee {
-  width: 250px;
-  border-radius: 8px;
-  border: 1px solid v.$disabled-color;
-  @include m.BodyLarge;
-}
-
-.invalidInput {
-  border: 1px solid v.$error;
-}
-
 .newEmployeeAddButton {
   width: 250px;
 }
 
 .newEmployeeButton {
   width: 250px;
-}
-
-.errorText {
-  color: v.$error;
-  @include m.Description;
-  margin-top: -10px;
 }

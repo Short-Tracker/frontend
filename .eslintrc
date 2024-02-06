@@ -13,10 +13,15 @@
   "globals": {
     "document": false,
     "localStorage": true,
-    "sessionStorage":true
+    "sessionStorage": true
   },
   "rules": {
-    "no-param-reassign": ["error", { "props": false }],
+    "no-param-reassign": [
+      "error",
+      {
+        "props": false
+      }
+    ],
     "react/react-in-jsx-scope": "off",
     "react/function-component-definition": "off",
     "react/jsx-props-no-spreading": "off",
@@ -31,13 +36,24 @@
     "jsx-a11y/accessible-emoji": "off",
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "warn",
-    "quotes": [2, "single"],
+    "quotes": [
+      2,
+      "single"
+    ],
     "jsx-a11y/anchor-is-valid": [
       "error",
       {
-        "aspects": ["invalidHref", "preferButton"],
-        "components": ["Link"],
-        "specialLink": ["hrefLeft", "hrefRight"]
+        "aspects": [
+          "invalidHref",
+          "preferButton"
+        ],
+        "components": [
+          "Link"
+        ],
+        "specialLink": [
+          "hrefLeft",
+          "hrefRight"
+        ]
       }
     ],
     "prettier/prettier": [
@@ -52,7 +68,9 @@
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": ["tsconfig.json"],
+    "project": [
+      "tsconfig.json"
+    ],
     "ecmaVersion": "latest",
     "sourceType": "module",
     "ecmaFeatures": {
@@ -67,7 +85,10 @@
   ],
   "overrides": [
     {
-      "files": ["**/*.stories.*", "src/stories/**/*"],
+      "files": [
+        "**/*.stories.*",
+        "src/stories/**/*"
+      ],
       "rules": {
         "import/no-anonymous-default-export": "off",
         "import/no-extraneous-dependencies": "off"
@@ -76,12 +97,23 @@
   ],
   "settings": {
     "import/parsers": {
-      "@typescript-eslint/parser": [".ts", ".tsx"]
+      "@typescript-eslint/parser": [
+        ".ts",
+        ".tsx"
+      ]
     },
     "import/resolver": {
       "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx", ".native.js"],
-        "paths": ["src"]
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx",
+          ".native.js"
+        ],
+        "paths": [
+          "src/"
+        ]
       }
     },
     "react": {

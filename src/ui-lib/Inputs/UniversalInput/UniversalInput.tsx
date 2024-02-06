@@ -9,6 +9,7 @@ interface IUniversalInput extends React.ComponentPropsWithoutRef<'input'> {
   id: string;
   pos?: any;
   customStyle?: string;
+  error?: string;
 }
 
 const UniversalInput: FC<IUniversalInput> = ({
@@ -19,6 +20,7 @@ const UniversalInput: FC<IUniversalInput> = ({
   icon = null,
   pos,
   customStyle,
+  error,
   ...rest
 }) => (
   <div className={styles.Container} style={{ position: pos }}>
@@ -28,13 +30,14 @@ const UniversalInput: FC<IUniversalInput> = ({
     <div className={styles.inputContainer}>
       <input
         id={id}
-        className={styles.input}
+        className={`${error ? styles.input_error : ''} ${styles.input}`}
         placeholder={placeholder}
         type={type}
         {...rest}
       />
       {icon && icon}
     </div>
+    {error && <div className={styles.error}>{error}</div>}
   </div>
 );
 
@@ -43,7 +46,8 @@ UniversalInput.defaultProps = {
   type: 'text',
   placeholder: '',
   icon: null,
-  pos: 'static',
+  pos: '',
   customStyle: '',
+  error: '',
 };
 export default UniversalInput;

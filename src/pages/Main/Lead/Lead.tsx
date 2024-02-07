@@ -53,7 +53,7 @@ const TaskSort: FC<ITaskSort> = ({ tasksArray, droppableId }) => {
                     <Tasks
                       text={task.description}
                       date={task.create_date}
-                      headerText={task.creator.full_name}
+                      headerText={`${task.creator.first_name} ${task.creator.last_name}`}
                       ownTask={handleCheckIfTaskForMe(currentUserId, task.performers)}
                       startTime={task.create_date}
                       movedTime={task.inprogress_date}

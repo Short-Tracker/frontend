@@ -1,3 +1,6 @@
+@use '../../../globalStyles/mixins.scss' as m;
+@use '../../../globalStyles/variables.scss' as v;
+
 .Lead {
   display: flex;
   flex-direction: column;
@@ -26,3 +29,4 @@
   grid-template-columns: repeat(4, minmax(min-content, 256px));
   column-gap: 20px;
 }
+

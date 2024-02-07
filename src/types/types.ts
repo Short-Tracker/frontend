@@ -62,6 +62,8 @@ export type TResults = {
 export type TCreator = {
   id: number;
   full_name: string;
+  first_name: string;
+  last_name: string;
   telegram_nickname: string;
   email: string;
   is_team_lead: boolean | null;

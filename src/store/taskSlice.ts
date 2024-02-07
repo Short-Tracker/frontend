@@ -19,6 +19,8 @@ const initialState: TTask = {
       creator: {
         id: 0,
         full_name: '',
+        first_name: '',
+        last_name: '',
         telegram_nickname: '',
         email: '',
         is_team_lead: null,

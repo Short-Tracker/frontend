@@ -1,15 +1,15 @@
 import React, { BaseSyntheticEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import styles from './CreateTask.module.scss';
-import CheckBox from '../../../ui-lib/CheckBoxes/CheckBox/CheckBox';
-import UniversalTextarea from '../../../ui-lib/Inputs/Textarea/UniversalTextarea';
-import Calendar from '../../Calendar/Calendar';
-import UniversalInput from '../../../ui-lib/Inputs/UniversalInput/UniversalInput';
-import { UniversalButton } from '../../../ui-lib/Buttons';
 import { useDispatch, useSelector } from '../../../services/hooks';
 import { closeModal } from '../../../store';
 import createTaskThunk from '../../../thunks/create-task-thunk';
 import getTaskThunk from '../../../thunks/get-task-thunks';
+import { UniversalButton } from '../../../ui-lib/Buttons';
+import CheckBox from '../../../ui-lib/CheckBoxes/CheckBox/CheckBox';
+import UniversalTextarea from '../../../ui-lib/Inputs/Textarea/UniversalTextarea';
+import UniversalInput from '../../../ui-lib/Inputs/UniversalInput/UniversalInput';
+import Calendar from '../../Calendar/Calendar';
+import styles from './CreateTask.module.scss';
 
 type CheckboxValues = Record<string, boolean>;
 const CreateTask = () => {

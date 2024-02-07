@@ -59,13 +59,17 @@ export type TResults = {
   is_expired: string;
   resolved_status: string;
 };
+
 export type TCreator = {
   id: number;
   full_name: string;
   telegram_nickname: string;
   email: string;
   is_team_lead: boolean | null;
+  first_name: string;
+  last_name: string;
 };
+
 export type TPerformers = {
   id: number;
   full_name: string;

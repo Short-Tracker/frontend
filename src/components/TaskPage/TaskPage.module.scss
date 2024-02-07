@@ -63,6 +63,8 @@
 
   &__description {
     flex-grow: 1;
+
+    @include m.Card;
   }
   &__other {
     max-height: 30px;
@@ -74,7 +76,12 @@
     margin-top: 8px;
     margin-right: auto;
     align-self: stretch;
-    border-bottom: 1px solid v.$header-task-border-color;
+    margin-bottom: 16px;
+
+    &Wrapper {
+      border-bottom: 1px solid v.$header-task-border-color;
+      margin-bottom: 16px;
+    }
 
     &Date {
       padding: 0;

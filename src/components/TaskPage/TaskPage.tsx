@@ -34,12 +34,14 @@ const TaskPage: FC<ITaskPageProps> = ({ isWindow }) => {
         </div>
         <div className={styles.task__content}>
           <p className={styles.task__description}>{thisTask.description}</p>
-          <div className={styles.task__other}>
-            <FlagIcon />
-            <p
-              className={styles.task__otherDate}
-            >{`${thisTask.create_date} - ${thisTask.deadline_date}`}</p>
-            <p className={styles.task__link}>{thisTask.link}</p>
+          <div className={styles.task__otherWrapper}>
+            <div className={styles.task__other}>
+              <FlagIcon />
+              <p
+                className={styles.task__otherDate}
+              >{`${thisTask.create_date} - ${thisTask.deadline_date}`}</p>
+              <p className={styles.task__link}>{thisTask.link}</p>
+            </div>
           </div>
           <div className={styles.task__commentWrapper}>
             <textarea

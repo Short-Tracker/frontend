@@ -7,12 +7,21 @@ import { FormValues, useForm } from 'utils/useForm';
 import { useDispatch } from 'services/hooks';
 import Popup from '../Popup';
 import styles from './NewEmployee.module.scss';
+import createUserThunk from '../../../thunks/create-user-thunk';
 
 const NewEmployeePopup: React.FC<{ closePopup: () => void }> = ({ closePopup }) => {
   const dispatch = useDispatch();
 
   const onSubmitAddUser = (values: FormValues) => {
-    dispatch();
+    dispatch(
+      createUserThunk({
+        email: values.email,
+        telegram_nickname: values.nickname,
+        password: values.password,
+        first_name: values.name,
+        last_name: values.lastName,
+      })
+    );
   };
 
   const { errors, handleChange, handleSubmit } = useForm({

@@ -2,13 +2,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TUser, TuserDataTemp } from '../types/types';
 
 const initialState: TUser = {
-  id: 2, // Nan
+  id: NaN,
   telegram_nickname: '',
   email: '',
-  is_team_lead: true, // false
-  full_name: 'User Lead',
-  first_name: 'User',
-  last_name: 'Lead',
+  is_team_lead: false,
+  full_name: '',
+  first_name: '',
+  last_name: '',
 };
 
 const userSlice = createSlice({

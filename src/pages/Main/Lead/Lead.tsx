@@ -1,8 +1,7 @@
-import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
+import { DragDropContext } from '@hello-pangea/dnd';
 import Search from 'components/Search/Search';
 import SideBar from 'components/SideBar/SideBar';
 import Status from 'components/Status/Status';
-import Tasks from 'pages/Tasks/Tasks';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { handleCheckIfTaskForMe } from 'services/functions';
 import { useDispatch, useSelector } from 'services/hooks';
@@ -12,68 +11,7 @@ import { TResults, TTask, TaskStatus } from 'types/types';
 import { UniversalButton } from 'ui-lib/Buttons';
 import updateTaskThunk from '../../../thunks/update-task-thunk';
 import styles from './Lead.module.scss';
-
-interface ITaskSort {
-  tasksArray: TResults[];
-  droppableId: string;
-}
-
-const TaskSort: FC<ITaskSort> = ({ tasksArray, droppableId }) => {
-  const { is_team_lead: isCurrentUserLead, id: currentUserId } = useSelector(
-    (state) => state.user
-  );
-
-  const getStyle = (style: any, snapshot: any) => {
-    if (!snapshot.isDragging) return {};
-    if (!snapshot.isDropAnimating) {
-      return style;
-    }
-
-    return {
-      ...style,
-      transitionDuration: '0.001s',
-    };
-  };
-
-  return (
-    <Droppable droppableId={droppableId}>
-      {(provided, snapshot) => (
-        <div ref={provided.innerRef} {...provided.droppableProps}>
-          <div className={styles.taskColumn}>
-            {tasksArray.map((task, index) => (
-              <Draggable key={task.id} draggableId={`${task.id}`} index={index}>
-                {/* eslint-disable-next-line @typescript-eslint/no-shadow */}
-                {(provided, snapshot) => (
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    style={getStyle(provided.draggableProps.style, snapshot)}
-                  >
-                    <Tasks
-                      text={task.description}
-                      date={task.create_date}
-                      headerText={task.creator.full_name}
-                      ownTask={handleCheckIfTaskForMe(currentUserId, task.performers)}
-                      startTime={task.create_date}
-                      movedTime={task.inprogress_date}
-                      completedTime={task.deadline_date}
-                      status={task.status}
-                      taskID={task.id}
-                      taskCreatorId={task.creator.id}
-                      isCurrentUserLead={isCurrentUserLead}
-                      currentUserId={currentUserId}
-                    />
-                  </div>
-                )}
-              </Draggable>
-            ))}
-          </div>
-        </div>
-      )}
-    </Droppable>
-  );
-};
+import TaskSort from '../../../components/TasksDND/TasksDND';
 
 interface ITaskCard {
   allTasks: TTask;

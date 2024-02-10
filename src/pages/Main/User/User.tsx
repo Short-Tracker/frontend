@@ -87,8 +87,7 @@ const User: FC<ITaskCard> = ({ allTasks }) => {
             description: item.description,
             status: dInd,
             deadline_date: item.deadline_date,
-            // performers,
-            performers: item.performers,
+            performers: item.performers.map((i) => i.id),
           },
         })
       );

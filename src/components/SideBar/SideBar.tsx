@@ -52,8 +52,9 @@ const SideBar: React.FC = () => {
       <div onClick={handleToggleMenu} className={styles.userWrapper}>
         <img className={styles.userImg} src={lid} alt='Изображение пользователя' />
         <h2 className={styles.userName}>{currentUser.full_name}</h2>
+        {isSidebarMenuOpen && <SideBarUserMenu setIsOpen={setisSidebarMenuOpen} />}
       </div>
-      {isSidebarMenuOpen && <SideBarUserMenu setIsOpen={setisSidebarMenuOpen} />}
+
       <ul className={styles.linkWrapper}>
         <li className={`${styles.navLi} ${styles.navLiActive}`}>
           <img

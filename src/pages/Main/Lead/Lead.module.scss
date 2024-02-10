@@ -13,7 +13,7 @@
   }
   &__serchContainer {
     display: flex;
-    margin-bottom: 20px;
+    margin: 20px 0;
   }
   &__tasks {
     width: 100%;
@@ -23,6 +23,16 @@
 
 .tasksWrapper {
   display: grid;
-  grid-template-columns: repeat(4, minmax(min-content, 256px));
+  grid-template-columns: repeat(4, minmax(177px, 1fr));
   column-gap: 20px;
+}
+
+.Lead__tasks {
+  max-width: 1084px;
+}
+
+@media (max-width: 770px) {
+  .tasksWrapper {
+    grid-template-columns: repeat(4, minmax(min-content, 1fr));
+  }
 }

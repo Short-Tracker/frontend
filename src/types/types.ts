@@ -90,3 +90,7 @@ export enum TaskStatus {
   DONE = 'done',
   ARCHIVED = 'archived',
 }
+
+export type TContent = {
+  currentContent: string;
+};

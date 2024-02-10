@@ -16,35 +16,35 @@
 }
 
 @mixin Person {
-  font-family: Onest, sans-serif;
+  font-family: 'Onest-Bold', sans-serif;
   font-size: 20px;
   font-weight: 700;
   line-height: 121%;
 }
 
 @mixin NavBar {
-  font-family: Onest, sans-serif;
+  font-family: 'Onest-Light', sans-serif;
   font-size: 16px;
   font-weight: 300;
   line-height: 121%;
 }
 
 @mixin TeamTitle {
-  font-family: Onest, sans-serif;
+  font-family: 'Onest-Bold', sans-serif;
   font-size: 16px;
   font-weight: 700;
   line-height: 121%;
 }
 
 @mixin Card {
-  font-family: Onest, sans-serif;
+  font-family: 'Onest-Regular', sans-serif;
   font-size: 12px;
   font-weight: 400;
   line-height: 133%;
 }
 
 @mixin SideBarUser {
-  font-family: Onest, sans-serif;
+  font-family: 'Onest-Regular', sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 121%;
@@ -52,88 +52,88 @@
 
 //Основные шрифты
 @mixin H1 {
-  font-family: Onest, sans-serif;
+  font-family: 'Onest-Bold', sans-serif;
   font-size: 20px;
   font-weight: 700;
 }
 
 @mixin H2 {
-  font-family: Onest, sans-serif;
+  font-family: 'Onest-Medium', sans-serif;
   font-size: 16px;
   line-height: 150%;
   font-weight: 500;
 }
 @mixin Title {
-  font-family: Onest, sans-serif;
+  font-family: 'Onest-Medium', sans-serif;
   font-size: 36px;
   line-height: 144%;
   font-weight: 500;
 }
 
 @mixin BodyLarge {
-  font-family: Onest, sans-serif;
+  font-family: 'Onest-Regular', sans-serif;
   font-size: 14px;
   line-height: 142%;
   font-weight: 400;
 }
 
 @mixin ButtonLarge {
-  font-family: Onest, sans-serif;
+  font-family: 'Onest-Bold', sans-serif;
   font-size: 16px;
   line-height: 125%;
   font-weight: 700;
 }
 
 @mixin Body {
-  font-family: Onest, sans-serif;
+  font-family: 'Onest-Regular', sans-serif;
   font-size: 12px;
   line-height: 133%;
   font-weight: 400;
 }
 
 @mixin Status {
-  font-family: Onest, sans-serif;
+  font-family: 'Onest-Regular', sans-serif;
   font-size: 16px;
   font-weight: 400;
 }
 
 @mixin LinkS {
-  font-family: Onest, sans-serif;
+  font-family: 'Onest-Regular', sans-serif;
   font-size: 14px;
   line-height: 114%;
   font-weight: 400;
 }
 
 @mixin Button {
-  font-family: Onest, sans-serif;
+  font-family: 'Onest-Bold', sans-serif;
   font-size: 12px;
   line-height: 133%;
   font-weight: 700;
 }
 
 @mixin DeadlineDateMedium {
-  font-family: Onest, sans-serif;
+  font-family: 'Onest-Medium', sans-serif;
   font-size: 10px;
   line-height: 160%;
   font-weight: 500;
 }
 
 @mixin Description {
-  font-family: Onest, sans-serif;
+  font-family: 'Onest-Regular', sans-serif;
   font-size: 10px;
   line-height: 120%;
   font-weight: 400;
 }
 
 @mixin S1 {
-  font-family: Onest, sans-serif;
+  font-family: 'Onest-Medium', sans-serif;
   font-size: 10px;
   line-height: 120%;
   font-weight: 500;
 }
 
 @mixin LinkM {
-  font-family: Onest, sans-serif;
+  font-family: 'Onest-Regular', sans-serif;
   font-size: 16px;
   line-height: 150%;
   font-weight: 400;

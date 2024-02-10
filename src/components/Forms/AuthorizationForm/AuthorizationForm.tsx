@@ -17,23 +17,18 @@ const AuthorizationForm = () => {
     );
   };
 
-  const { errors, handleChange, handleSubmit } = useForm({
+  const { errors, handleBlur, handleSubmit } = useForm({
     initialValues: { email: '', password: '' },
     onSubmit: onSubmitLogin,
   });
   return (
     <form className={styles.AuthorizationForm} onSubmit={handleSubmit}>
       <div className={styles.AuthorizationForm__container}>
-        <EmailInput
-          id='email'
-          name='email'
-          onChange={handleChange}
-          error={errors.email}
-        />
+        <EmailInput id='email' name='email' onBlur={handleBlur} error={errors.email} />
         <PasswordInput
           id='password'
           name='password'
-          onChange={handleChange}
+          onBlur={handleBlur}
           error={errors.password}
         />
       </div>

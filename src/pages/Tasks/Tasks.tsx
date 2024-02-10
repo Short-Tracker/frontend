@@ -1,6 +1,6 @@
 import { FC } from 'react';
+// import { useSelector } from 'services/hooks';
 import styles from './Tasks.module.scss';
-
 import { Task, TaskProps } from '../../components/Task/Task';
 import { TaskStateProps } from '../../components/TaskState/TaskState';
 
@@ -17,7 +17,7 @@ const Tasks: FC<TaskProps & TaskStateProps> = (props) => {
   //     completedTime: '',
   //   },
   // ];
-
+  // const assignedEmployee = useSelector((state) => state.user.full_name);
   return (
     <div className={styles.card}>
       {[props].map(() => (

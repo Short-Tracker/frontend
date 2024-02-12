@@ -39,10 +39,8 @@
   display: flex;
   align-items: top;
   justify-content: space-between;
-  max-width: 216px;
   max-height: 32px;
   height: 100%;
-  width: 100%;
   margin: 0 auto;
   position: relative;
   cursor: default;
@@ -79,11 +77,10 @@
 }
 
 .other {
-  max-width: 211px;
+  max-width: 283px;
   max-height: 30px;
   height: 100%;
   width: 100%;
-  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;

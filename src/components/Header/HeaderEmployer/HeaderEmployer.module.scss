@@ -1,5 +1,6 @@
 @use '../../../globalStyles/variables.scss' as v;
 @use '../../../globalStyles/mixins.scss' as m;
+@import '../../../fonts/Onest.scss';
 
 .employer {
   margin: 0 auto;
@@ -22,6 +23,7 @@
   height: 100%;
   display: flex;
   align-items: center;
+  position: relative;
 
   &_button {
     display: flex;
@@ -46,6 +48,7 @@
     padding: 0;
     margin: 0;
     @include m.H2;
+
   }
 }
 
@@ -69,7 +72,7 @@
   }
 }
 
-.navLink {
+.navButton {
   padding: 0;
   margin: 0;
   max-width: fit-content;
@@ -78,7 +81,7 @@
   text-decoration: none;
   text-wrap: nowrap;
   display: flex;
-
+  border: none;
   @include m.ButtonLarge;
 
   &:hover {

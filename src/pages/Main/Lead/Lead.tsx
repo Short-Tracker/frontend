@@ -116,8 +116,7 @@ const Lead: FC<ITaskCard> = ({ allTasks }) => {
             description: item.description,
             status: dInd,
             deadline_date: item.deadline_date,
-            // performers,
-            performers: [2],
+            performers: item.performers.map((i) => i.id),
           },
         })
       );

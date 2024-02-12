@@ -23,7 +23,7 @@ const Main = () => {
   return (
     <main className={styles.main}>
       {!isLoggedIn && <Login />}
-      {isLoggedIn && !isLead && <User />}
+      {isLoggedIn && !isLead && <User allTasks={tasks} />}
       {isLoggedIn && isLead && <Lead allTasks={tasks} />}
     </main>
   );

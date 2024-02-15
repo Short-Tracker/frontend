@@ -30,7 +30,7 @@ const User: FC<ITaskCard> = ({ allTasks }) => {
   const resultsToRender = useMemo(
     () =>
       tasksOfUserId !== -1
-        ? results.filter((task) => handleCheckIfTaskForMe(tasksOfUserId, task.performers))
+        ? results.filter((task) => handleCheckIfTaskForMe(tasksOfUserId, task.performer))
         : results,
     [results, tasksOfUserId]
   );
@@ -83,11 +83,12 @@ const User: FC<ITaskCard> = ({ allTasks }) => {
       dispatch(
         updateTaskThunk({
           id: draggableId,
+          status: sInd,
           data: {
             description: item.description,
             status: dInd,
             deadline_date: item.deadline_date,
-            performers: item.performers.map((i) => i.id),
+            performer: item.performer.id,
           },
         })
       );

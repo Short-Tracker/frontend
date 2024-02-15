@@ -25,7 +25,7 @@ const Lead: FC<ITaskCard> = ({ allTasks }) => {
   const resultsToRender = useMemo(
     () =>
       tasksOfUserId !== -1
-        ? results.filter((task) => handleCheckIfTaskForMe(tasksOfUserId, task.performers))
+        ? results.filter((task) => handleCheckIfTaskForMe(tasksOfUserId, task.performer))
         : results,
     [results, tasksOfUserId]
   );
@@ -116,7 +116,7 @@ const Lead: FC<ITaskCard> = ({ allTasks }) => {
             description: item.description,
             status: dInd,
             deadline_date: item.deadline_date,
-            performers: item.performers.map((i) => i.id),
+            performer: item.performer.id,
           },
         })
       );

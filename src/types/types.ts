@@ -55,7 +55,7 @@ export type TResults = {
   archive_date: string;
   link: string;
   creator: TCreator;
-  performers: TPerformers[];
+  performer: TPerformer;
   is_expired: string;
   resolved_status: string;
 };
@@ -68,7 +68,7 @@ export type TCreator = {
   email: string;
   is_team_lead: boolean | null;
 };
-export type TPerformers = {
+export type TPerformer = {
   id: number;
   full_name: string;
   telegram_nickname: string;

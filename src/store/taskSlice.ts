@@ -25,15 +25,14 @@ const initialState: TTask = {
         email: '',
         is_team_lead: null,
       },
-      performers: [
-        {
-          id: 0,
-          full_name: '',
-          telegram_nickname: '',
-          email: '',
-          is_team_lead: null,
-        },
-      ],
+      performer: {
+        id: 0,
+        full_name: '',
+        telegram_nickname: '',
+        email: '',
+        is_team_lead: null,
+      },
+
       is_expired: '',
       resolved_status: '',
     },

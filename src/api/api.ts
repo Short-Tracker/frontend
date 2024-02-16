@@ -49,5 +49,13 @@ export const updateTaskApi = (taskData: any) =>
     headers: new Headers([['Content-Type', 'application/json']]),
     body: JSON.stringify(taskData.data),
   });
+
+export const getTask = (p: string) => request(`tasks/?status=${p}`, { method: 'GET' });
+
+export const getTodoTask = () => getTask('to do');
+export const getInProgressTask = () => getTask('in progress');
+export const getDoneTask = () => getTask('done');
+export const getHoldTask = () => getTask('hold');
+
 export const getAllTasks = () => request('tasks/?limit=99&offset=0', { method: 'GET' });
 export const getUsers = () => request('users/', { method: 'GET' });

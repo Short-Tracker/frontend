@@ -16,6 +16,7 @@ import modalReducer from './modalSlice';
 import systemReducer from './systemSlice';
 import { taskMenuActiveReducer } from './taskMenuActiveSlice';
 import taskReducer from './taskSlice';
+import tasksReducer from './tasksSlice';
 import { tasksOfUserSliceReducer } from './tasksOfUserSlice';
 import userReducer from './userSlice';
 import usersReducer from './usersSlice';
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   system: systemReducer,
   user: userReducer,
   task: taskReducer,
+  tasks: tasksReducer,
   users: usersReducer,
   content: contentReducer,
   modals: modalReducer,

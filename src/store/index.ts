@@ -2,6 +2,7 @@ import { onLogin, onLogout, isLoadingOn, isLoadingOff } from './systemSlice';
 import { setUser, clearUser, setUserDataTemp } from './userSlice';
 import { setUsers } from './usersSlice';
 import { setTask, updateTaskStore } from './taskSlice';
+import { setTasks } from './tasksSlice';
 import { openCreateTaskModal, openCreateTask, closeModal } from './modalSlice';
 import { setCreateTask } from './createTaskSlice';
 import { setContent } from './contentSlice';
@@ -15,6 +16,7 @@ export {
   isLoadingOn,
   isLoadingOff,
   setTask,
+  setTasks,
   updateTaskStore,
   setUsers,
   openCreateTaskModal,

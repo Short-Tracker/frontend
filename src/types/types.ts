@@ -38,6 +38,15 @@ export type TSystemState = {
   isLoading: boolean;
 };
 // типы для Task
+
+export type TtaskState = {
+  toDo: TTask | null;
+  inProgress: TTask | null;
+  done: TTask | null;
+  hold: TTask | null;
+  count: number;
+};
+
 export type TTask = {
   count: number;
   next: string | null;
@@ -86,8 +95,8 @@ export type TCreateTask = {
 };
 
 export enum TaskStatus {
-  TO_DO = 'to do',
-  IN_PROGRESS = 'in progress',
+  TO_DO = 'toDo',
+  IN_PROGRESS = 'inProgress',
   HOLD = 'hold',
   DONE = 'done',
   ARCHIVED = 'archived',

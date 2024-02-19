@@ -24,8 +24,6 @@ const initialState: TTask = {
         telegram_nickname: '',
         email: '',
         is_team_lead: null,
-        first_name: '',
-        last_name: '',
       },
       performer: {
         id: 0,

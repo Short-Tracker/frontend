@@ -40,10 +40,6 @@ export const Task: React.FC<TaskProps> = ({
   const navigate = useNavigate();
   const location = useLocation();
   const taskMenuActiveId = useSelector((state) => state.taskMenuActive).id;
-  // const userName = useSelector(
-  //   (state) => `${state.user.first_name} ${state.user.last_name}`
-  // );
-
   const handleToggleEditMenu = () => {
     if (isMenuOpened) {
       setIsMenuOpened(false);

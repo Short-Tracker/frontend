@@ -68,9 +68,8 @@ export type TCreator = {
   telegram_nickname: string;
   email: string;
   is_team_lead: boolean | null;
-  first_name: string;
-  last_name: string;
 };
+
 export type TPerformer = {
   id: number;
   full_name: string;

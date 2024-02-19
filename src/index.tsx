@@ -1,3 +1,4 @@
+import Preloader from 'components/Preloader/Preloader';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
@@ -13,7 +14,7 @@ const rootNode = createRoot(rootDiv as Element);
 rootNode.render(
   <React.StrictMode>
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={<Preloader />} persistor={persistor}>
         <BrowserRouter>
           <App />
         </BrowserRouter>

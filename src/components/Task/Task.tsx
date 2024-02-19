@@ -19,6 +19,7 @@ export interface TaskProps {
   taskCreatorId: number;
   isCurrentUserLead: boolean;
   currentUserId: number;
+  performer: number;
 }
 
 export const Task: React.FC<TaskProps> = ({
@@ -32,13 +33,11 @@ export const Task: React.FC<TaskProps> = ({
   taskCreatorId,
   isCurrentUserLead,
   currentUserId,
+  performer,
 }) => {
   const [isMenuOpened, setIsMenuOpened] = React.useState(false);
   const dispatch = useDispatch();
   const taskMenuActiveId = useSelector((state) => state.taskMenuActive).value;
-  // const userName = useSelector(
-  //   (state) => `${state.user.first_name} ${state.user.last_name}`
-  // );
 
   const handleToggleEditMenu = () => {
     if (isMenuOpened) {
@@ -92,6 +91,7 @@ export const Task: React.FC<TaskProps> = ({
             taskCreatorId={taskCreatorId}
             isCurrentUserLead={isCurrentUserLead}
             currentUserId={currentUserId}
+            performer={performer}
           />
         )}
 

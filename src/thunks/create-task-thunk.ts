@@ -1,9 +1,9 @@
-import { batch } from 'react-redux';
 import toast from 'react-hot-toast';
+import { setNewTask } from 'store/tasksSlice';
 import { createTask } from '../api/api';
-import { setCreateTask, updateTaskStore, isLoadingOn, isLoadingOff } from '../store';
+import { isLoadingOff, isLoadingOn } from '../store';
 import { AppThunk } from '../types/store.types';
-import { TCreateTask } from '../types/types';
+import { TResults } from '../types/types';
 
 const createTaskThunk: AppThunk = (data) => async (dispatch) => {
   const authErrors = (error: any) => {
@@ -15,11 +15,8 @@ const createTaskThunk: AppThunk = (data) => async (dispatch) => {
   };
   try {
     dispatch(isLoadingOn());
-    const res: TCreateTask = await createTask(data);
-    batch(() => {
-      dispatch(setCreateTask(res));
-      dispatch(updateTaskStore);
-    });
+    const { tasks }: { tasks: TResults[] } = await createTask(data);
+    dispatch(setNewTask(tasks[0]));
   } catch (error: any) {
     authErrors(error);
   } finally {

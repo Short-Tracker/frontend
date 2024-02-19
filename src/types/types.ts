@@ -45,6 +45,7 @@ export type TtaskState = {
   done: TTask | null;
   hold: TTask | null;
   count: number;
+  [key: string]: any;
 };
 
 export type TTask = {
@@ -56,7 +57,7 @@ export type TTask = {
 export type TResults = {
   id: number;
   description: string;
-  status: string;
+  status: TaskStatus;
   create_date: string;
   inprogress_date: string;
   done_date: string;
@@ -88,15 +89,29 @@ export type TPerformer = {
 
 export type TCreateTask = {
   description: string;
-  status: string;
+  status: TaskStatus;
   deadline_date: string;
   link: string;
   performers: number[];
 };
 
+export type TUpdateTaskStatus = {
+  id: number;
+  curStatus: TaskStatus;
+  newStatus: TaskStatus;
+};
+
+export type TUpdateTaskStatusApi = Omit<TUpdateTaskStatus, 'curStatus'>;
+
+export type TUpdateTaskStore = {
+  id: number;
+  newTask: TResults;
+  status: TaskStatus;
+};
+
 export enum TaskStatus {
-  TO_DO = 'toDo',
-  IN_PROGRESS = 'inProgress',
+  TO_DO = 'to do',
+  IN_PROGRESS = 'in progress',
   HOLD = 'hold',
   DONE = 'done',
   ARCHIVED = 'archived',

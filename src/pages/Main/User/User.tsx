@@ -1,40 +1,28 @@
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import { DragDropContext } from '@hello-pangea/dnd';
 import HeaderEmployer from 'components/Header/HeaderEmployer/HeaderEmployer';
 import Status from 'components/Status/Status';
-import { TResults, TTask, TaskStatus } from 'types/types';
-import { useSelector, useDispatch } from 'services/hooks';
-import { handleCheckIfTaskForMe } from 'services/functions';
-import updateTaskThunk from 'thunks/update-task-thunk';
-import { resetActiveMenu } from 'store/taskMenuActiveSlice';
-import { DragDropContext } from '@hello-pangea/dnd';
 import TaskSort from 'components/TasksDND/TasksDND';
+import { FC } from 'react';
+import { useDispatch, useSelector, useTasksToRender } from 'services/hooks';
+import { resetActiveMenu } from 'store/taskMenuActiveSlice';
+import updateTaskThunk from 'thunks/update-task-status-thunk';
+import { TaskStatus, TtaskState } from 'types/types';
 import styles from './User.module.scss';
 
 interface ITaskCard {
-  allTasks: TTask;
+  allTasks: TtaskState;
 }
 
 const User: FC<ITaskCard> = ({ allTasks }) => {
-  const { count, results } = allTasks;
+  const { toDo, inProgress, done, hold } = allTasks;
   const dispatch = useDispatch();
   const content = useSelector((state) => state.content);
 
-  const [todoTasks, setTodoTasks] = useState<TResults[]>([]);
-  const [inProgressTasks, setInProgressTasks] = useState<TResults[]>([]);
-  const [doneTasks, setDoneTasks] = useState<TResults[]>([]);
-  const [holdTasks, setHoldTasks] = useState<TResults[]>([]);
-
   const currentUser = useSelector((state) => state.user);
-  const tasksOfUserId = useSelector((state) => state.tasksOfUser).id;
-
-  const resultsToRender = useMemo(
-    () =>
-      tasksOfUserId !== -1
-        ? results.filter((task) => handleCheckIfTaskForMe(tasksOfUserId, task.performer))
-        : results,
-    [results, tasksOfUserId]
-  );
-
+  const todoTasks = useTasksToRender(toDo);
+  const inProgressTasks = useTasksToRender(inProgress);
+  const doneTasks = useTasksToRender(done);
+  const holdTasks = useTasksToRender(hold);
   const onDragStart = () => dispatch(resetActiveMenu());
 
   const onDragEnd = (result: any) => {
@@ -44,21 +32,18 @@ const User: FC<ITaskCard> = ({ allTasks }) => {
     if (!destination) {
       return;
     }
-    // Статус задачи до дропа
     const sInd = source.droppableId;
-
-    // Статус задачи после дропа
     const dInd = destination.droppableId;
-
-    const itemIndex = allTasks.results.findIndex(
-      (elem) => elem.id === Number(draggableId)
-    );
-
-    // Таска
-    const item = allTasks.results[itemIndex];
+    const allTasksArr = [
+      ...todoTasks.tasksToRender,
+      ...inProgressTasks.tasksToRender,
+      ...doneTasks.tasksToRender,
+      ...holdTasks.tasksToRender,
+    ];
+    const itemIndex = allTasksArr.findIndex((elem) => elem.id === Number(draggableId));
+    const item = allTasksArr[itemIndex];
 
     const { status } = item;
-
     const isCurrentUserLead = currentUser.is_team_lead;
 
     const canDragToInProgress =
@@ -79,11 +64,11 @@ const User: FC<ITaskCard> = ({ allTasks }) => {
     ) {
       return;
     }
+
     const updateTaskStatus = () => {
       dispatch(
         updateTaskThunk({
           id: draggableId,
-          status: sInd,
           data: {
             description: item.description,
             status: dInd,
@@ -99,37 +84,6 @@ const User: FC<ITaskCard> = ({ allTasks }) => {
     }
   };
 
-  const parseTasks = () => {
-    const todo: TResults[] = [];
-    const inProgress: TResults[] = [];
-    const done: TResults[] = [];
-    const hold: TResults[] = [];
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < resultsToRender.length; i++) {
-      if (resultsToRender[i].status === TaskStatus.TO_DO) {
-        todo.push(resultsToRender[i]);
-      }
-      if (resultsToRender[i].status === TaskStatus.IN_PROGRESS) {
-        inProgress.push(resultsToRender[i]);
-      }
-      if (resultsToRender[i].status === TaskStatus.DONE) {
-        done.push(resultsToRender[i]);
-      }
-      if (resultsToRender[i].status === TaskStatus.HOLD) {
-        hold.push(results[i]);
-      }
-    }
-    setTodoTasks(todo);
-    setInProgressTasks(inProgress);
-    setDoneTasks(done);
-    setHoldTasks(hold);
-  };
-
-  useEffect(() => {
-    parseTasks();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resultsToRender]);
-
   return (
     <section className={styles.section}>
       <HeaderEmployer />
@@ -138,10 +92,16 @@ const User: FC<ITaskCard> = ({ allTasks }) => {
         {content.currentContent === 'objectives' && (
           <div className={styles.userTasksWrapper}>
             <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
-              <TaskSort tasksArray={todoTasks} droppableId='to do' />
-              <TaskSort tasksArray={inProgressTasks} droppableId='in progress' />
-              <TaskSort tasksArray={doneTasks} droppableId='done' />
-              <TaskSort tasksArray={holdTasks} droppableId={TaskStatus.HOLD} />
+              <TaskSort tasksArray={todoTasks.tasksToRender} droppableId='to do' />
+              <TaskSort
+                tasksArray={inProgressTasks.tasksToRender}
+                droppableId='in progress'
+              />
+              <TaskSort tasksArray={doneTasks.tasksToRender} droppableId='done' />
+              <TaskSort
+                tasksArray={holdTasks.tasksToRender}
+                droppableId={TaskStatus.HOLD}
+              />
             </DragDropContext>
           </div>
         )}

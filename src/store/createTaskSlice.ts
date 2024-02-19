@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TCreateTask } from 'types/types';
+import { TaskStatus, TCreateTask } from 'types/types';
 
 const initialState: TCreateTask = {
   description: '',
-  status: 'to do',
+  status: TaskStatus.TO_DO,
   deadline_date: '2024-01-24',
   link: 'https://short-tracker.github.io/frontend/',
   performers: [0],

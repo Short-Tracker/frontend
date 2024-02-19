@@ -1,13 +1,13 @@
-import { FC } from 'react';
 import { Draggable, Droppable } from '@hello-pangea/dnd';
-import { TResults } from '../../types/types';
-import { useSelector } from '../../services/hooks';
-import styles from './TasksDND.module.scss';
+import { FC } from 'react';
 import Tasks from '../../pages/Tasks/Tasks';
 import { handleCheckIfTaskForMe } from '../../services/functions';
+import { useSelector } from '../../services/hooks';
+import { TResults } from '../../types/types';
+import styles from './TasksDND.module.scss';
 
 interface ITaskSort {
-  tasksArray: TResults[];
+  tasksArray: TResults[] | [];
   droppableId: string;
 }
 
@@ -30,7 +30,7 @@ const TaskSort: FC<ITaskSort> = ({ tasksArray, droppableId }) => {
 
   return (
     <Droppable droppableId={droppableId}>
-      {(provided, snapshot) => (
+      {(provided) => (
         <div ref={provided.innerRef} {...provided.droppableProps}>
           <div className={styles.taskColumn}>
             {tasksArray.map((task, index) => (
@@ -53,6 +53,7 @@ const TaskSort: FC<ITaskSort> = ({ tasksArray, droppableId }) => {
                       completedTime={task.deadline_date}
                       status={task.status}
                       taskID={task.id}
+                      performer={task.performer.id}
                       taskCreatorId={task.creator.id}
                       isCurrentUserLead={isCurrentUserLead}
                       currentUserId={currentUserId}

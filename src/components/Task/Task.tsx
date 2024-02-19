@@ -40,6 +40,9 @@ export const Task: React.FC<TaskProps> = ({
   const navigate = useNavigate();
   const location = useLocation();
   const taskMenuActiveId = useSelector((state) => state.taskMenuActive).id;
+  // const userName = useSelector(
+  //   (state) => `${state.user.first_name} ${state.user.last_name}`
+  // );
 
   const handleToggleEditMenu = () => {
     if (isMenuOpened) {
@@ -78,8 +81,9 @@ export const Task: React.FC<TaskProps> = ({
       {/* Шапка отображается только для лида для не своей задачи */}
       {isCurrentUserLead && currentUserId !== taskCreatorId && (
         <div className={styles.task_header}>
+          <p className={styles.task_header_id}>{`#${taskID}`}</p>
           <ClockIcon />
-          <p className={styles.task_header_text}>{headerText}</p>
+          <p className={styles.task_header_text}>{`${headerText}`}</p>
         </div>
       )}
       <div className={styles.task_body}>

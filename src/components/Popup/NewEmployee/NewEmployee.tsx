@@ -10,12 +10,11 @@ import styles from './NewEmployee.module.scss';
 
 const NewEmployeePopup: React.FC<{ closePopup: () => void }> = ({ closePopup }) => {
   const dispatch = useDispatch();
-
   const onSubmitAddUser = (values: FormValues) => {
     dispatch();
   };
 
-  const { errors, handleChange, handleSubmit } = useForm({
+  const { errors, handleBlur, handleSubmit } = useForm({
     initialValues: { email: '', password: '', nickname: '', name: '', lastName: '' },
     onSubmit: onSubmitAddUser,
   });
@@ -36,7 +35,7 @@ const NewEmployeePopup: React.FC<{ closePopup: () => void }> = ({ closePopup }) 
               placeholder='Иван'
               width={246.5}
               error={errors.name}
-              onChange={handleChange}
+              onBlur={handleBlur}
             />
             <UniversalInput
               id='lastName'
@@ -45,7 +44,7 @@ const NewEmployeePopup: React.FC<{ closePopup: () => void }> = ({ closePopup }) 
               placeholder='Иванов'
               width={246.5}
               error={errors.lastName}
-              onChange={handleChange}
+              onBlur={handleBlur}
             />
           </div>
           <UniversalInput
@@ -54,19 +53,14 @@ const NewEmployeePopup: React.FC<{ closePopup: () => void }> = ({ closePopup }) 
             label='Telegram'
             placeholder='@BorKate'
             error={errors.nickname}
-            onChange={handleChange}
+            onBlur={handleBlur}
           />
-          <EmailInput
-            id='email'
-            name='email'
-            error={errors.email}
-            onChange={handleChange}
-          />
+          <EmailInput id='email' name='email' error={errors.email} onBlur={handleBlur} />
           <PasswordInput
             id='password'
             name='password'
             error={errors.password}
-            onChange={handleChange}
+            onBlur={handleBlur}
           />
           <div className={styles.newEmployeeWrapper}>
             <UniversalButton className={styles.newEmployeeAddButton} width={246.5}>

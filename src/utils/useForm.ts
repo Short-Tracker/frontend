@@ -18,18 +18,18 @@ export const useForm = ({ initialValues, onSubmit }: UseFormProps) => {
   const [values, setValues] = useState<FormValues>(initialValues);
   const [errors, setErrors] = useState<FormErrors>({});
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleBlur = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    const error = validateField(name, value);
+    const trimmedValue = event.target.value.trim();
 
     setValues((prevValues) => ({
       ...prevValues,
-      [name]: value,
+      [name]: trimmedValue,
     }));
 
     setErrors((prevErrors) => ({
       ...prevErrors,
-      [name]: error,
+      [name]: validateField(name, trimmedValue),
     }));
   };
 
@@ -54,7 +54,7 @@ export const useForm = ({ initialValues, onSubmit }: UseFormProps) => {
   return {
     values,
     errors,
-    handleChange,
+    handleBlur,
     handleSubmit,
   };
 };

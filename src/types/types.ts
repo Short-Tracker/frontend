@@ -55,7 +55,7 @@ export type TResults = {
   archive_date: string;
   link: string;
   creator: TCreator;
-  performers: TPerformers[];
+  performer: TPerformer;
   is_expired: string;
   resolved_status: string;
 };
@@ -63,14 +63,15 @@ export type TResults = {
 export type TCreator = {
   id: number;
   full_name: string;
+  first_name: string;
+  last_name: string;
   telegram_nickname: string;
   email: string;
   is_team_lead: boolean | null;
   first_name: string;
   last_name: string;
 };
-
-export type TPerformers = {
+export type TPerformer = {
   id: number;
   full_name: string;
   telegram_nickname: string;
@@ -94,3 +95,7 @@ export enum TaskStatus {
   DONE = 'done',
   ARCHIVED = 'archived',
 }
+
+export type TContent = {
+  currentContent: string;
+};

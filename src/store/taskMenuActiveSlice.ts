@@ -1,16 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = { value: -1 };
+const initialState = { id: -1 };
 
 const taskMenuActiveSlice = createSlice({
   name: 'taskMenuActive',
   initialState,
   reducers: {
     setActiveMenu: (state, { payload }: { payload: number }) => {
-      state.value = payload;
+      state.id = payload;
     },
     resetActiveMenu: (state) => {
-      state.value = initialState.value;
+      state.id = initialState.id;
     },
   },
 });

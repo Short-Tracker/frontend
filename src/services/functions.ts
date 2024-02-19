@@ -1,3 +1,4 @@
+import { EventHandler, KeyboardEvent } from 'react';
 import { TPerformer, TaskStatus, TtaskState } from 'types/types';
 
 // Проверка есть ли текущий пользователь в списке
@@ -22,3 +23,15 @@ export const getStatus = (status: TaskStatus) => {
       return status;
   }
 };
+
+// eslint-disable-next-line
+export function buttonize<T>(handler: EventHandler<any>) {
+  return {
+    role: 'button',
+    onClick: handler,
+    tabIndex: 0,
+    onKeyDown: (event: KeyboardEvent) => {
+      if (event.key === 'Enter') handler(event);
+    },
+  };
+}

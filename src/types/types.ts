@@ -69,6 +69,7 @@ export type TResults = {
   is_expired: string;
   resolved_status: string;
 };
+
 export type TCreator = {
   id: number;
   full_name: string;
@@ -78,6 +79,7 @@ export type TCreator = {
   email: string;
   is_team_lead: boolean | null;
 };
+
 export type TPerformer = {
   id: number;
   full_name: string;

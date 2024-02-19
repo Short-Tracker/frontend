@@ -1,5 +1,6 @@
 import React, { BaseSyntheticEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import Preloader from 'components/Preloader/Preloader';
 import styles from './CreateTask.module.scss';
 import CheckBox from '../../../ui-lib/CheckBoxes/CheckBox/CheckBox';
 import UniversalTextarea from '../../../ui-lib/Inputs/Textarea/UniversalTextarea';
@@ -20,6 +21,7 @@ const CreateTask = () => {
   const user = useSelector((state) => state.user);
   const currentUsers = useSelector((state) => state.users);
   const users = currentUsers.results;
+  const { isLoading } = useSelector((state) => state.system);
   const [showCheckboxesMenu, setShowCheckboxesMenu] = useState<boolean>(true);
   const [checkboxValues, setCheckboxValues] = useState<CheckboxValues>({});
   const [textareaValue, setTextareaValue] = useState<string>('');
@@ -107,6 +109,7 @@ const CreateTask = () => {
 
   return (
     <form className={styles.form} onSubmit={createTaskState}>
+      {isLoading && <Preloader />}
       <div className={styles.checkboxes}>
         <p className={styles.form__label}>выберите сотрудника</p>
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}

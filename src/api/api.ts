@@ -54,7 +54,7 @@ export const updateTaskApi = (taskData: any) =>
   });
 
 export const updateTaskStatus = (taskData: TUpdateTaskStatusApi) =>
-  request<{ tasks: TResults[] }>(`tasks/${taskData.id}`, {
+  request<TResults>(`tasks/${taskData.id}`, {
     method: 'PATCH',
     headers: new Headers([['Content-Type', 'application/json']]),
     body: JSON.stringify({ status: taskData.newStatus }),

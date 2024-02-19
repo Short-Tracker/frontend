@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'services/hooks';
-import { TTask } from 'types/types';
 import { UniversalButton } from 'ui-lib/Buttons';
 import { ClockIcon, FlagIcon } from 'ui-lib/Icons';
 import styles from './TaskPage.module.scss';
@@ -11,12 +10,16 @@ interface ITaskPageProps {
 }
 
 const TaskPage: FC<ITaskPageProps> = ({ isWindow }) => {
-  const { results }: TTask = useSelector((state) => state.task);
+  const tasks = useSelector((state) => state.tasks);
   const { taskId } = useParams();
   const navigate = useNavigate();
   const OnClosePath = isWindow ? -1 : '/main';
-  const thisTask = results.find((task) => taskId && task.id === +taskId);
-  console.log(thisTask);
+  const thisTask = [
+    ...(tasks.toDo ? tasks.toDo.results : []),
+    ...(tasks.inProgress ? tasks.inProgress.results : []),
+    ...(tasks.done ? tasks.done.results : []),
+    ...(tasks.hold ? tasks.hold.results : []),
+  ].find((task) => taskId && task.id === +taskId);
 
   if (!thisTask) return <Navigate to='/' />;
   return (

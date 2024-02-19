@@ -38,6 +38,16 @@ export type TSystemState = {
   isLoading: boolean;
 };
 // типы для Task
+
+export type TtaskState = {
+  toDo: TTask | null;
+  inProgress: TTask | null;
+  done: TTask | null;
+  hold: TTask | null;
+  count: number;
+  [key: string]: any;
+};
+
 export type TTask = {
   count: number;
   next: string | null;
@@ -47,7 +57,7 @@ export type TTask = {
 export type TResults = {
   id: number;
   description: string;
-  status: string;
+  status: TaskStatus;
   create_date: string;
   inprogress_date: string;
   done_date: string;
@@ -55,18 +65,22 @@ export type TResults = {
   archive_date: string;
   link: string;
   creator: TCreator;
-  performers: TPerformers[];
+  performer: TPerformer;
   is_expired: string;
   resolved_status: string;
 };
+
 export type TCreator = {
   id: number;
   full_name: string;
+  first_name: string;
+  last_name: string;
   telegram_nickname: string;
   email: string;
   is_team_lead: boolean | null;
 };
-export type TPerformers = {
+
+export type TPerformer = {
   id: number;
   full_name: string;
   telegram_nickname: string;
@@ -77,10 +91,24 @@ export type TPerformers = {
 
 export type TCreateTask = {
   description: string;
-  status: string;
+  status: TaskStatus;
   deadline_date: string;
   link: string;
   performers: number[];
+};
+
+export type TUpdateTaskStatus = {
+  id: number;
+  curStatus: TaskStatus;
+  newStatus: TaskStatus;
+};
+
+export type TUpdateTaskStatusApi = Omit<TUpdateTaskStatus, 'curStatus'>;
+
+export type TUpdateTaskStore = {
+  id: number;
+  newTask: TResults;
+  status: TaskStatus;
 };
 
 export enum TaskStatus {
@@ -90,3 +118,7 @@ export enum TaskStatus {
   DONE = 'done',
   ARCHIVED = 'archived',
 }
+
+export type TContent = {
+  currentContent: string;
+};

@@ -1,6 +1,8 @@
 import { TaskEditMenu } from 'components/TaskEditMenu/TaskEditMenu';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { buttonize } from 'services/functions';
 import { useSelector } from 'services/hooks';
 import { resetActiveMenu, setActiveMenu } from 'store/taskMenuActiveSlice';
 import EditButton from 'ui-lib/Buttons/editTaskButton/editTaskButton';
@@ -19,6 +21,7 @@ export interface TaskProps {
   taskCreatorId: number;
   isCurrentUserLead: boolean;
   currentUserId: number;
+  performer: number;
 }
 
 export const Task: React.FC<TaskProps> = ({
@@ -32,11 +35,13 @@ export const Task: React.FC<TaskProps> = ({
   taskCreatorId,
   isCurrentUserLead,
   currentUserId,
+  performer,
 }) => {
   const [isMenuOpened, setIsMenuOpened] = React.useState(false);
   const dispatch = useDispatch();
-  const taskMenuActiveId = useSelector((state) => state.taskMenuActive).value;
-
+  const navigate = useNavigate();
+  const location = useLocation();
+  const taskMenuActiveId = useSelector((state) => state.taskMenuActive).id;
   const handleToggleEditMenu = () => {
     if (isMenuOpened) {
       setIsMenuOpened(false);
@@ -65,13 +70,18 @@ export const Task: React.FC<TaskProps> = ({
     }
   };
 
+  const handleOpenTask = (evt: React.KeyboardEvent) => {
+    navigate(`/tasks/${taskID}`, { state: { background: location } });
+  };
+
   return (
     <div className={styles.container}>
       {/* Шапка отображается только для лида для не своей задачи */}
       {isCurrentUserLead && currentUserId !== taskCreatorId && (
         <div className={styles.task_header}>
+          <p className={styles.task_header_id}>{`#${taskID}`}</p>
           <ClockIcon />
-          <p className={styles.task_header_text}>{headerText}</p>
+          <p className={styles.task_header_text}>{`${headerText}`}</p>
         </div>
       )}
       <div className={styles.task_body}>
@@ -88,11 +98,12 @@ export const Task: React.FC<TaskProps> = ({
             taskCreatorId={taskCreatorId}
             isCurrentUserLead={isCurrentUserLead}
             currentUserId={currentUserId}
+            performer={performer}
           />
         )}
 
         <div className={styles.task}>
-          <div className={styles.task_container}>
+          <div className={styles.task_container} {...buttonize(handleOpenTask)}>
             <p className={styles.task_text}>{text}</p>
             <p className={styles.task_textFull}>{text}</p>
           </div>

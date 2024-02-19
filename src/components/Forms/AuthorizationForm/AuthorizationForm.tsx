@@ -2,14 +2,16 @@ import React from 'react';
 import EmailInput from 'ui-lib/Inputs/EmailInput/EmailInput';
 import PasswordInput from 'ui-lib/Inputs/PasswordInput/PasswordInput';
 import loginUserThunk from 'thunks/login-user-thunk';
+import Preloader from 'components/Preloader/Preloader';
 import { NavLink } from 'react-router-dom';
 import { UniversalButton } from 'ui-lib/Buttons';
 import { FormValues, useForm } from 'utils/useForm';
-import { useDispatch } from '../../../services/hooks';
+import { useDispatch, useSelector } from '../../../services/hooks';
 import styles from './AuthorizationForm.module.scss';
 
 const AuthorizationForm = () => {
   const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state.system);
 
   const onSubmitLogin = (values: FormValues) => {
     dispatch(
@@ -17,23 +19,19 @@ const AuthorizationForm = () => {
     );
   };
 
-  const { errors, handleChange, handleSubmit } = useForm({
+  const { errors, handleBlur, handleSubmit } = useForm({
     initialValues: { email: '', password: '' },
     onSubmit: onSubmitLogin,
   });
   return (
     <form className={styles.AuthorizationForm} onSubmit={handleSubmit}>
+      {isLoading && <Preloader />}
       <div className={styles.AuthorizationForm__container}>
-        <EmailInput
-          id='email'
-          name='email'
-          onChange={handleChange}
-          error={errors.email}
-        />
+        <EmailInput id='email' name='email' onBlur={handleBlur} error={errors.email} />
         <PasswordInput
           id='password'
           name='password'
-          onChange={handleChange}
+          onBlur={handleBlur}
           error={errors.password}
         />
       </div>

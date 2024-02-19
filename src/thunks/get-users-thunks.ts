@@ -17,7 +17,7 @@ const getUsersThunk: AppThunk = (isLoggedIn: boolean) => async (dispatch) => {
   } catch (error: any) {
     catchErrors(error);
   } finally {
-    dispatch(isLoadingOff);
+    dispatch(isLoadingOff());
   }
 };
 

@@ -1,15 +1,15 @@
+import Preloader from 'components/Preloader/Preloader';
 import React, { BaseSyntheticEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import styles from './CreateTask.module.scss';
-import CheckBox from '../../../ui-lib/CheckBoxes/CheckBox/CheckBox';
-import UniversalTextarea from '../../../ui-lib/Inputs/Textarea/UniversalTextarea';
-import Calendar from '../../Calendar/Calendar';
-import UniversalInput from '../../../ui-lib/Inputs/UniversalInput/UniversalInput';
-import { UniversalButton } from '../../../ui-lib/Buttons';
 import { useDispatch, useSelector } from '../../../services/hooks';
 import { closeModal } from '../../../store';
 import createTaskThunk from '../../../thunks/create-task-thunk';
-import getTaskThunk from '../../../thunks/get-task-thunks';
+import { UniversalButton } from '../../../ui-lib/Buttons';
+import CheckBox from '../../../ui-lib/CheckBoxes/CheckBox/CheckBox';
+import UniversalTextarea from '../../../ui-lib/Inputs/Textarea/UniversalTextarea';
+import UniversalInput from '../../../ui-lib/Inputs/UniversalInput/UniversalInput';
+import Calendar from '../../Calendar/Calendar';
+import styles from './CreateTask.module.scss';
 
 type CheckboxValues = Record<string, boolean>;
 const CreateTask = () => {
@@ -20,6 +20,7 @@ const CreateTask = () => {
   const user = useSelector((state) => state.user);
   const currentUsers = useSelector((state) => state.users);
   const users = currentUsers.results;
+  const { isLoading } = useSelector((state) => state.system);
   const [showCheckboxesMenu, setShowCheckboxesMenu] = useState<boolean>(true);
   const [checkboxValues, setCheckboxValues] = useState<CheckboxValues>({});
   const [textareaValue, setTextareaValue] = useState<string>('');
@@ -36,7 +37,6 @@ const CreateTask = () => {
         performers: performersId,
       })
     );
-    dispatch(getTaskThunk(true));
     dispatch(closeModal());
   };
   const showCheckboxes = () => {
@@ -107,6 +107,7 @@ const CreateTask = () => {
 
   return (
     <form className={styles.form} onSubmit={createTaskState}>
+      {isLoading && <Preloader />}
       <div className={styles.checkboxes}>
         <p className={styles.form__label}>выберите сотрудника</p>
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}

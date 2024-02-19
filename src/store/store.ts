@@ -1,30 +1,30 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import {
-  persistStore,
-  persistReducer,
   FLUSH,
-  REHYDRATE,
   PAUSE,
   PERSIST,
   PURGE,
   REGISTER,
+  REHYDRATE,
+  persistReducer,
+  persistStore,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
+import contentReducer from './contentSlice';
 import createTaskReducer from './createTaskSlice';
 import modalReducer from './modalSlice';
 import systemReducer from './systemSlice';
 import { taskMenuActiveReducer } from './taskMenuActiveSlice';
-import taskReducer from './taskSlice';
 import { tasksOfUserSliceReducer } from './tasksOfUserSlice';
+import tasksReducer from './tasksSlice';
 import userReducer from './userSlice';
 import usersReducer from './usersSlice';
-import contentReducer from './contentSlice';
 
 const rootReducer = combineReducers({
   system: systemReducer,
   user: userReducer,
-  task: taskReducer,
+  tasks: tasksReducer,
   users: usersReducer,
   content: contentReducer,
   modals: modalReducer,

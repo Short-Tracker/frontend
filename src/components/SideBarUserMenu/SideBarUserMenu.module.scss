@@ -28,7 +28,7 @@
   @include Description;
   color: $black-color;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
 
   &:nth-child(1) {

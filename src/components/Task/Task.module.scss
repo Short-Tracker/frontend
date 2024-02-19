@@ -61,6 +61,16 @@
     display: none;
   }
 
+  &_container {
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.3s;
+  }
+
+  &_container:hover {
+    background-color: v.$light-grey;
+  }
+
   &_container:hover + &_textFull {
     border: 1px solid #cccccc;
     position: absolute;

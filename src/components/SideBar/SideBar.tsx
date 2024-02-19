@@ -15,13 +15,13 @@ import NewEmployeePopup from 'components/Popup/NewEmployee/NewEmployee';
 import React, { KeyboardEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'services/hooks';
 import { getAllTeamTasks } from 'store/tasksOfUserSlice';
-import { TTask } from 'types/types';
+import { TtaskState } from 'types/types';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './SideBar.module.scss';
 
 const SideBar: React.FC = () => {
   const currentUser = useSelector((state) => state.user);
-  const tasks: TTask = useSelector((state) => state.task);
+  const tasks: TtaskState = useSelector((state) => state.tasks);
   const currentUsers = useSelector((state) => state.users);
   const dispatch = useDispatch();
   const [isSidebarMenuOpen, setisSidebarMenuOpen] = useState(false);
@@ -71,8 +71,8 @@ const SideBar: React.FC = () => {
           <button type='button' className={styles.navButton}>
             Запросы
           </button>
-          {tasks.results.length > 0 ? (
-            <span className={styles.requestSpan}>{tasks.results.length}</span>
+          {tasks.count > 0 ? (
+            <span className={styles.requestSpan}>{tasks.count}</span>
           ) : null}
         </li>
         <li className={styles.navLi}>

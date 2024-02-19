@@ -4,7 +4,7 @@ import { TaskStatus } from 'types/types';
 import { UniversalButton } from 'ui-lib/Buttons';
 import { BallpenIcon, TrashIcon } from 'ui-lib/Icons';
 import { useClose, useDispatch } from '../../services/hooks';
-import updateTaskThunk from '../../thunks/update-task-thunk';
+import updateTaskThunk from '../../thunks/update-task-status-thunk';
 import styles from './TaskEditMenu.module.scss';
 // import { changeTaskStatus } from '../../store/taskSlice';
 
@@ -19,6 +19,7 @@ export interface TaskEditMenuProps {
   taskCreatorId: number;
   isCurrentUserLead: boolean;
   currentUserId: number;
+  performer: number;
 }
 
 export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
@@ -32,6 +33,7 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
   taskCreatorId,
   isCurrentUserLead,
   currentUserId,
+  performer,
 }) => {
   const [currentStatus, setStatus] = React.useState(status);
   const dispatch = useDispatch();
@@ -63,13 +65,8 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
     dispatch(
       updateTaskThunk({
         id: taskID,
-        data: {
-          description,
-          status: currentStatus,
-          deadline_date: deadlineDate,
-          // performers,
-          performers: [2],
-        },
+        curStatus: status,
+        newStatus: currentStatus,
       })
     );
   };

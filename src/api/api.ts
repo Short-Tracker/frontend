@@ -67,5 +67,11 @@ export const getInProgressTask = () => getTask('in progress');
 export const getDoneTask = () => getTask('done');
 export const getHoldTask = () => getTask('hold');
 
+export const createNewUserApi = (userData: any) =>
+  request('users/', {
+    method: 'POST',
+    headers: new Headers([['Content-Type', 'application/json']]),
+    body: JSON.stringify(userData),
+  });
 export const getAllTasks = () => request('tasks/?limit=99&offset=0', { method: 'GET' });
 export const getUsers = () => request('users/', { method: 'GET' });

@@ -19,7 +19,7 @@ const Main = () => {
     dispatch(getTasksThunk(isLoggedIn));
     dispatch(getUsersThunk(isLoggedIn));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoggedIn, tasks.count]);
+  }, [isLoggedIn]);
 
   return (
     <main className={styles.main}>

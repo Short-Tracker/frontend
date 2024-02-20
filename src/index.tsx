@@ -14,7 +14,7 @@ const rootNode = createRoot(rootDiv as Element);
 rootNode.render(
   <React.StrictMode>
     <Provider store={store}>
-      <PersistGate loading={<Preloader />} persistor={persistor}>
+      <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
           <App />
         </BrowserRouter>

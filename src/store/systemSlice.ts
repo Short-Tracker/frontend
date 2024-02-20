@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { TSystemState } from 'types/types';
 
 const initialState: TSystemState = {
-  isLoading: true,
+  isLoading: false,
   isLoggedIn: false,
 };
 

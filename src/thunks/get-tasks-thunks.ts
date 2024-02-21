@@ -1,6 +1,12 @@
 import { batch } from 'react-redux';
 import { handleCheckCount } from 'services/functions';
-import { getDoneTask, getHoldTask, getInProgressTask, getTodoTask } from '../api/api';
+import {
+  getDoneTask,
+  getHoldTask,
+  getInProgressTask,
+  getTodoTask,
+  getArchiveTask,
+} from '../api/api';
 import { setTasks, isLoadingOn, isLoadingOff } from '../store';
 import { AppThunk } from '../types/store.types';
 import catchErrors from '../api/catch-errors';
@@ -14,7 +20,8 @@ const getTasksThunk: AppThunk = (isLoggedIn: boolean) => async (dispatch) => {
         getInProgressTask(),
         getDoneTask(),
         getHoldTask(),
-      ]).then(([todoTasks, inProgressTasks, doneTasks, holdTasks]) => {
+        getArchiveTask(),
+      ]).then(([todoTasks, inProgressTasks, doneTasks, holdTasks, archiveTasks]) => {
         batch(() => {
           dispatch(
             setTasks({
@@ -22,7 +29,14 @@ const getTasksThunk: AppThunk = (isLoggedIn: boolean) => async (dispatch) => {
               inProgress: inProgressTasks,
               done: doneTasks,
               hold: holdTasks,
-              count: handleCheckCount([todoTasks, inProgressTasks, doneTasks, holdTasks]),
+              archived: archiveTasks,
+              count: handleCheckCount([
+                todoTasks,
+                inProgressTasks,
+                doneTasks,
+                holdTasks,
+                archiveTasks,
+              ]),
             })
           );
         });

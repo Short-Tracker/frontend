@@ -7,6 +7,7 @@ const initialState: TtaskState = {
   inProgress: null,
   done: null,
   hold: null,
+  archived: null,
   count: 0,
 };
 

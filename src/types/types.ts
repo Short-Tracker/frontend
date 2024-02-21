@@ -44,6 +44,7 @@ export type TtaskState = {
   inProgress: TTask | null;
   done: TTask | null;
   hold: TTask | null;
+  archived: TTask | null;
   count: number;
   [key: string]: any;
 };

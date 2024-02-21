@@ -66,6 +66,7 @@ export const getTodoTask = () => getTask('to do');
 export const getInProgressTask = () => getTask('in progress');
 export const getDoneTask = () => getTask('done');
 export const getHoldTask = () => getTask('hold');
+export const getArchiveTask = () => getTask('archived');
 
 export const createNewUserApi = (userData: any) =>
   request('users/', {

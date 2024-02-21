@@ -14,7 +14,7 @@ import SideBarUserMenu from 'components/SideBarUserMenu/SideBarUserMenu';
 import NewEmployeePopup from 'components/Popup/NewEmployee/NewEmployee';
 import React, { KeyboardEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'services/hooks';
-import { getAllTeamTasks } from 'store/tasksOfUserSlice';
+import { getAllTeamTasks, getUserTasks } from 'store/tasksOfUserSlice';
 import { TtaskState } from 'types/types';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './SideBar.module.scss';
@@ -26,7 +26,7 @@ const SideBar: React.FC = () => {
   const dispatch = useDispatch();
   const [isSidebarMenuOpen, setisSidebarMenuOpen] = useState(false);
   const [isNewEmployeePopupOpen, setIsNewEmployeePopupOpen] = useState(false);
-
+  const { id } = currentUser;
   const handleToggleMenu = () => {
     setisSidebarMenuOpen(!isSidebarMenuOpen);
   };
@@ -38,8 +38,8 @@ const SideBar: React.FC = () => {
   const handleCancel = () => {
     setIsNewEmployeePopupOpen(false);
   };
-
   const showAllTasks = () => dispatch(getAllTeamTasks());
+  const showMyTasks = () => dispatch(getUserTasks({ id }));
   const handleKeyDown = (evt: KeyboardEvent) => {
     if (evt.key === 'Enter' || evt.key === ' ') {
       evt.preventDefault();
@@ -51,7 +51,7 @@ const SideBar: React.FC = () => {
     <section className={styles.SideBar}>
       <div onClick={handleToggleMenu} className={styles.userWrapper}>
         <img className={styles.userImg} src={lid} alt='Изображение пользователя' />
-        <h2 className={styles.userName}>{currentUser.full_name}</h2>
+        <h2 className={styles.userName}>{currentUser.first_name}</h2>
         {isSidebarMenuOpen && <SideBarUserMenu setIsOpen={setisSidebarMenuOpen} />}
       </div>
 
@@ -62,7 +62,7 @@ const SideBar: React.FC = () => {
             className={`${styles.navImage} ${styles.navImageActive}`}
             alt='иконка'
           />
-          <button type='button' className={styles.navButton}>
+          <button type='button' className={styles.navButton} onClick={showAllTasks}>
             Все задачи
           </button>
         </li>
@@ -75,9 +75,9 @@ const SideBar: React.FC = () => {
             <span className={styles.requestSpan}>{tasks.count}</span>
           ) : null}
         </li>
-        <li className={styles.navLi}>
+        <li className={`${styles.navLi} ${styles.navLiActive}`}>
           <img src={myTaskIcon} className={styles.navImage} alt='иконка' />
-          <button type='button' className={styles.navButton}>
+          <button type='button' className={styles.navButton} onClick={showMyTasks}>
             Мои Задачи
           </button>
         </li>

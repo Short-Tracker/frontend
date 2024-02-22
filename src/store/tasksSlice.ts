@@ -23,12 +23,10 @@ const tasksSlice = createSlice({
     },
     updateStoreTasksStatus(state, { payload }: PayloadAction<TUpdateTaskStore>) {
       const { id, status, newTask } = payload;
-      console.log(newTask);
       const curStatus = getStatus(status);
       const newStatus = getStatus(newTask.status);
       const curTasks = (current(state)[curStatus] as TTask).results;
       const index = curTasks.findIndex((task) => task.id === id);
-      console.log(curTasks, status, newStatus, id);
       if (index === -1 || !current(state)[newStatus]) return;
       (state[curStatus] as TTask).results.splice(index, 1);
       (state[newStatus] as TTask).results.push(newTask);

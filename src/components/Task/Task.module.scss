@@ -107,6 +107,14 @@
     margin-left: 4px;
     color: v.$disabled-color;
     @include m.Description;
+
+    &_expired {
+      color: v.$error;
+      padding: 0;
+      margin: 0;
+      margin-left: 4px;
+      @include m.Description;
+    }
   }
 
   &_right {

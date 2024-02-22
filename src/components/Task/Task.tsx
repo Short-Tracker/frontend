@@ -2,11 +2,11 @@ import { TaskEditMenu } from 'components/TaskEditMenu/TaskEditMenu';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { buttonize } from 'services/functions';
+import { buttonize, getDateString } from 'services/functions';
 import { useSelector } from 'services/hooks';
 import { resetActiveMenu, setActiveMenu } from 'store/taskMenuActiveSlice';
 import EditButton from 'ui-lib/Buttons/editTaskButton/editTaskButton';
-import { ClockIcon, CommentsIcon, FlagIcon } from 'ui-lib/Icons';
+import { ClockIcon, CommentsIcon, FlagIcon, FlagIconExpired } from 'ui-lib/Icons';
 import styles from './Task.module.scss';
 
 // содержимое карточки
@@ -42,6 +42,10 @@ export const Task: React.FC<TaskProps> = ({
   const navigate = useNavigate();
   const location = useLocation();
   const taskMenuActiveId = useSelector((state) => state.taskMenuActive).id;
+
+  const completedTimeDate = new Date(completedTime);
+  const createDate = new Date(date);
+
   const handleToggleEditMenu = () => {
     if (isMenuOpened) {
       setIsMenuOpened(false);
@@ -120,8 +124,20 @@ export const Task: React.FC<TaskProps> = ({
 
         <div className={styles.other}>
           <div className={styles.other_left}>
-            <FlagIcon />
-            <p className={styles.other_date}>{date}</p>
+            {completedTimeDate > new Date() ? (
+              <FlagIcon />
+            ) : (
+              <FlagIconExpired width='14' height='14' />
+            )}
+            <p
+              className={
+                completedTimeDate > new Date()
+                  ? styles.other_date
+                  : styles.other_date_expired
+              }
+            >
+              {getDateString(createDate)}
+            </p>
           </div>
 
           <div className={styles.other_right}>
@@ -132,3 +148,4 @@ export const Task: React.FC<TaskProps> = ({
     </div>
   );
 };
+// expired

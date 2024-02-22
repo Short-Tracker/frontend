@@ -35,3 +35,14 @@ export function buttonize<T>(handler: EventHandler<any>) {
     },
   };
 }
+
+export const getDateString = (date: Date) => {
+  return date
+    .toLocaleDateString('ru', {
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    })
+    .replace(' в ', ', ');
+};

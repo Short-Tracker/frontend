@@ -1,6 +1,6 @@
 import { createSlice, current, PayloadAction } from '@reduxjs/toolkit';
 import { getStatus } from 'services/functions';
-import { TResults, TTask, TtaskState, TUpdateTaskStore } from 'types/types';
+import { TaskStatus, TResults, TTask, TtaskState, TUpdateTaskStore } from 'types/types';
 
 const initialState: TtaskState = {
   toDo: null,
@@ -27,7 +27,12 @@ const tasksSlice = createSlice({
       const newStatus = getStatus(newTask.status);
       const curTasks = (current(state)[curStatus] as TTask).results;
       const index = curTasks.findIndex((task) => task.id === id);
+
+      if (newStatus === TaskStatus.ARCHIVED || index !== -1) {
+        (state[curStatus] as TTask).results.splice(index, 1);
+      }
       if (index === -1 || !current(state)[newStatus]) return;
+
       (state[curStatus] as TTask).results.splice(index, 1);
       (state[newStatus] as TTask).results.push(newTask);
     },

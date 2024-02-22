@@ -41,6 +41,9 @@ export const Task: React.FC<TaskProps> = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const usersResult = useSelector((store) => store.users).results; // Юзеры
+  const performerName = usersResult.find((u) => u.id === performer); // перформер задачи
+
   const taskMenuActiveId = useSelector((state) => state.taskMenuActive).id;
 
   const completedTimeDate = new Date(completedTime);
@@ -81,11 +84,13 @@ export const Task: React.FC<TaskProps> = ({
   return (
     <div className={styles.container}>
       {/* Шапка отображается только для лида для не своей задачи */}
-      {isCurrentUserLead && currentUserId !== taskCreatorId && (
+      {isCurrentUserLead && currentUserId !== performer && (
         <div className={styles.task_header}>
           <p className={styles.task_header_id}>{`#${taskID}`}</p>
           <ClockIcon />
-          <p className={styles.task_header_text}>{`${headerText}`}</p>
+          <p
+            className={styles.task_header_text}
+          >{`${performerName?.first_name} ${performerName?.last_name}`}</p>
         </div>
       )}
       <div className={styles.task_body}>

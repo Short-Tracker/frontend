@@ -1,0 +1,54 @@
+@use '../../globalStyles/variables.scss' as v;
+@use '../../globalStyles/mixins.scss' as m;
+
+.container {
+  display: flex;
+  width: 452px;
+  height: 36px;
+  padding: 8px 0 8px 20px;
+  border-radius: 8px;
+  justify-content: space-between;
+  align-items: center;
+  @include m.Body;
+  color: v.$black2-color;
+
+  &_grey {
+    background-color: v.$login-background;
+  }
+}
+
+.time {
+  color: #7e7e7e;
+  margin-right: 20px;
+}
+
+.done {
+  height: 24px;
+  display: grid;
+  grid-template-columns: 70px 70px 70px;
+  column-gap: 5px;
+
+  &_container {
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+
+    &_active {
+      border: 1px solid v.$accent-color;
+    }
+
+    &_green {
+      color: v.$analitics-green-text;
+      background-color: rgba(v.$analitics-green-background, 0.3);
+      @include m.BodyLarge;
+    }
+
+    &_grey {
+      color: v.$name-task;
+      background-color: v.$header-task-bg-color;
+      @include m.BodyLarge;
+    }
+  }
+}

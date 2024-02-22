@@ -1,0 +1,134 @@
+@use '../../globalStyles/mixins.scss' as m;
+@use '../../globalStyles/variables.scss' as v;
+
+.page {
+
+  &_container {
+    display: flex;
+    background-color: v.$login-background;
+    width: 100%;
+    justify-content: center;
+  }
+  &_serchContainer {
+    display: flex;
+    margin: 20px 0;
+  }
+  &_analitics {
+    width: 100%;
+    margin-left: 20px;
+  }
+}
+
+.analitics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas:
+  "general general"
+  "quantity time";
+  row-gap: 28px;
+  column-gap: 20px;
+  max-width: 1084px;
+
+  &_header {
+    @include m.Button;
+    display: flex;
+    justify-content: center;
+    color: v.$black2-color;
+  }
+
+  &_general {
+    grid-area: general;
+    padding: 40px;
+    background-color: v.$white-color;
+
+    &_done {
+      position: relative;
+      margin-top: 32px;
+
+      &_intime {
+        position: relative;
+        display: grid;
+        grid-template-columns: auto 124px;
+        column-gap: 16px;
+        color: v.$analitics-green-text;
+        padding: 20px 90px 20px 20px;
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+        background: linear-gradient(to right top, v.$analitics-green-background 69.8%, transparent 20.2%) no-repeat right/542px 480%, no-repeat top center/cover;
+        width: 542px;
+        justify-items: start;
+        align-items: center;
+      }
+
+      &_after {
+        position: absolute;
+        left: 447px;
+        top: 0px;
+        display: grid;
+        grid-template-columns: auto 214px;
+        column-gap: 16px;
+        color: v.$analitics-black-text;
+        padding: 20px 20px 20px 90px;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        background: linear-gradient(to left bottom, v.$header-task-bg-color 69.8%, transparent 20.2%) no-repeat right/542px 480%, no-repeat top center/cover;
+        width: 542px;
+        justify-items: end;
+        align-items: center;
+      }
+
+      &_number {
+       @include m.AnaliticsNumber;
+
+        &_grey {
+          color: v.$name-task;
+        }
+      }
+
+      &_text {
+        @include m.AnaliticsText;
+      }
+    }
+  }
+
+  &_rating {
+    grid-area: quantity;
+    padding: 20px 40px;
+    background-color: v.$white-color;
+
+    &_filter {
+      height: 36px;
+      margin: 16px 0 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      @include m.Description;
+      color: v.$name-task;
+
+      &_container {
+        width: 150.67px;
+        height: 34px;
+        display: flex;
+        justify-content: center;
+
+        &_active {
+          border-bottom: 1px solid v.$name-task;
+          color: v.$black2-color;
+        }
+
+      }
+    }
+  }
+
+  &_speed {
+    grid-area: time;
+    padding: 20px 40px;
+    background-color: v.$white-color;
+
+    &_filter {
+      height: 36px;
+      margin: 16px 0 20px;
+      border: 1px solid v.$disabled-color;
+      border-radius: 8px;
+    }
+  }
+}

@@ -16,7 +16,17 @@
   &_analitics {
     width: 100%;
     margin-left: 20px;
+    padding-bottom: 20px
   }
+}
+
+.period {
+  @include m.Description;
+  color: v.$hold-text;
+  border-bottom: 1px solid v.$task-stroke;
+  max-width: 1084px;
+  width: 100%;
+  margin-bottom: 28px;
 }
 
 .analitics {
@@ -48,15 +58,14 @@
       &_intime {
         position: relative;
         display: grid;
-        grid-template-columns: auto 124px;
-        column-gap: 16px;
+        grid-template-columns: max-content 124px;
+        column-gap: 39px;
         color: v.$analitics-green-text;
-        padding: 20px 90px 20px 20px;
+        padding: 20px 90px 20px 30px;
         border-top-left-radius: 8px;
         border-bottom-left-radius: 8px;
-        background: linear-gradient(to right top, v.$analitics-green-background 69.8%, transparent 20.2%) no-repeat right/542px 480%, no-repeat top center/cover;
+        background: linear-gradient(to right top, rgba(v.$analitics-green-background, 0.3) 69.8%, transparent 20.2%) no-repeat right/542px 480%, no-repeat top center/cover;
         width: 542px;
-        justify-items: start;
         align-items: center;
       }
 
@@ -65,15 +74,14 @@
         left: 447px;
         top: 0px;
         display: grid;
-        grid-template-columns: auto 214px;
-        column-gap: 16px;
+        grid-template-columns: max-content 214px;
+        column-gap: 39px;
         color: v.$analitics-black-text;
-        padding: 20px 20px 20px 90px;
+        padding: 20px 20px 20px 130px;
         border-top-right-radius: 8px;
         border-bottom-right-radius: 8px;
         background: linear-gradient(to left bottom, v.$header-task-bg-color 69.8%, transparent 20.2%) no-repeat right/542px 480%, no-repeat top center/cover;
         width: 542px;
-        justify-items: end;
         align-items: center;
       }
 
@@ -91,14 +99,24 @@
     }
   }
 
+  &_performers {
+    display: grid;
+    row-gap: 4px;
+    // grid-template-columns: 1fr;
+    // grid-template-rows: repeat(auto-fill 36px);
+    max-height: 396px;
+    overflow: scroll;
+  }
+
   &_rating {
     grid-area: quantity;
     padding: 20px 40px;
     background-color: v.$white-color;
+    height: 531px;
 
     &_filter {
       height: 36px;
-      margin: 16px 0 20px;
+      margin: 20px 0;
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       @include m.Description;
@@ -106,7 +124,7 @@
 
       &_container {
         width: 150.67px;
-        height: 34px;
+        height: 36px;
         display: flex;
         justify-content: center;
 
@@ -123,12 +141,60 @@
     grid-area: time;
     padding: 20px 40px;
     background-color: v.$white-color;
+    height: 531px;
 
     &_filter {
-      height: 36px;
-      margin: 16px 0 20px;
-      border: 1px solid v.$disabled-color;
-      border-radius: 8px;
+      margin: 20px 0;
+      display: grid;
+      grid-template-columns: 1fr 12px 1fr;
+      column-gap: 4px;
+      align-items: center;
+      color: v.$black2-color;
+      @include m.Body;
+
+      &_position {
+        position: relative;
+        display: flex;
+      }
+
+      &_container {
+        display: flex;
+        width: 216px;
+        border: 1px solid v.$disabled-color;
+        border-radius: 8px;
+        padding: 9px 10px 9px 16px;
+        justify-content: space-between;
+        cursor: pointer;
+       }
+
+       &_bottom {
+        display: flex;
+        position: absolute;
+        z-index: 1;
+        background-color: v.$white-color;
+        width: 216px;
+        border: 1px solid v.$disabled-color;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        padding: 9px 10px 9px 16px;
+        left: 0;
+        top: 35px;
+        border: 1px solid v.$disabled-color;
+        cursor: pointer;
+       }
+
+       &_opened {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+       &_active {
+         border-color: v.$accent-color;
+       }
+
+       &_disabled {
+        color: v.$disabled-color;
+       }
     }
   }
 }

@@ -4,7 +4,7 @@ import styles from './AnaliticsString.module.scss';
 export interface AnaliticsStringProps {
   performer: string;
   index: number;
-  activeContainer?: string;
+  activeColumn?: string;
   time?: string;
   inTime?: number;
   afterDeadline?: number;
@@ -18,7 +18,7 @@ export const AnaliticsString: React.FC<AnaliticsStringProps> = ({
   afterDeadline,
   all,
   index,
-  activeContainer,
+  activeColumn,
 }) => {
   return (
     <div
@@ -33,27 +33,21 @@ export const AnaliticsString: React.FC<AnaliticsStringProps> = ({
         <div className={styles.done}>
           <div
             className={`${styles.done_container} ${styles.done_container_green} ${
-              activeContainer === 'inTime'
-                ? styles.analitics_rating_filter_container_active
-                : undefined
+              activeColumn === 'inTime' ? styles.done_container_active : undefined
             }`}
           >
             <span>{inTime}</span>
           </div>
           <div
-            className={`${styles.done_container} ${
-              activeContainer === 'afterDeadline'
-                ? styles.analitics_rating_filter_container_active
-                : undefined
+            className={`${styles.done_container} ${styles.done_container_grey} ${
+              activeColumn === 'afterDeadline' ? styles.done_container_active : undefined
             }`}
           >
             <span>{afterDeadline}</span>
           </div>
           <div
             className={`${styles.done_container} ${
-              activeContainer === 'allDone'
-                ? styles.analitics_rating_filter_container_active
-                : undefined
+              activeColumn === 'allDone' ? styles.done_container_active : undefined
             }`}
           >
             <span>{all}</span>
@@ -69,5 +63,5 @@ AnaliticsString.defaultProps = {
   inTime: 0,
   afterDeadline: 0,
   all: 0,
-  activeContainer: 'inTime',
+  activeColumn: '',
 };

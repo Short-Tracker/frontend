@@ -5,41 +5,137 @@ import { openCreateTaskModal } from 'store';
 import { UniversalButton } from 'ui-lib/Buttons';
 import Search from 'components/Search/Search';
 import { AnaliticsString } from 'components/AnaliticsString/AnaliticsString';
+import { ArrowDownIcon, ArrowIcon, ArrowUpIcon } from 'ui-lib/Icons';
 import styles from './Analitics.module.scss';
 
 const Analitics = () => {
   const dispatch = useDispatch();
-  const [activeInTime, setActiveInTime] = React.useState(true);
-  const [activeAfterDeadline, setActiveAfterDeadline] = React.useState(false);
-  const [activeAllDone, setActiveAllDone] = React.useState(false);
-  const [activeContainer, setActiveContainer] = React.useState('inTime');
+  const [isCollapsedLeft, setIsCollapsedLeft] = React.useState(false);
+  const [isCollapsedRight, setIsCollapsedRight] = React.useState(false);
+  const [activeRating, setActiveRating] = React.useState('inTime');
+  const [leftFilter, setLeftFilter] = React.useState('Todo');
+  const [rightFilter, setRightFilter] = React.useState('In progress');
 
   const openCreateTask = () => {
     dispatch(openCreateTaskModal());
   };
 
+  // Обработчики клика для сворачивания/разворачивания
+  const handleToggleCollapseLeft = () => {
+    setIsCollapsedLeft(!isCollapsedLeft);
+  };
+  const handleToggleCollapseRight = () => {
+    setIsCollapsedRight(!isCollapsedRight);
+  };
+
+  // изменение фильтров
+  const changeLeftFilter = () => {
+    if (leftFilter === 'Todo') {
+      setLeftFilter('In progress');
+      if (rightFilter === 'In progress') {
+        setRightFilter('Done');
+      }
+    } else {
+      setLeftFilter('Todo');
+    }
+    setIsCollapsedLeft(!isCollapsedLeft);
+  };
+
+  const changeRightFilter = () => {
+    if (rightFilter === 'In progress') {
+      setRightFilter('Done');
+    } else {
+      setRightFilter('In progress');
+      if (leftFilter === 'In progress') {
+        setLeftFilter('Todo');
+      }
+    }
+    setIsCollapsedRight(!isCollapsedRight);
+  };
+
+  // Обработчики клавиатурных событий для поддержки доступности
+  const handleKeyDownLeft = (evt: React.KeyboardEvent) => {
+    if (evt.key === 'Enter' || evt.key === ' ') {
+      handleToggleCollapseLeft();
+    }
+  };
+  const handleKeyDownRight = (evt: React.KeyboardEvent) => {
+    if (evt.key === 'Enter' || evt.key === ' ') {
+      handleToggleCollapseRight();
+    }
+  };
+  const handleKeyDownLeftFilter = (evt: React.KeyboardEvent) => {
+    if (evt.key === 'Enter' || evt.key === ' ') {
+      handleToggleCollapseLeft();
+    }
+  };
+  const handleKeyDownRightFilter = (evt: React.KeyboardEvent) => {
+    if (evt.key === 'Enter' || evt.key === ' ') {
+      handleToggleCollapseRight();
+    }
+  };
+
   const rateInTime = () => {
-    setActiveInTime(true);
-    setActiveAfterDeadline(false);
-    setActiveAllDone(false);
-    setActiveContainer('inTime');
+    setActiveRating('inTime');
   };
 
   const rateAfterDeadline = () => {
-    setActiveInTime(false);
-    setActiveAfterDeadline(true);
-    setActiveAllDone(false);
-    setActiveContainer('afterDeadline');
+    setActiveRating('afterDeadline');
   };
 
   const rateAllDone = () => {
-    setActiveInTime(false);
-    setActiveAfterDeadline(false);
-    setActiveAllDone(true);
-    setActiveContainer('allDone');
+    setActiveRating('allDone');
   };
 
   const data = [
+    {
+      performer: 'Мария Жигунова',
+      inTime: 10,
+      afterDeadline: 3,
+      all: 13,
+    },
+    {
+      performer: 'Юлия Александрова',
+      inTime: 13,
+      afterDeadline: 4,
+      all: 17,
+    },
+    {
+      performer: 'Мария Жигунова',
+      inTime: 25,
+      afterDeadline: 3,
+      all: 28,
+    },
+    {
+      performer: 'Юлия Александрова',
+      inTime: 5,
+      afterDeadline: 15,
+      all: 20,
+    },
+    {
+      performer: 'Мария Жигунова',
+      inTime: 10,
+      afterDeadline: 3,
+      all: 13,
+    },
+    {
+      performer: 'Юлия Александрова',
+      inTime: 13,
+      afterDeadline: 4,
+      all: 17,
+    },
+    {
+      performer: 'Мария Жигунова',
+      inTime: 25,
+      afterDeadline: 3,
+      all: 28,
+    },
+    {
+      performer: 'Юлия Александрова',
+      inTime: 5,
+      afterDeadline: 15,
+      all: 20,
+    },
     {
       performer: 'Мария Жигунова',
       inTime: 10,
@@ -76,6 +172,7 @@ const Analitics = () => {
             <p>Создать задачу</p>
           </UniversalButton>
         </div>
+        <p className={styles.period}>1 февраля - 29 февраля</p>
         <div className={styles.analitics}>
           <div className={styles.analitics_general}>
             <h2 className={styles.analitics_header}>
@@ -103,7 +200,7 @@ const Analitics = () => {
             <ul className={styles.analitics_rating_filter}>
               <li
                 className={`${styles.analitics_rating_filter_container} ${
-                  activeInTime
+                  activeRating === 'inTime'
                     ? styles.analitics_rating_filter_container_active
                     : undefined
                 }`}
@@ -112,7 +209,7 @@ const Analitics = () => {
               </li>
               <li
                 className={`${styles.analitics_rating_filter_container} ${
-                  activeAfterDeadline
+                  activeRating === 'afterDeadline'
                     ? styles.analitics_rating_filter_container_active
                     : undefined
                 }`}
@@ -121,7 +218,7 @@ const Analitics = () => {
               </li>
               <li
                 className={`${styles.analitics_rating_filter_container} ${
-                  activeAllDone
+                  activeRating === 'allDone'
                     ? styles.analitics_rating_filter_container_active
                     : undefined
                 }`}
@@ -139,16 +236,71 @@ const Analitics = () => {
                     inTime={item.inTime}
                     afterDeadline={item.afterDeadline}
                     all={item.all}
-                    activeContainer={activeContainer}
+                    activeColumn={activeRating}
                   />
                 </div>
               ))}
             </div>
           </div>
           <div className={styles.analitics_speed}>
-            <h2 className={styles.analitics_header}>Скорость взятия задачи</h2>
+            <h2 className={styles.analitics_header}>
+              {leftFilter === 'Todo' && rightFilter === 'In progress'
+                ? 'Скорость взятия задач'
+                : 'Скорость решения задач'}
+            </h2>
             <div className={styles.analitics_speed_filter}>
-              <p>Все решенные</p>
+              <div className={styles.analitics_speed_filter_position}>
+                <button
+                  className={`${styles.analitics_speed_filter_container} ${
+                    isCollapsedLeft ? styles.analitics_speed_filter_opened : undefined
+                  } `}
+                  onClick={handleToggleCollapseLeft}
+                  onKeyDown={handleKeyDownLeft}
+                >
+                  {leftFilter}
+                  {isCollapsedLeft ? <ArrowUpIcon /> : <ArrowDownIcon />}
+                </button>
+                {isCollapsedLeft && (
+                  <button
+                    className={`${styles.analitics_speed_filter_bottom} ${
+                      rightFilter === 'In progress'
+                        ? styles.analitics_speed_filter_disabled
+                        : undefined
+                    }`}
+                    onClick={changeLeftFilter}
+                    onKeyDown={handleKeyDownLeftFilter}
+                  >
+                    {leftFilter === 'Todo' ? 'In progress' : 'Todo'}
+                  </button>
+                )}
+              </div>
+              <ArrowIcon />
+              <div className={styles.analitics_speed_filter_position}>
+                <button
+                  className={`${styles.analitics_speed_filter_container} ${
+                    isCollapsedRight ? styles.analitics_speed_filter_opened : undefined
+                  } `}
+                  onClick={handleToggleCollapseRight}
+                  onKeyDown={handleKeyDownRight}
+                >
+                  {rightFilter}
+                  {isCollapsedRight ? <ArrowUpIcon /> : <ArrowDownIcon />}
+                </button>
+                {isCollapsedRight && (
+                  <button
+                    className={`${styles.analitics_speed_filter_bottom} ${
+                      leftFilter === 'In progress'
+                        ? styles.analitics_speed_filter_disabled
+                        : undefined
+                    }`}
+                    onClick={changeRightFilter}
+                    onKeyDown={handleKeyDownRightFilter}
+                    disabled={leftFilter === 'In progress'}
+                  >
+                    {rightFilter === 'In progress' ? 'Done' : 'In progress'}
+                  </button>
+                )}
+              </div>
             </div>
             <div className={styles.analitics_performers}>
               <AnaliticsString performer='Мария Жигунова' index={0} time='30 мин' />

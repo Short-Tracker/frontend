@@ -3,10 +3,9 @@ import toast from 'react-hot-toast';
 const catchErrors = (error: any) => {
   console.error(error);
   const throwErr = (throwErrText: string = 'Ошибка.') => {
-    toast(throwErrText, {
+    toast.error(throwErrText, {
       duration: 3000,
       position: 'top-center',
-      icon: '❌',
       style: { fontSize: '18px', fontFamily: 'Onest, sans-serif' },
     });
   };

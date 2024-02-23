@@ -1,5 +1,5 @@
 import { baseUrl as api } from 'constants/baseUrl';
-import { TResults, TUpdateTaskStatusApi } from 'types/types';
+import { TResults, TTask, TUpdateTaskStatusApi } from 'types/types';
 
 const checkResponse = (res: Response) => {
   if (!res.ok) {
@@ -60,12 +60,20 @@ export const updateTaskStatus = (taskData: TUpdateTaskStatusApi) =>
     body: JSON.stringify({ status: taskData.newStatus }),
   });
 
-export const getTask = (p: string) => request(`tasks/?status=${p}`, { method: 'GET' });
+export const getTask = (p: string, s: string) =>
+  request(`tasks/?status=${p}${s}`, { method: 'GET' });
 
-export const getTodoTask = () => getTask('to do');
-export const getInProgressTask = () => getTask('in progress');
-export const getDoneTask = () => getTask('done');
-export const getHoldTask = () => getTask('hold');
+interface ISearchString {
+  (searchString?: string): any;
+}
+export const getTodoTask: ISearchString = (searchString = '') =>
+  getTask('to do', searchString);
+export const getInProgressTask: ISearchString = (searchString = '') =>
+  getTask('in progress', searchString);
+export const getDoneTask: ISearchString = (searchString = '') =>
+  getTask('done', searchString);
+export const getHoldTask: ISearchString = (searchString = '') =>
+  getTask('hold', searchString);
 
 export const createNewUserApi = (userData: any) =>
   request('users/', {

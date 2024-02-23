@@ -1,0 +1,163 @@
+@use '../../globalStyles/variables.scss' as v;
+@use '../../globalStyles/mixins.scss' as m;
+
+.container {
+  position: absolute;
+  top: 60px;
+  z-index: 1;
+  background-color: v.$white-color;
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 20px 0px #b1b1c333;
+  max-width: 162px;
+  @include m.Description;
+  color: v.$black2-color;
+}
+
+.form {
+  display: flex;
+  flex-flow: column;
+}
+
+.submit {
+  display: grid;
+  padding-left: 2px;
+  gap: 8px;
+
+  &_button {
+    color: v.$white-color;
+    max-width: 130px;
+    max-height: 28px;
+
+    &_text {
+      @include m.S1;
+    }
+  }
+}
+
+.reset {
+  display: grid;
+  padding-left: 2px;
+  gap: 8px;
+
+  &_button {
+    max-width: 130px;
+    max-height: 28px;
+
+    &_text {
+      @include m.S1;
+    }
+  }
+}
+
+.textarea {
+  max-height: 24px;
+}
+
+.formsarea {
+  display: flex;
+  flex-flow: column;
+  gap: 12px;
+}
+
+.outdate_checkbox_label {
+  display: flex;
+  margin-left: 8px;
+  align-items: center;
+}
+
+.outdate_checkbox {
+  width: 16px;
+  height: 16px;
+}
+
+.outdate_checkbox_container {
+  display: flex;
+}
+
+.calendar_input {
+  display: flex;
+}
+
+.calendar_input__inputarea {
+  margin-left: 4px;
+  width: 100%;
+}
+
+.button__container {
+  margin-top: 16px;
+  display: flex;
+  gap: 8px;
+  flex-flow: column;
+}
+
+.calendar {
+  max-width: 250px;
+  width: 100%;
+  &__title {
+    padding: 0;
+    margin: 0;
+    margin-bottom: 4px;
+    color: v.$name-task;
+    @include m.S1;
+    display: flex;
+    align-items: center;
+  }
+
+  &__input {
+    position: relative;
+  }
+  &__button {
+    max-width: 250px;
+    border: 1px solid v.$disabled-color;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-right: 16px;
+    width: 100%;
+    justify-content: flex-start;
+    padding: 8px 16px;
+    text-align: start;
+    @include m.BodyLarge;
+    color: v.$black2-color;
+    &:last-child {
+      margin-right: 0;
+    }
+    &:hover {
+      background-color: inherit;
+    }
+    &:active {
+      background-color: inherit;
+    }
+  }
+  &__textButton {
+    text-align: start;
+    @include m.BodyLarge;
+    color: v.$disabled-color;
+  }
+  &__textButtonInput {
+    position: relative;
+    max-width: 250px;
+    border: 1px solid v.$disabled-color;
+    border-radius: 8px;
+    background-color: inherit;
+    cursor: pointer;
+    width: 100%;
+    justify-content: flex-start;
+    padding: 8px 16px;
+    text-align: start;
+    @include m.BodyLarge;
+    color: #2c2b2b;
+
+    &::placeholder {
+      color: v.$disabled-color;
+    }
+  }
+  &__open {
+    position: absolute;
+    top: 6px;
+    left: -297px;
+    z-index: 10;
+  }
+}

@@ -13,6 +13,8 @@ type TProps = {
   //   value: TCalendarValue;
   handleSubmit: (formattedValue: string) => void;
   handleClose: () => void;
+  // eslint-disable-next-line react/require-default-props
+  selectRange?: boolean;
 } & CalendarProps;
 
 type ValuePiece = Date | null;
@@ -21,7 +23,7 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const Calendar: FC<TProps> = (props) => {
   // const { onChange, value, handleSubmit, handleClose } = props;
-  const { handleSubmit, handleClose } = props;
+  const { handleSubmit, handleClose, selectRange = false } = props;
   const [value, onChange] = useState<Value>(new Date());
 
   const formattedValue =

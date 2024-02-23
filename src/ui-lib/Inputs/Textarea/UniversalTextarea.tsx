@@ -5,9 +5,19 @@ interface IUniversalTextareaProps {
   label: string;
   value: string;
   onChange: (value: string) => void;
+  // eslint-disable-next-line react/require-default-props
+  placeholder?: string;
+  // eslint-disable-next-line react/require-default-props
+  textareaStyles?: object;
 }
 
-const UniversalTextarea: FC<IUniversalTextareaProps> = ({ label, value, onChange }) => {
+const UniversalTextarea: FC<IUniversalTextareaProps> = ({
+  label,
+  value,
+  onChange,
+  placeholder = '',
+  textareaStyles = {},
+}) => {
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     onChange(e.target.value);
   };
@@ -24,6 +34,8 @@ const UniversalTextarea: FC<IUniversalTextareaProps> = ({ label, value, onChange
         className={styles.textarea__content}
         value={value}
         onChange={handleChange}
+        placeholder={placeholder}
+        style={textareaStyles}
       />
     </div>
   );

@@ -173,28 +173,20 @@
         z-index: 1;
         background-color: v.$white-color;
         width: 216px;
-        border: 1px solid v.$disabled-color;
+        border: 1px solid v.$accent-color;
         border-bottom-left-radius: 8px;
         border-bottom-right-radius: 8px;
         padding: 9px 10px 9px 16px;
         left: 0;
         top: 35px;
-        border: 1px solid v.$disabled-color;
         cursor: pointer;
        }
 
        &_opened {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
+        border-color: v.$accent-color;
       }
-
-       &_active {
-         border-color: v.$accent-color;
-       }
-
-       &_disabled {
-        color: v.$disabled-color;
-       }
     }
   }
 }

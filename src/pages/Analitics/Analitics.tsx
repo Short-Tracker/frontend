@@ -16,6 +16,21 @@ const Analitics = () => {
   const [leftFilter, setLeftFilter] = React.useState('Todo');
   const [rightFilter, setRightFilter] = React.useState('In progress');
 
+  const currentDate = new Date();
+  currentDate.setHours(23, 59, 59, 999);
+  const endDate = new Date(currentDate);
+  const startDate = new Date(endDate);
+  startDate.setDate(startDate.getDate() - 6);
+  startDate.setHours(0, 0, 0, 0);
+  const formattedStartDate = new Intl.DateTimeFormat('ru-RU', {
+    day: 'numeric',
+    month: 'long',
+  }).format(startDate);
+  const formattedEndDate = new Intl.DateTimeFormat('ru-RU', {
+    day: 'numeric',
+    month: 'long',
+  }).format(endDate);
+
   const openCreateTask = () => {
     dispatch(openCreateTaskModal());
   };
@@ -124,42 +139,6 @@ const Analitics = () => {
       afterDeadline: 4,
       all: 17,
     },
-    {
-      performer: 'Мария Жигунова',
-      inTime: 25,
-      afterDeadline: 3,
-      all: 28,
-    },
-    {
-      performer: 'Юлия Александрова',
-      inTime: 5,
-      afterDeadline: 15,
-      all: 20,
-    },
-    {
-      performer: 'Мария Жигунова',
-      inTime: 10,
-      afterDeadline: 3,
-      all: 13,
-    },
-    {
-      performer: 'Юлия Александрова',
-      inTime: 13,
-      afterDeadline: 4,
-      all: 17,
-    },
-    {
-      performer: 'Мария Жигунова',
-      inTime: 25,
-      afterDeadline: 3,
-      all: 28,
-    },
-    {
-      performer: 'Юлия Александрова',
-      inTime: 5,
-      afterDeadline: 15,
-      all: 20,
-    },
   ];
 
   return (
@@ -172,7 +151,7 @@ const Analitics = () => {
             <p>Создать задачу</p>
           </UniversalButton>
         </div>
-        <p className={styles.period}>1 февраля - 29 февраля</p>
+        <p className={styles.period}>{`${formattedStartDate} - ${formattedEndDate}`}</p>
         <div className={styles.analitics}>
           <div className={styles.analitics_general}>
             <h2 className={styles.analitics_header}>
@@ -262,11 +241,7 @@ const Analitics = () => {
                 </button>
                 {isCollapsedLeft && (
                   <button
-                    className={`${styles.analitics_speed_filter_bottom} ${
-                      rightFilter === 'In progress'
-                        ? styles.analitics_speed_filter_disabled
-                        : undefined
-                    }`}
+                    className={styles.analitics_speed_filter_bottom}
                     onClick={changeLeftFilter}
                     onKeyDown={handleKeyDownLeftFilter}
                   >
@@ -288,14 +263,9 @@ const Analitics = () => {
                 </button>
                 {isCollapsedRight && (
                   <button
-                    className={`${styles.analitics_speed_filter_bottom} ${
-                      leftFilter === 'In progress'
-                        ? styles.analitics_speed_filter_disabled
-                        : undefined
-                    }`}
+                    className={styles.analitics_speed_filter_bottom}
                     onClick={changeRightFilter}
                     onKeyDown={handleKeyDownRightFilter}
-                    disabled={leftFilter === 'In progress'}
                   >
                     {rightFilter === 'In progress' ? 'Done' : 'In progress'}
                   </button>

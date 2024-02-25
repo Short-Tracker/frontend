@@ -1,14 +1,25 @@
-import React, { BaseSyntheticEvent, useState } from 'react';
+import React, {
+  BaseSyntheticEvent,
+  createRef,
+  FormEvent,
+  FormEventHandler,
+  useState,
+} from 'react';
+import * as events from 'events';
 import styles from './SearchFilter.module.scss';
 import { UniversalButton } from '../../ui-lib/Buttons';
 import UniversalTextarea from '../../ui-lib/Inputs/Textarea/UniversalTextarea';
 import Calendar from '../Calendar/Calendar';
 import { CalendarIcon } from '../../ui-lib/Icons';
+import { useDispatch } from '../../services/hooks';
+import getFilteredTasksThunk from '../../thunks/get-filtered-tasks-thunks';
 
 const SearchFilter = () => {
+  const dispatch = useDispatch();
   const [dateDropdownOpen, setDateDropdownOpen] = useState<boolean>(false);
   const [dateValue, setDateValue] = useState<string>('');
   const [idValue, setIdValue] = useState<string>('');
+  const [ifExpired, setIfExpired] = useState<boolean>(false);
 
   const onIdChange = (value: string) => {
     const re = /^[0-9\b]+$/;
@@ -28,9 +39,22 @@ const SearchFilter = () => {
     handleDateButtonClick();
   };
 
+  const onSubmitForm = (e: FormEvent) => {
+    e.preventDefault();
+    // if (!(Number(idValue) === 0)) {
+    // }
+    // dispatch(
+    //   getFilteredTasksThunk({
+    //     idValue: Number(idValue),
+    //     ifExpired,
+    //     dateValue,
+    //   })
+    // );
+  };
+
   return (
     <div className={styles.container}>
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={onSubmitForm}>
         <div className={styles.formsarea}>
           <div className={styles.textarea}>
             <UniversalTextarea
@@ -54,6 +78,8 @@ const SearchFilter = () => {
               id='checkbox-SerachFilter-1'
               type='checkbox'
               className={styles.outdate_checkbox}
+              checked={ifExpired}
+              onChange={() => setIfExpired(!ifExpired)}
             />
             <p className={styles.outdate_checkbox_label}>Только просроченные</p>
           </label>
@@ -85,7 +111,7 @@ const SearchFilter = () => {
           </div>
         </div>
         <div className={styles.button__container}>
-          <UniversalButton type='button' className={styles.submit_button}>
+          <UniversalButton type='submit' className={styles.submit_button}>
             <p className={styles.submit_button_text}>Применить</p>
           </UniversalButton>
           <UniversalButton type='button' className={styles.reset_button} isFilled={false}>

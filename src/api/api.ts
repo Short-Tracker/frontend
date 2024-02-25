@@ -60,6 +60,9 @@ export const updateTaskStatus = (taskData: TUpdateTaskStatusApi) =>
     body: JSON.stringify({ status: taskData.newStatus }),
   });
 
+export const getTaskFromID = (id: number) =>
+  request(`tasks/?id=${id}`, { method: 'GET' });
+
 export const getTask = (p: string, s: string) =>
   request(`tasks/?status=${p}${s}`, { method: 'GET' });
 

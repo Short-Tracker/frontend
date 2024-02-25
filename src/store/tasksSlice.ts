@@ -18,7 +18,7 @@ const tasksSlice = createSlice({
       ...state,
       ...payload,
     }),
-    setNewTask: (state, { payload }: PayloadAction<TResults>) => {
+    setNewTask: (state: TtaskState, { payload }: PayloadAction<TResults>) => {
       state.toDo?.results.unshift(payload);
     },
     updateStoreTasksStatus(state, { payload }: PayloadAction<TUpdateTaskStore>) {
@@ -33,8 +33,13 @@ const tasksSlice = createSlice({
       (state[curStatus] as TTask).results.splice(index, 1);
       (state[newStatus] as TTask).results.push(newTask);
     },
+    clearTasksStore: (state: TtaskState) => ({
+      ...state,
+      ...initialState,
+    }),
   },
 });
 const tasksReducer = tasksSlice.reducer;
-export const { setTasks, updateStoreTasksStatus, setNewTask } = tasksSlice.actions;
+export const { setTasks, updateStoreTasksStatus, setNewTask, clearTasksStore } =
+  tasksSlice.actions;
 export default tasksReducer;

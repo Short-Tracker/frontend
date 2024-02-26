@@ -90,17 +90,12 @@ export type TPerformer = {
 // конец типов Task
 
 // типы для аналитики
-export type TAnalitics = {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: TTasksAnalitics[];
-};
-
 export type TTasksAnalitics = {
   total_tasks_on_time: number;
   total_tasks_with_delay: number;
-  performers_analytics: TAnaliticsPerformer[];
+  performers_analytics: {
+    [performerId: string]: TAnaliticsPerformer;
+  };
 };
 
 export type TAnaliticsPerformer = {

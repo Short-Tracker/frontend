@@ -33,21 +33,23 @@ export const AnaliticsString: React.FC<AnaliticsStringProps> = ({
         <div className={styles.done}>
           <div
             className={`${styles.done_container} ${styles.done_container_green} ${
-              activeColumn === 'inTime' ? styles.done_container_active : undefined
+              activeColumn === 'on_time_count' ? styles.done_container_active : undefined
             }`}
           >
             <span>{inTime}</span>
           </div>
           <div
             className={`${styles.done_container} ${styles.done_container_grey} ${
-              activeColumn === 'afterDeadline' ? styles.done_container_active : undefined
+              activeColumn === 'with_delay_count'
+                ? styles.done_container_active
+                : undefined
             }`}
           >
             <span>{afterDeadline}</span>
           </div>
           <div
             className={`${styles.done_container} ${
-              activeColumn === 'allDone' ? styles.done_container_active : undefined
+              activeColumn === 'total_tasks' ? styles.done_container_active : undefined
             }`}
           >
             <span>{all}</span>

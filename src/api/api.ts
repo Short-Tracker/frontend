@@ -75,4 +75,10 @@ export const createNewUserApi = (userData: any) =>
   });
 export const getAllTasks = () => request('tasks/?limit=99&offset=0', { method: 'GET' });
 export const getUsers = () => request('users/', { method: 'GET' });
-export const getAnalitics = () => request('task-analytics/', { method: 'GET' });
+export const getAnalitics = (data: any) =>
+  request(
+    `task-analytics/?start_date=${data.start_date}&end_date=${data.end_date}&sort_by=${data.sort_by}`,
+    {
+      method: 'GET',
+    }
+  );

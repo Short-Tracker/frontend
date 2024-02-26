@@ -5,11 +5,11 @@ import { AppThunk } from '../types/store.types';
 import { TTasksAnalitics } from '../types/types';
 import catchErrors from '../api/catch-errors';
 
-const getAnaliticsThunk: AppThunk = (isLoggedIn: boolean) => async (dispatch) => {
+const getAnaliticsThunk: AppThunk = (isLoggedIn: boolean, data) => async (dispatch) => {
   try {
     dispatch(isLoadingOn());
     if (isLoggedIn) {
-      const res: TTasksAnalitics = await getAnalitics();
+      const res: TTasksAnalitics = await getAnalitics(data);
       batch(() => {
         dispatch(getTaskAnalitics(res));
       });

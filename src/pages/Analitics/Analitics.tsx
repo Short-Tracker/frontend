@@ -8,6 +8,9 @@ import Search from 'components/Search/Search';
 import { AnaliticsString } from 'components/AnaliticsString/AnaliticsString';
 import { ArrowDownIcon, ArrowIcon, ArrowUpIcon } from 'ui-lib/Icons';
 import getAnaliticsThunk from 'thunks/get-analitics-thunks';
+import { format } from 'date-fns/format';
+import { ru } from 'date-fns/locale/ru';
+import { TAnaliticsPerformer } from 'types/types';
 import styles from './Analitics.module.scss';
 
 const Analitics = () => {
@@ -15,29 +18,38 @@ const Analitics = () => {
   const { isLoading, isLoggedIn } = useSelector((state) => state.system);
   const [isCollapsedLeft, setIsCollapsedLeft] = React.useState(false);
   const [isCollapsedRight, setIsCollapsedRight] = React.useState(false);
-  const [activeRating, setActiveRating] = React.useState('inTime');
+  const [activeRating, setActiveRating] = React.useState('on_time_count');
   const [leftFilter, setLeftFilter] = React.useState('Todo');
   const [rightFilter, setRightFilter] = React.useState('In progress');
 
   const taskAnalitics = useSelector((state) => state.taskAnalitics);
-  console.log(taskAnalitics);
+  const performers = taskAnalitics.performers_analytics;
 
   // по умолчанию аналитика рассчитывается за последнюю неделю, включая текущую дату
   const currentDate = new Date();
-  currentDate.setHours(23, 59, 59, 999);
   const endDate = new Date(currentDate);
   const startDate = new Date(endDate);
-  startDate.setDate(startDate.getDate() - 6);
-  startDate.setHours(0, 0, 0, 0);
-  const formattedStartDate = new Intl.DateTimeFormat('ru-RU', {
+  // startDate.setDate(startDate.getDate() - 10);
+  startDate.setDate(1);
+
+  // форматирование даты для страницы
+  const pageStartDate = new Intl.DateTimeFormat('ru-RU', {
     day: 'numeric',
     month: 'long',
   }).format(startDate);
-  const formattedEndDate = new Intl.DateTimeFormat('ru-RU', {
+  const pageEndDate = new Intl.DateTimeFormat('ru-RU', {
     day: 'numeric',
     month: 'long',
   }).format(endDate);
 
+  // форматирование даты для запроса
+  function formattedValue(value: Date) {
+    return value && !Array.isArray(value)
+      ? format(value, 'yyyy-MM-dd', { locale: ru })
+      : '';
+  }
+  const formattedStartDate = formattedValue(startDate);
+  const formattedEndDate = formattedValue(endDate);
   const openCreateTask = () => {
     dispatch(openCreateTaskModal());
   };
@@ -97,50 +109,41 @@ const Analitics = () => {
     }
   };
 
+  function chooseAvgTime(performer: TAnaliticsPerformer) {
+    if (leftFilter === 'Todo' && rightFilter === 'In progress') {
+      return performer.avg_time_create_date_to_inprogress_date;
+    }
+    if (leftFilter === 'Todo' && rightFilter === 'Done') {
+      return performer.avg_time_create_date_to_done_date;
+    }
+    if (leftFilter === 'In progress' && rightFilter === 'Done') {
+      return performer.avg_time_inprogress_date_to_done_date;
+    }
+    return '';
+  }
+
   const rateInTime = () => {
-    setActiveRating('inTime');
+    setActiveRating('on_time_count');
   };
 
   const rateAfterDeadline = () => {
-    setActiveRating('afterDeadline');
+    setActiveRating('with_delay_count');
   };
 
   const rateAllDone = () => {
-    setActiveRating('allDone');
+    setActiveRating('total_tasks');
   };
 
-  const data = [
-    {
-      performer: 'Мария Жигунова',
-      inTime: 10,
-      afterDeadline: 3,
-      all: 13,
-    },
-    {
-      performer: 'Юлия Александрова',
-      inTime: 13,
-      afterDeadline: 4,
-      all: 17,
-    },
-    {
-      performer: 'Мария Жигунова',
-      inTime: 25,
-      afterDeadline: 3,
-      all: 28,
-    },
-    {
-      performer: 'Юлия Александрова',
-      inTime: 5,
-      afterDeadline: 15,
-      all: 20,
-    },
-  ];
-
   useEffect(() => {
-    dispatch(getAnaliticsThunk(isLoggedIn));
+    dispatch(
+      getAnaliticsThunk(isLoggedIn, {
+        start_date: formattedStartDate,
+        end_date: formattedEndDate,
+        sort_by: activeRating,
+      })
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoggedIn]);
-
+  }, [isLoggedIn, activeRating]);
   return (
     <div className={styles.page_container}>
       {isLoading && <Preloader />}
@@ -152,7 +155,7 @@ const Analitics = () => {
             <p>Создать задачу</p>
           </UniversalButton>
         </div>
-        <p className={styles.period}>{`${formattedStartDate} - ${formattedEndDate}`}</p>
+        <p className={styles.period}>{`${pageStartDate} - ${pageEndDate}`}</p>
         <div className={styles.analitics}>
           <div className={styles.analitics_general}>
             <h2 className={styles.analitics_header}>
@@ -160,14 +163,16 @@ const Analitics = () => {
             </h2>
             <div className={styles.analitics_general_done}>
               <div className={styles.analitics_general_done_intime}>
-                <span className={styles.analitics_general_done_number}>150</span>
+                <span className={styles.analitics_general_done_number}>
+                  {taskAnalitics.total_tasks_on_time}
+                </span>
                 <span className={styles.analitics_general_done_text}>решено в срок</span>
               </div>
               <div className={styles.analitics_general_done_after}>
                 <span
                   className={`${styles.analitics_general_done_number} ${styles.analitics_general_done_number_grey}`}
                 >
-                  36
+                  {taskAnalitics.total_tasks_with_delay}
                 </span>
                 <span className={styles.analitics_general_done_text}>
                   решено после дедлайна
@@ -180,7 +185,7 @@ const Analitics = () => {
             <ul className={styles.analitics_rating_filter}>
               <li
                 className={`${styles.analitics_rating_filter_container} ${
-                  activeRating === 'inTime'
+                  activeRating === 'on_time_count'
                     ? styles.analitics_rating_filter_container_active
                     : undefined
                 }`}
@@ -189,7 +194,7 @@ const Analitics = () => {
               </li>
               <li
                 className={`${styles.analitics_rating_filter_container} ${
-                  activeRating === 'afterDeadline'
+                  activeRating === 'with_delay_count'
                     ? styles.analitics_rating_filter_container_active
                     : undefined
                 }`}
@@ -198,7 +203,7 @@ const Analitics = () => {
               </li>
               <li
                 className={`${styles.analitics_rating_filter_container} ${
-                  activeRating === 'allDone'
+                  activeRating === 'total_tasks'
                     ? styles.analitics_rating_filter_container_active
                     : undefined
                 }`}
@@ -207,15 +212,15 @@ const Analitics = () => {
               </li>
             </ul>
             <div className={styles.analitics_performers}>
-              {data.map((item, index) => (
+              {Object.keys(performers).map((performerId, index) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <div key={index}>
                   <AnaliticsString
-                    performer={item.performer}
+                    performer={performers[performerId].performer_name}
                     index={index}
-                    inTime={item.inTime}
-                    afterDeadline={item.afterDeadline}
-                    all={item.all}
+                    inTime={performers[performerId].on_time_count}
+                    afterDeadline={performers[performerId].with_delay_count}
+                    all={performers[performerId].total_tasks}
                     activeColumn={activeRating}
                   />
                 </div>
@@ -274,10 +279,16 @@ const Analitics = () => {
               </div>
             </div>
             <div className={styles.analitics_performers}>
-              <AnaliticsString performer='Мария Жигунова' index={0} time='30 мин' />
-              <AnaliticsString performer='Юлия Александрова' index={1} time='50 мин' />
-              <AnaliticsString performer='Мария Жигунова' index={2} time='1 ч 20 мин' />
-              <AnaliticsString performer='Юлия Александрова' index={3} time='40 мин' />
+              {Object.keys(performers).map((performerId, index) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <div key={index}>
+                  <AnaliticsString
+                    performer={performers[performerId].performer_name}
+                    index={index}
+                    time={chooseAvgTime(performers[performerId])}
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>

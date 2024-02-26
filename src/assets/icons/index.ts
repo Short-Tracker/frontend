@@ -1,4 +1,5 @@
 import flagIcon from './flagIcon.svg';
+import flagIconExpired from './flagIconExpired.svg';
 import todoIcon from './todoIcon.svg';
 import linkIcon from './linkIcon.svg';
 import teamIcon from './teamIcon.svg';
@@ -22,6 +23,10 @@ import exitIcon from './ExitIcon.svg';
 import personalAreaIcon from './PersonalAreaIcon.svg';
 import AllTeamIcon from './AllTeamIcon.svg';
 import checkmark from './checkmark.svg';
+import close from './close.svg';
+import arrowIcon from './arrowIcon.svg';
+import arrowUpIcon from './arrowUpIcon.svg';
+import arrowDownIcon from './arrowDownIcon.svg';
 
 export {
   flagIcon,
@@ -48,4 +53,9 @@ export {
   personalAreaIcon,
   AllTeamIcon,
   checkmark,
+  close,
+  flagIconExpired,
+  arrowIcon,
+  arrowUpIcon,
+  arrowDownIcon,
 };

@@ -1,4 +1,4 @@
-import React, { FC, ReactComponentElement } from 'react';
+import React, { FocusEvent, FC, ReactComponentElement } from 'react';
 import styles from './UniversalInput.module.scss';
 
 interface IUniversalInput extends React.ComponentPropsWithoutRef<'input'> {
@@ -9,6 +9,8 @@ interface IUniversalInput extends React.ComponentPropsWithoutRef<'input'> {
   id: string;
   pos?: any;
   customStyle?: string;
+  error?: string;
+  onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
 }
 
 const UniversalInput: FC<IUniversalInput> = ({
@@ -19,31 +21,46 @@ const UniversalInput: FC<IUniversalInput> = ({
   icon = null,
   pos,
   customStyle,
+  error,
+  onBlur,
   ...rest
-}) => (
-  <div className={styles.Container} style={{ position: pos }}>
-    <label className={styles.label} htmlFor={id}>
-      {label}
-    </label>
-    <div className={styles.inputContainer}>
-      <input
-        id={id}
-        className={styles.input}
-        placeholder={placeholder}
-        type={type}
-        {...rest}
-      />
-      {icon && icon}
+}) => {
+  const handleInputBlur = (event: FocusEvent<HTMLInputElement>) => {
+    const trimmedValue = event.target.value.trim();
+    if (onBlur) {
+      onBlur(event);
+    }
+    event.target.value = trimmedValue;
+  };
+  return (
+    <div className={styles.Container} style={{ position: pos }}>
+      <label className={styles.label} htmlFor={id}>
+        {label}
+      </label>
+      <div className={styles.inputContainer}>
+        <input
+          id={id}
+          className={`${error ? styles.input_error : ''} ${styles.input}`}
+          placeholder={placeholder}
+          type={type}
+          onBlur={handleInputBlur}
+          {...rest}
+        />
+        {icon && icon}
+      </div>
+      {error && <div className={styles.error}>{error}</div>}
     </div>
-  </div>
-);
+  );
+};
 
 UniversalInput.defaultProps = {
   label: '',
   type: 'text',
   placeholder: '',
   icon: null,
-  pos: 'static',
+  pos: '',
   customStyle: '',
+  error: '',
+  onBlur: undefined,
 };
 export default UniversalInput;

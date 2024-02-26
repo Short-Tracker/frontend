@@ -1,133 +1,35 @@
+import { DragDropContext } from '@hello-pangea/dnd';
 import Search from 'components/Search/Search';
 import SideBar from 'components/SideBar/SideBar';
-import Tasks from 'pages/Tasks/Tasks';
-import React, { FC, useEffect, useState } from 'react';
-import { UniversalButton } from 'ui-lib/Buttons';
 import Status from 'components/Status/Status';
-import { TPerformers, TResults, TTask } from 'types/types';
-import { useDispatch, useSelector } from 'services/hooks';
+import { FC } from 'react';
+import { useDispatch, useSelector, useTasksToRender } from 'services/hooks';
 import { openCreateTaskModal } from 'store';
-import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
+import { resetActiveMenu } from 'store/taskMenuActiveSlice';
+import { TaskStatus, TtaskState } from 'types/types';
+import { UniversalButton } from 'ui-lib/Buttons';
+import TaskSort from '../../../components/TasksDND/TasksDND';
+import updateTaskStatusThunk from '../../../thunks/update-task-status-thunk';
 import styles from './Lead.module.scss';
-import updateTaskThunk from '../../../thunks/update-task-thunk';
-
-interface ITaskSort {
-  tasksArray: TResults[];
-  handleCheckTaskOwner: (performers: TPerformers[]) => boolean;
-  droppableId: string;
-}
-
-const TaskSort: FC<ITaskSort> = (props) => {
-  const { tasksArray, handleCheckTaskOwner, droppableId } = props;
-
-  const getStyle = (style: any, snapshot: any) => {
-    if (!snapshot.isDragging) return {};
-    if (!snapshot.isDropAnimating) {
-      return style;
-    }
-
-    return {
-      ...style,
-      transitionDuration: '0.001s',
-    };
-  };
-
-  return (
-    <Droppable droppableId={droppableId}>
-      {(provided, snapshot) => (
-        <div ref={provided.innerRef} {...provided.droppableProps}>
-          <div className={styles.taskColumn}>
-            {tasksArray.map((task, index) => (
-              <Draggable key={task.id} draggableId={`${task.id}`} index={index}>
-                {/* eslint-disable-next-line @typescript-eslint/no-shadow */}
-                {(provided, snapshot) => (
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    style={getStyle(provided.draggableProps.style, snapshot)}
-                  >
-                    <Tasks
-                      isLead={task.creator.is_team_lead}
-                      text={task.description}
-                      date={task.create_date}
-                      headerText={task.creator.full_name}
-                      ownTask={handleCheckTaskOwner(task.performers)}
-                      startTime={task.create_date}
-                      movedTime={task.inprogress_date}
-                      completedTime={task.deadline_date}
-                      status={task.status}
-                      taskID={task.id}
-                      performers={task.performers}
-                    />
-                  </div>
-                )}
-              </Draggable>
-            ))}
-          </div>
-        </div>
-      )}
-    </Droppable>
-  );
-};
 
 interface ITaskCard {
-  allTasks: TTask;
+  allTasks: TtaskState;
 }
 
-const Lead: FC<ITaskCard> = (props) => {
-  const { allTasks } = props;
-  const { count, results } = allTasks;
+const Lead: FC<ITaskCard> = ({ allTasks }) => {
+  const { toDo, inProgress, done, hold } = allTasks;
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.user);
+  const todoTasks = useTasksToRender(toDo);
+  const inProgressTasks = useTasksToRender(inProgress);
+  const doneTasks = useTasksToRender(done);
+  const holdTasks = useTasksToRender(hold);
 
   const openCreateTask = () => {
     dispatch(openCreateTaskModal());
   };
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [todoTasks, setTodoTasks] = useState<TResults[]>([]);
-  const [inProgressTasks, setInProgressTasks] = useState<TResults[]>([]);
-  const [doneTasks, setDoneTasks] = useState<TResults[]>([]);
-  const [holdTasks, setHoldTasks] = useState<TResults[]>([]);
-
-  const parseTasks = () => {
-    const todo: TResults[] = [];
-    const inProgress: TResults[] = [];
-    const done: TResults[] = [];
-    const hold: TResults[] = [];
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < results.length; i++) {
-      if (results[i].status === 'to do') {
-        todo.push(results[i]);
-      }
-      if (results[i].status === 'in progress') {
-        inProgress.push(results[i]);
-      }
-      if (results[i].status === 'done') {
-        done.push(results[i]);
-      }
-      if (results[i].status === 'hold') {
-        hold.push(results[i]);
-      }
-    }
-    setTodoTasks(todo);
-    setInProgressTasks(inProgress);
-    setDoneTasks(done);
-    setHoldTasks(hold);
-  };
-  // Проверка есть ли текущий пользователь в списке
-  const handleCheckTaskOwner = (performers: TPerformers[]) => {
-    const res = performers.filter((user) => user.full_name === currentUser.full_name);
-    return res.length > 0;
-  };
-
-  useEffect(() => {
-    if (results.length >= 1) {
-      parseTasks();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [results]);
+  const onDragStart = () => dispatch(resetActiveMenu());
 
   const onDragEnd = (result: any) => {
     const { source, destination, draggableId } = result;
@@ -138,22 +40,43 @@ const Lead: FC<ITaskCard> = (props) => {
     }
     const sInd = source.droppableId;
     const dInd = destination.droppableId;
-    const itemIndex = allTasks.results.findIndex(
-      (elem) => elem.id === Number(draggableId)
-    );
-    const item = allTasks.results[itemIndex];
+    const allTasksArr = [
+      ...todoTasks.tasksToRender,
+      ...inProgressTasks.tasksToRender,
+      ...doneTasks.tasksToRender,
+      ...holdTasks.tasksToRender,
+    ];
+    const itemIndex = allTasksArr.findIndex((elem) => elem.id === Number(draggableId));
+    const item = allTasksArr[itemIndex];
+
+    const { status } = item;
+    const isCurrentUserLead = currentUser.is_team_lead;
+
+    const canDragToInProgress =
+      status === TaskStatus.TO_DO && dInd === TaskStatus.IN_PROGRESS;
+    const canDragToToDo =
+      status === TaskStatus.ARCHIVED && isCurrentUserLead && dInd === TaskStatus.TO_DO;
+    const canDragToDone = status === TaskStatus.IN_PROGRESS && dInd === TaskStatus.DONE;
+    const canDragToHold = status === TaskStatus.IN_PROGRESS && dInd === TaskStatus.HOLD;
+    const canDragToArchived =
+      status === TaskStatus.DONE && isCurrentUserLead && dInd === TaskStatus.ARCHIVED;
+
+    if (
+      !canDragToToDo &&
+      !canDragToInProgress &&
+      !canDragToDone &&
+      !canDragToHold &&
+      !canDragToArchived
+    ) {
+      return;
+    }
 
     const updateTaskStatus = () => {
       dispatch(
-        updateTaskThunk({
-          id: draggableId,
-          data: {
-            description: item.description,
-            status: dInd,
-            deadline_date: item.deadline_date,
-            // performers,
-            performers: [2],
-          },
+        updateTaskStatusThunk({
+          id: +draggableId,
+          curStatus: status,
+          newStatus: dInd,
         })
       );
     };
@@ -175,26 +98,22 @@ const Lead: FC<ITaskCard> = (props) => {
         </div>
         <Status />
         <div className={styles.tasksWrapper}>
-          <DragDropContext onDragEnd={onDragEnd}>
+          <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
             <TaskSort
-              tasksArray={todoTasks}
-              handleCheckTaskOwner={handleCheckTaskOwner}
-              droppableId='to do'
+              tasksArray={todoTasks.tasksToRender}
+              droppableId={TaskStatus.TO_DO}
             />
             <TaskSort
-              tasksArray={inProgressTasks}
-              handleCheckTaskOwner={handleCheckTaskOwner}
-              droppableId='in progress'
+              tasksArray={inProgressTasks.tasksToRender}
+              droppableId={TaskStatus.IN_PROGRESS}
             />
             <TaskSort
-              tasksArray={doneTasks}
-              handleCheckTaskOwner={handleCheckTaskOwner}
-              droppableId='done'
+              tasksArray={doneTasks.tasksToRender}
+              droppableId={TaskStatus.DONE}
             />
             <TaskSort
-              tasksArray={holdTasks}
-              handleCheckTaskOwner={handleCheckTaskOwner}
-              droppableId='hold'
+              tasksArray={holdTasks.tasksToRender}
+              droppableId={TaskStatus.HOLD}
             />
           </DragDropContext>
         </div>

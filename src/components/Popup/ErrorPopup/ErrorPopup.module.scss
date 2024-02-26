@@ -1,0 +1,30 @@
+@use '../../../globalStyles/mixins.scss' as m;
+@use '../../../globalStyles/variables.scss' as v;
+
+.errorPopup {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  @include m.H2;
+  padding-bottom: 20px;
+}
+
+.customUniversalButton {
+  @include m.Button;
+  background-color: v.$accent-color;
+  color: v.$white-color;
+}
+
+.closeButton {
+  background-color: transparent;
+  border: none;
+  margin: 16px 16px 0 auto;
+  width: 24px;
+  height: 24px;
+}
+

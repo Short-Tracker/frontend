@@ -16,7 +16,6 @@
     width: 100%;
     display: grid;
     gap: 12px;
-    align-items: center;
   }
   &__question {
     @include m.LinkS;

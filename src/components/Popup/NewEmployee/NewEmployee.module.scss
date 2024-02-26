@@ -1,0 +1,30 @@
+@use '../../../globalStyles/variables.scss' as v;
+@use '../../../globalStyles/mixins.scss' as m;
+
+.newEmployee {
+  width: 557px;
+  background-color: v.$login-background;
+}
+
+.newEmployeeContainer {
+  width: 509px;
+  margin: auto;
+  padding: 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.newEmployeeWrapper {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.newEmployeeAddButton {
+  width: 250px;
+}
+
+.newEmployeeButton {
+  width: 250px;
+}

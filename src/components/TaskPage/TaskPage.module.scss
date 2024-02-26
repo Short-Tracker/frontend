@@ -1,0 +1,132 @@
+@use '../../globalStyles/variables.scss' as v;
+@use '../../globalStyles/mixins.scss' as m;
+
+.task {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 98;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: v.$black-color;
+    opacity: 0.5;
+  }
+
+  &__wrapper {
+    width: 560px;
+    min-height: 376px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: v.$white-color;
+    z-index: 200;
+  }
+
+  &__wrapper_page {
+    width: 80vw;
+    height: 60vh;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 20px;
+    background-color: v.$header-task-bg-color;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    width: 100%;
+
+    &Text {
+      color: v.$name-task;
+      @include m.S1;
+      margin-left: 8px;
+    }
+  }
+  &__content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 32px;
+  }
+
+  &__description {
+    flex-grow: 1;
+
+    @include m.Card;
+  }
+  &__other {
+    max-height: 30px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 8px;
+    margin-right: auto;
+    align-self: stretch;
+    margin-bottom: 16px;
+
+    &Wrapper {
+      border-bottom: 1px solid v.$header-task-border-color;
+      margin-bottom: 16px;
+    }
+
+    &Date {
+      padding: 0;
+      margin: 0;
+      margin-left: 4px;
+      color: v.$disabled-color;
+      @include m.Description;
+    }
+
+    &_right {
+      display: flex;
+      border: none;
+    }
+
+    &_count {
+      @include m.Description;
+    }
+  }
+
+  &__link {
+    max-width: 60%;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+    overflow: hidden;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  &__commentWrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__textarea {
+    border: 1px solid v.$header-task-border-color;
+    flex-grow: 1;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    @include m.S1;
+    color: v.$disabled-color;
+  }
+}

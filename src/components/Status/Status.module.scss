@@ -2,14 +2,13 @@
 @use '../../globalStyles/variables.scss' as v;
 
 .container {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(137px, 1fr));
+  column-gap: 20px;
 }
 
 .element {
   @include m.Body;
-  width: 256px;
   height: 24px;
   border-radius: 4px;
   display: flex;
@@ -35,4 +34,10 @@
 .done {
   color: v.$done-text;
   background: v.$done;
+}
+
+@media (max-width: 770px) {
+  .container {
+    grid-template-columns: repeat(4, 137px);
+  }
 }

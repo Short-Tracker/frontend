@@ -1,5 +1,6 @@
 import {
   flagIcon,
+  flagIconExpired,
   todoIcon,
   linkIcon,
   teamIcon,
@@ -14,11 +15,19 @@ import {
   clockIcon,
   trashIcon,
   ballpenIcon,
+  close,
+  arrowIcon,
+  arrowDownIcon,
+  arrowUpIcon,
 } from 'assets/icons';
 
 import TemplateIcon from './TemplateIcon/TemplateIcon';
 
 export const FlagIcon = (props: any) => <TemplateIcon {...props} icon={flagIcon} />;
+export const FlagIconExpired = (props: any) => (
+  <TemplateIcon {...props} icon={flagIconExpired} />
+);
+
 export const TodoIcon = (props: any) => <TemplateIcon {...props} icon={todoIcon} />;
 export const LinkIcon = (props: any) => <TemplateIcon {...props} icon={linkIcon} />;
 export const TeamIcon = (props: any) => <TemplateIcon {...props} icon={teamIcon} />;
@@ -42,4 +51,14 @@ export const TrashIcon = (props: any) => (
 );
 export const BallpenIcon = (props: any) => (
   <TemplateIcon {...props} icon={ballpenIcon} width={20} height={20} />
+);
+export const CloseIcon = (props: any) => (
+  <TemplateIcon {...props} icon={close} width={24} height={24} />
+);
+export const ArrowIcon = (props: any) => (
+  <TemplateIcon {...props} icon={arrowIcon} width={12} height={6} />
+);
+export const ArrowUpIcon = (props: any) => <TemplateIcon {...props} icon={arrowUpIcon} />;
+export const ArrowDownIcon = (props: any) => (
+  <TemplateIcon {...props} icon={arrowDownIcon} />
 );

@@ -1,8 +1,7 @@
-@use './fonts/Onest.scss';
-
+@use './fonts/Onest';
+@use './globalStyles/normalize.scss';
+@use './components/App/App.module.scss';
 * {
   box-sizing: border-box;
   margin: 0;
 }
-
-@import './fonts/Onest.scss';

@@ -1,42 +1,56 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
+import { TaskStatus } from 'types/types';
 import { UniversalButton } from 'ui-lib/Buttons';
 import { BallpenIcon, TrashIcon } from 'ui-lib/Icons';
 import { useClose, useDispatch } from '../../services/hooks';
-import updateTaskThunk from '../../thunks/update-task-thunk';
-import { TPerformers } from '../../types/types';
+import updateTaskThunk from '../../thunks/update-task-status-thunk';
 import styles from './TaskEditMenu.module.scss';
 // import { changeTaskStatus } from '../../store/taskSlice';
 
 export interface TaskEditMenuProps {
-  isLead: boolean | null;
   ownTask: boolean;
   handleToggleEditMenu: () => void;
   handleCloseEditMenu: () => void;
   status: string;
   taskID: number;
-  performers: TPerformers[];
   deadlineDate: string;
   description: string;
+  taskCreatorId: number;
+  isCurrentUserLead: boolean;
+  currentUserId: number;
+  performer: number;
 }
 
 export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
-  isLead,
   ownTask,
   handleToggleEditMenu,
   handleCloseEditMenu,
   status,
-  performers,
   deadlineDate,
   description,
   taskID,
+  taskCreatorId,
+  isCurrentUserLead,
+  currentUserId,
+  performer,
 }) => {
+  const [currentStatus, setStatus] = React.useState(status);
   const dispatch = useDispatch();
   useClose(styles.container, handleCloseEditMenu);
-  const notOwnLeadTask = isLead && !ownTask;
-  const notOwnPerformerTask = !isLead && !ownTask;
 
-  const [currentStatus, setStatus] = React.useState(status);
+  const isTaskEditable = currentUserId === taskCreatorId;
+  const isStatusEditable = isTaskEditable || ownTask;
+
+  const isArchivedVisible =
+    status === TaskStatus.ARCHIVED || (status === TaskStatus.DONE && isCurrentUserLead);
+  const isHoldVisible = status === TaskStatus.HOLD || status === TaskStatus.IN_PROGRESS;
+  const isDoneVisible = status === TaskStatus.DONE || status === TaskStatus.IN_PROGRESS;
+  const isInProgressVisible =
+    status === TaskStatus.IN_PROGRESS || status === TaskStatus.TO_DO;
+  const isToDoVisible =
+    status === TaskStatus.TO_DO || (status === TaskStatus.ARCHIVED && isCurrentUserLead);
+
   const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setStatus(evt.target.value);
   };
@@ -51,13 +65,8 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
     dispatch(
       updateTaskThunk({
         id: taskID,
-        data: {
-          description,
-          status: currentStatus,
-          deadline_date: deadlineDate,
-          // performers,
-          performers: [2],
-        },
+        curStatus: status,
+        newStatus: currentStatus,
       })
     );
   };
@@ -66,8 +75,7 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
     <div className={styles.container}>
       {/* Кнопки отображаются у лида для задачи сотруднику, */}
       {/* а также у лида и сотрудника для своей задачи */}
-      {/* как применить условие ИЛИ? */}
-      {(notOwnLeadTask || ownTask) && (
+      {isTaskEditable && (
         <div className={styles.edit_buttons}>
           <div
             className={styles.edit_button}
@@ -79,76 +87,89 @@ export const TaskEditMenu: React.FC<TaskEditMenuProps> = ({
             <BallpenIcon />
             Редактировать
           </div>
-          <div
-            className={styles.edit_button}
-            onClick={handleToggleEditMenu}
-            role='button'
-            tabIndex={0}
-            onKeyDown={handleKeyDown}
-          >
-            <TrashIcon />
-            Удалить
-          </div>
+          {(status === TaskStatus.DONE || status === TaskStatus.ARCHIVED) && (
+            <div
+              className={styles.edit_button}
+              onClick={handleToggleEditMenu}
+              role='button'
+              tabIndex={0}
+              onKeyDown={handleKeyDown}
+            >
+              <TrashIcon />
+              Удалить
+            </div>
+          )}
         </div>
       )}
       {/* Смена статуса отображаются для своих задач */}
       {/* и задачи у сотрудника от лида */}
-      {(notOwnPerformerTask || ownTask) && (
+      {isStatusEditable && (
         <form className={styles.status}>
-          <label className={styles.status_radiobutton}>
-            <input
-              className={styles.status_radiobutton_input}
-              type='radio'
-              value='to do'
-              checked={currentStatus === 'to do'}
-              onChange={onChange}
-            />
-            Todo
-          </label>
-          <label className={styles.status_radiobutton}>
-            <input
-              className={styles.status_radiobutton_input}
-              type='radio'
-              value='in progress'
-              checked={currentStatus === 'in progress'}
-              onChange={onChange}
-            />
-            In progress
-          </label>
-          <label className={styles.status_radiobutton}>
-            <input
-              className={styles.status_radiobutton_input}
-              type='radio'
-              value='done'
-              checked={currentStatus === 'done'}
-              onChange={onChange}
-            />
-            Done
-          </label>
-          {/* <label className={styles.status_radiobutton}> */}
-          {/*  <input */}
-          {/*    className={styles.status_radiobutton_input} */}
-          {/*    type="radio" */}
-          {/*    value="archived" */}
-          {/*    checked={currentStatus === 'archived'} */}
-          {/*    onChange={onChange} */}
-          {/*  /> */}
-          {/*  Archived */}
-          {/* </label> */}
-          <label className={styles.status_radiobutton}>
-            <input
-              className={styles.status_radiobutton_input}
-              type='radio'
-              value='hold'
-              checked={currentStatus === 'hold'}
-              onChange={onChange}
-            />
-            Hold
-          </label>
+          {isToDoVisible && (
+            <label className={styles.status_radiobutton}>
+              <input
+                className={styles.status_radiobutton_input}
+                type='radio'
+                value={TaskStatus.TO_DO}
+                checked={currentStatus === TaskStatus.TO_DO}
+                onChange={onChange}
+              />
+              Todo
+            </label>
+          )}
+          {isInProgressVisible && (
+            <label className={styles.status_radiobutton}>
+              <input
+                className={styles.status_radiobutton_input}
+                type='radio'
+                value={TaskStatus.IN_PROGRESS}
+                checked={currentStatus === TaskStatus.IN_PROGRESS}
+                onChange={onChange}
+              />
+              In progress
+            </label>
+          )}
+          {isDoneVisible && (
+            <label className={styles.status_radiobutton}>
+              <input
+                className={styles.status_radiobutton_input}
+                type='radio'
+                value={TaskStatus.DONE}
+                checked={currentStatus === TaskStatus.DONE}
+                onChange={onChange}
+              />
+              Done
+            </label>
+          )}
+          {isHoldVisible && (
+            <label className={styles.status_radiobutton}>
+              <input
+                className={styles.status_radiobutton_input}
+                type='radio'
+                value={TaskStatus.HOLD}
+                checked={currentStatus === TaskStatus.HOLD}
+                onChange={onChange}
+              />
+              Hold
+            </label>
+          )}
+          {isArchivedVisible && (
+            <label className={styles.status_radiobutton}>
+              <input
+                className={styles.status_radiobutton_input}
+                type='radio'
+                value={TaskStatus.ARCHIVED}
+                checked={currentStatus === TaskStatus.ARCHIVED}
+                onChange={onChange}
+              />
+              Archived
+            </label>
+          )}
           <UniversalButton
             className={styles.status_button}
             type='button'
             onClick={updateTaskStatus}
+            disabled={status === currentStatus}
           >
             <p className={styles.status_button_text}>Переместить</p>
           </UniversalButton>

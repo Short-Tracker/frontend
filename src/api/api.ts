@@ -1,4 +1,5 @@
 import { baseUrl as api } from 'constants/baseUrl';
+import { TResults, TUpdateTaskStatusApi } from 'types/types';
 
 const checkResponse = (res: Response) => {
   if (!res.ok) {
@@ -10,10 +11,12 @@ const checkResponse = (res: Response) => {
   return res.json();
 };
 
-export const request = (url: string, config?: RequestInit): Promise<any> =>
-  fetch(`${process.env.API || api}${url}`, { ...config, credentials: 'include' }).then(
-    checkResponse
-  );
+export function request<T = any>(url: string, config?: RequestInit): Promise<T> {
+  return fetch(`${process.env.API || api}${url}`, {
+    ...config,
+    credentials: 'include',
+  }).then(checkResponse);
+}
 
 export const authUser = (userData: any) =>
   request('auth/login/', {
@@ -44,10 +47,31 @@ export const createTask = (taskData: any) =>
     body: JSON.stringify(taskData),
   });
 export const updateTaskApi = (taskData: any) =>
-  request(`tasks/${taskData.id}`, {
+  request<{ tasks: TResults[] }>(`tasks/${taskData.id}`, {
     method: 'PATCH',
     headers: new Headers([['Content-Type', 'application/json']]),
     body: JSON.stringify(taskData.data),
+  });
+
+export const updateTaskStatus = (taskData: TUpdateTaskStatusApi) =>
+  request<TResults>(`tasks/${taskData.id}`, {
+    method: 'PATCH',
+    headers: new Headers([['Content-Type', 'application/json']]),
+    body: JSON.stringify({ status: taskData.newStatus }),
+  });
+
+export const getTask = (p: string) => request(`tasks/?status=${p}`, { method: 'GET' });
+
+export const getTodoTask = () => getTask('to do');
+export const getInProgressTask = () => getTask('in progress');
+export const getDoneTask = () => getTask('done');
+export const getHoldTask = () => getTask('hold');
+
+export const createNewUserApi = (userData: any) =>
+  request('users/', {
+    method: 'POST',
+    headers: new Headers([['Content-Type', 'application/json']]),
+    body: JSON.stringify(userData),
   });
 export const getAllTasks = () => request('tasks/?limit=99&offset=0', { method: 'GET' });
 export const getUsers = () => request('users/', { method: 'GET' });

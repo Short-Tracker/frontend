@@ -7,6 +7,8 @@ const initialState: TUser = {
   email: '',
   is_team_lead: false,
   full_name: '',
+  first_name: '',
+  last_name: '',
 };
 
 const userSlice = createSlice({

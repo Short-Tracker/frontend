@@ -1,30 +1,39 @@
-import React, { SyntheticEvent, useState } from 'react';
+import React from 'react';
 import EmailInput from 'ui-lib/Inputs/EmailInput/EmailInput';
 import PasswordInput from 'ui-lib/Inputs/PasswordInput/PasswordInput';
 import loginUserThunk from 'thunks/login-user-thunk';
+import Preloader from 'components/Preloader/Preloader';
 import { NavLink } from 'react-router-dom';
 import { UniversalButton } from 'ui-lib/Buttons';
-import { useDispatch } from '../../../services/hooks';
+import { FormValues, useForm } from 'utils/useForm';
+import { useDispatch, useSelector } from '../../../services/hooks';
 import styles from './AuthorizationForm.module.scss';
 
 const AuthorizationForm = () => {
-  type Values = Record<string, string>;
   const dispatch = useDispatch();
-  const [values, setValues] = useState<Values>({});
-  const onSubmitLogin = (event: SyntheticEvent) => {
-    event.preventDefault();
-    dispatch(loginUserThunk({ email: values.email, password: values.password }));
+  const { isLoading } = useSelector((state) => state.system);
+
+  const onSubmitLogin = (values: FormValues) => {
+    dispatch(
+      loginUserThunk({ email: values.email || '', password: values.password || '' })
+    );
   };
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { target } = event;
-    const { name, value } = target;
-    setValues({ ...values, [name]: value });
-  };
+
+  const { errors, handleBlur, handleSubmit } = useForm({
+    initialValues: { email: '', password: '' },
+    onSubmit: onSubmitLogin,
+  });
   return (
-    <form className={styles.AuthorizationForm} onSubmit={onSubmitLogin}>
+    <form className={styles.AuthorizationForm} onSubmit={handleSubmit}>
+      {isLoading && <Preloader />}
       <div className={styles.AuthorizationForm__container}>
-        <EmailInput id='email' name='email' onChange={handleChange} />
-        <PasswordInput id='password' name='password' onChange={handleChange} />
+        <EmailInput id='email' name='email' onBlur={handleBlur} error={errors.email} />
+        <PasswordInput
+          id='password'
+          name='password'
+          onBlur={handleBlur}
+          error={errors.password}
+        />
       </div>
       <NavLink to='pass' className={styles.AuthorizationForm__question}>
         Забыли пароль?

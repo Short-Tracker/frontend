@@ -1,22 +1,24 @@
-import { onLogin, onLogout, isLoadingOn, isLoadingOff } from './systemSlice';
-import { setUser, clearUser, setUserDataTemp } from './userSlice';
-import { setUsers } from './usersSlice';
-import { setTask } from './taskSlice';
-import { openCreateTaskModal, openCreateTask, closeModal } from './modalSlice';
+import { setContent } from './contentSlice';
 import { setCreateTask } from './createTaskSlice';
+import { closeModal, openCreateTask, openCreateTaskModal } from './modalSlice';
+import { isLoadingOff, isLoadingOn, onLogin, onLogout } from './systemSlice';
+import { setTasks } from './tasksSlice';
+import { clearUser, setUser, setUserDataTemp } from './userSlice';
+import { setUsers } from './usersSlice';
 
 export {
+  clearUser,
+  closeModal,
+  isLoadingOff,
+  isLoadingOn,
   onLogin,
   onLogout,
-  setUser,
-  clearUser,
-  setUserDataTemp,
-  isLoadingOn,
-  isLoadingOff,
-  setTask,
-  setUsers,
-  openCreateTaskModal,
   openCreateTask,
-  closeModal,
+  openCreateTaskModal,
+  setContent,
   setCreateTask,
+  setTasks,
+  setUser,
+  setUserDataTemp,
+  setUsers,
 };

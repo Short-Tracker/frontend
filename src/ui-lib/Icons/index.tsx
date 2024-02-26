@@ -1,5 +1,6 @@
 import {
   flagIcon,
+  flagIconExpired,
   todoIcon,
   linkIcon,
   teamIcon,
@@ -23,6 +24,10 @@ import {
 import TemplateIcon from './TemplateIcon/TemplateIcon';
 
 export const FlagIcon = (props: any) => <TemplateIcon {...props} icon={flagIcon} />;
+export const FlagIconExpired = (props: any) => (
+  <TemplateIcon {...props} icon={flagIconExpired} />
+);
+
 export const TodoIcon = (props: any) => <TemplateIcon {...props} icon={todoIcon} />;
 export const LinkIcon = (props: any) => <TemplateIcon {...props} icon={linkIcon} />;
 export const TeamIcon = (props: any) => <TemplateIcon {...props} icon={teamIcon} />;

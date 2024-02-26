@@ -5,7 +5,6 @@ import { CalendarProps, Calendar as ReactСalendar } from 'react-calendar';
 import { UniversalButton } from 'ui-lib/Buttons';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
-import { TCalendarValue } from 'types/Calendar';
 import styles from './Calendar.module.scss';
 
 type TProps = {
@@ -20,7 +19,6 @@ type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const Calendar: FC<TProps> = (props) => {
-  // const { onChange, value, handleSubmit, handleClose } = props;
   const { handleSubmit, handleClose } = props;
   const [value, onChange] = useState<Value>(new Date());
 

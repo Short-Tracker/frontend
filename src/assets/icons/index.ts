@@ -1,4 +1,5 @@
 import flagIcon from './flagIcon.svg';
+import flagIconExpired from './flagIconExpired.svg';
 import todoIcon from './todoIcon.svg';
 import linkIcon from './linkIcon.svg';
 import teamIcon from './teamIcon.svg';
@@ -53,6 +54,7 @@ export {
   AllTeamIcon,
   checkmark,
   close,
+  flagIconExpired,
   arrowIcon,
   arrowUpIcon,
   arrowDownIcon,

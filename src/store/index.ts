@@ -5,6 +5,7 @@ import { isLoadingOff, isLoadingOn, onLogin, onLogout } from './systemSlice';
 import { setTasks } from './tasksSlice';
 import { clearUser, setUser, setUserDataTemp } from './userSlice';
 import { setUsers } from './usersSlice';
+import { getTaskAnalitics } from './taskAnaliticsSlice';
 
 export {
   clearUser,
@@ -21,4 +22,5 @@ export {
   setUser,
   setUserDataTemp,
   setUsers,
+  getTaskAnalitics,
 };

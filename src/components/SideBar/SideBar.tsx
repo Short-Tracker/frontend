@@ -61,7 +61,9 @@ const SideBar: React.FC = () => {
     }
   };
 
-  const showAnalitics = () => navigate('/task-analitics');
+  const showAnalitics = () => {
+    navigate('/task-analytics');
+  };
 
   return (
     <section className={styles.SideBar}>

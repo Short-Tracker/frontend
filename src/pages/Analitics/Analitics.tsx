@@ -1,21 +1,28 @@
-import React from 'react';
-import { useDispatch } from 'services/hooks';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'services/hooks';
+import Preloader from 'components/Preloader/Preloader';
 import SideBar from 'components/SideBar/SideBar';
 import { openCreateTaskModal } from 'store';
 import { UniversalButton } from 'ui-lib/Buttons';
 import Search from 'components/Search/Search';
 import { AnaliticsString } from 'components/AnaliticsString/AnaliticsString';
 import { ArrowDownIcon, ArrowIcon, ArrowUpIcon } from 'ui-lib/Icons';
+import getAnaliticsThunk from 'thunks/get-analitics-thunks';
 import styles from './Analitics.module.scss';
 
 const Analitics = () => {
   const dispatch = useDispatch();
+  const { isLoading, isLoggedIn } = useSelector((state) => state.system);
   const [isCollapsedLeft, setIsCollapsedLeft] = React.useState(false);
   const [isCollapsedRight, setIsCollapsedRight] = React.useState(false);
   const [activeRating, setActiveRating] = React.useState('inTime');
   const [leftFilter, setLeftFilter] = React.useState('Todo');
   const [rightFilter, setRightFilter] = React.useState('In progress');
 
+  const taskAnalitics = useSelector((state) => state.taskAnalitics);
+  console.log(taskAnalitics);
+
+  // по умолчанию аналитика рассчитывается за последнюю неделю, включая текущую дату
   const currentDate = new Date();
   currentDate.setHours(23, 59, 59, 999);
   const endDate = new Date(currentDate);
@@ -127,22 +134,16 @@ const Analitics = () => {
       afterDeadline: 15,
       all: 20,
     },
-    {
-      performer: 'Мария Жигунова',
-      inTime: 10,
-      afterDeadline: 3,
-      all: 13,
-    },
-    {
-      performer: 'Юлия Александрова',
-      inTime: 13,
-      afterDeadline: 4,
-      all: 17,
-    },
   ];
+
+  useEffect(() => {
+    dispatch(getAnaliticsThunk(isLoggedIn));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoggedIn]);
 
   return (
     <div className={styles.page_container}>
+      {isLoading && <Preloader />}
       <SideBar />
       <div className={styles.page_analitics}>
         <div className={styles.page_serchContainer}>

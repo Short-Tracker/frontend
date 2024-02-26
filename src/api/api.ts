@@ -75,3 +75,4 @@ export const createNewUserApi = (userData: any) =>
   });
 export const getAllTasks = () => request('tasks/?limit=99&offset=0', { method: 'GET' });
 export const getUsers = () => request('users/', { method: 'GET' });
+export const getAnalitics = () => request('task-analytics/', { method: 'GET' });

@@ -20,6 +20,7 @@ import { tasksOfUserSliceReducer } from './tasksOfUserSlice';
 import tasksReducer from './tasksSlice';
 import userReducer from './userSlice';
 import usersReducer from './usersSlice';
+import taskAnaliticsReducer from './taskAnaliticsSlice';
 
 const rootReducer = combineReducers({
   system: systemReducer,
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   createTask: createTaskReducer,
   taskMenuActive: taskMenuActiveReducer,
   tasksOfUser: tasksOfUserSliceReducer,
+  taskAnalitics: taskAnaliticsReducer,
 });
 const persistConfig = {
   key: 'root',

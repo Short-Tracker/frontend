@@ -17,15 +17,25 @@ import { useDispatch, useSelector } from 'services/hooks';
 import { getAllTeamTasks } from 'store/tasksOfUserSlice';
 import { TtaskState } from 'types/types';
 import { v4 as uuidv4 } from 'uuid';
+import { matchPath, useLocation, useNavigate } from 'react-router-dom';
 import styles from './SideBar.module.scss';
 
 const SideBar: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const currentUser = useSelector((state) => state.user);
   const tasks: TtaskState = useSelector((state) => state.tasks);
   const currentUsers = useSelector((state) => state.users);
   const dispatch = useDispatch();
   const [isSidebarMenuOpen, setisSidebarMenuOpen] = useState(false);
   const [isNewEmployeePopupOpen, setIsNewEmployeePopupOpen] = useState(false);
+
+  const activeMain = matchPath(location.pathname, '/main');
+  // const activeMessages = matchPath(location.pathname, '/');
+  // const activeMyTasks = matchPath(location.pathname, '/');
+  const activeAnalitics = matchPath(location.pathname, '/task-analitics');
+  // const activeArchive = matchPath(location.pathname, '/');
 
   const handleToggleMenu = () => {
     setisSidebarMenuOpen(!isSidebarMenuOpen);
@@ -39,13 +49,19 @@ const SideBar: React.FC = () => {
     setIsNewEmployeePopupOpen(false);
   };
 
-  const showAllTasks = () => dispatch(getAllTeamTasks());
+  const showAllTasks = () => {
+    dispatch(getAllTeamTasks());
+    navigate('/main');
+  };
+
   const handleKeyDown = (evt: KeyboardEvent) => {
     if (evt.key === 'Enter' || evt.key === ' ') {
       evt.preventDefault();
       showAllTasks();
     }
   };
+
+  const showAnalitics = () => navigate('/task-analitics');
 
   return (
     <section className={styles.SideBar}>
@@ -56,13 +72,13 @@ const SideBar: React.FC = () => {
       </div>
 
       <ul className={styles.linkWrapper}>
-        <li className={`${styles.navLi} ${styles.navLiActive}`}>
+        <li className={`${styles.navLi} ${activeMain ? styles.navLiActive : undefined}`}>
           <img
             src={allTaskIcon}
             className={`${styles.navImage} ${styles.navImageActive}`}
             alt='иконка'
           />
-          <button type='button' className={styles.navButton}>
+          <button type='button' className={styles.navButton} onClick={showAllTasks}>
             Все задачи
           </button>
         </li>
@@ -81,9 +97,13 @@ const SideBar: React.FC = () => {
             Мои Задачи
           </button>
         </li>
-        <li className={styles.navLi}>
+        <li
+          className={`${styles.navLi} ${
+            activeAnalitics ? styles.navLiActive : undefined
+          }`}
+        >
           <img src={analyticsIcon} className={styles.navImage} alt='иконка' />
-          <button type='button' className={styles.navButton}>
+          <button type='button' className={styles.navButton} onClick={showAnalitics}>
             Аналитика
           </button>
         </li>

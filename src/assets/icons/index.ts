@@ -23,6 +23,9 @@ import personalAreaIcon from './PersonalAreaIcon.svg';
 import AllTeamIcon from './AllTeamIcon.svg';
 import checkmark from './checkmark.svg';
 import close from './close.svg';
+import arrowIcon from './arrowIcon.svg';
+import arrowUpIcon from './arrowUpIcon.svg';
+import arrowDownIcon from './arrowDownIcon.svg';
 
 export {
   flagIcon,
@@ -50,4 +53,7 @@ export {
   AllTeamIcon,
   checkmark,
   close,
+  arrowIcon,
+  arrowUpIcon,
+  arrowDownIcon,
 };

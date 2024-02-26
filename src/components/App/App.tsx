@@ -7,6 +7,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import PrivateRoute from 'services/PrivateRoute';
 import { useDispatch, useSelector } from 'services/hooks';
 import refreshTokenThunk from 'thunks/refresh-token-thunk';
+import Analitics from 'pages/Analitics/Analitics';
 import { closeModal } from '../../store';
 import CreateTask from '../Popup/CreateTask/CreateTask';
 import Popup from '../Popup/Popup';
@@ -31,6 +32,7 @@ const App = () => {
         <Route element={<PrivateRoute path='/' />}>
           <Route element={<Main />} path='/main' />
           <Route element={<TaskPage />} path='/tasks/:taskId' />
+          <Route element={<Analitics />} path='/task-analitics' />
         </Route>
         <Route path='/error' element={<Error />} />
         <Route path='/error-server' element={<ErrorServer />} />

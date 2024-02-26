@@ -16,6 +16,9 @@ import {
   trashIcon,
   ballpenIcon,
   close,
+  arrowIcon,
+  arrowDownIcon,
+  arrowUpIcon,
 } from 'assets/icons';
 
 import TemplateIcon from './TemplateIcon/TemplateIcon';
@@ -51,4 +54,11 @@ export const BallpenIcon = (props: any) => (
 );
 export const CloseIcon = (props: any) => (
   <TemplateIcon {...props} icon={close} width={24} height={24} />
+);
+export const ArrowIcon = (props: any) => (
+  <TemplateIcon {...props} icon={arrowIcon} width={12} height={6} />
+);
+export const ArrowUpIcon = (props: any) => <TemplateIcon {...props} icon={arrowUpIcon} />;
+export const ArrowDownIcon = (props: any) => (
+  <TemplateIcon {...props} icon={arrowDownIcon} />
 );

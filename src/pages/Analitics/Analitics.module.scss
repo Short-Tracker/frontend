@@ -1,0 +1,192 @@
+@use '../../globalStyles/mixins.scss' as m;
+@use '../../globalStyles/variables.scss' as v;
+
+.page {
+
+  &_container {
+    display: flex;
+    background-color: v.$login-background;
+    width: 100%;
+    justify-content: center;
+  }
+  &_serchContainer {
+    display: flex;
+    margin: 20px 0;
+  }
+  &_analitics {
+    width: 100%;
+    margin-left: 20px;
+    padding-bottom: 20px
+  }
+}
+
+.period {
+  @include m.Description;
+  color: v.$hold-text;
+  border-bottom: 1px solid v.$task-stroke;
+  max-width: 1084px;
+  width: 100%;
+  margin-bottom: 28px;
+}
+
+.analitics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas:
+  "general general"
+  "quantity time";
+  row-gap: 28px;
+  column-gap: 20px;
+  max-width: 1084px;
+
+  &_header {
+    @include m.Button;
+    display: flex;
+    justify-content: center;
+    color: v.$black2-color;
+  }
+
+  &_general {
+    grid-area: general;
+    padding: 40px;
+    background-color: v.$white-color;
+
+    &_done {
+      position: relative;
+      margin-top: 32px;
+
+      &_intime {
+        position: relative;
+        display: grid;
+        grid-template-columns: max-content 124px;
+        column-gap: 39px;
+        color: v.$analitics-green-text;
+        padding: 20px 90px 20px 30px;
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+        background: linear-gradient(to right top, rgba(v.$analitics-green-background, 0.3) 69.8%, transparent 20.2%) no-repeat right/542px 480%, no-repeat top center/cover;
+        width: 542px;
+        align-items: center;
+      }
+
+      &_after {
+        position: absolute;
+        left: 447px;
+        top: 0px;
+        display: grid;
+        grid-template-columns: max-content 214px;
+        column-gap: 39px;
+        color: v.$analitics-black-text;
+        padding: 20px 20px 20px 130px;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        background: linear-gradient(to left bottom, v.$header-task-bg-color 69.8%, transparent 20.2%) no-repeat right/542px 480%, no-repeat top center/cover;
+        width: 542px;
+        align-items: center;
+      }
+
+      &_number {
+       @include m.AnaliticsNumber;
+
+        &_grey {
+          color: v.$name-task;
+        }
+      }
+
+      &_text {
+        @include m.AnaliticsText;
+      }
+    }
+  }
+
+  &_performers {
+    display: grid;
+    row-gap: 4px;
+    // grid-template-columns: 1fr;
+    // grid-template-rows: repeat(auto-fill 36px);
+    max-height: 396px;
+    overflow: scroll;
+  }
+
+  &_rating {
+    grid-area: quantity;
+    padding: 20px 40px;
+    background-color: v.$white-color;
+    height: 531px;
+
+    &_filter {
+      height: 36px;
+      margin: 20px 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      @include m.Description;
+      color: v.$name-task;
+
+      &_container {
+        width: 150.67px;
+        height: 36px;
+        display: flex;
+        justify-content: center;
+
+        &_active {
+          border-bottom: 1px solid v.$name-task;
+          color: v.$black2-color;
+        }
+
+      }
+    }
+  }
+
+  &_speed {
+    grid-area: time;
+    padding: 20px 40px;
+    background-color: v.$white-color;
+    height: 531px;
+
+    &_filter {
+      margin: 20px 0;
+      display: grid;
+      grid-template-columns: 1fr 12px 1fr;
+      column-gap: 4px;
+      align-items: center;
+      color: v.$black2-color;
+      @include m.Body;
+
+      &_position {
+        position: relative;
+        display: flex;
+      }
+
+      &_container {
+        display: flex;
+        width: 216px;
+        border: 1px solid v.$disabled-color;
+        border-radius: 8px;
+        padding: 9px 10px 9px 16px;
+        justify-content: space-between;
+        cursor: pointer;
+       }
+
+       &_bottom {
+        display: flex;
+        position: absolute;
+        z-index: 1;
+        background-color: v.$white-color;
+        width: 216px;
+        border: 1px solid v.$accent-color;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        padding: 9px 10px 9px 16px;
+        left: 0;
+        top: 35px;
+        cursor: pointer;
+       }
+
+       &_opened {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border-color: v.$accent-color;
+      }
+    }
+  }
+}

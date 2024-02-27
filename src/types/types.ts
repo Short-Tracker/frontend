@@ -93,9 +93,7 @@ export type TPerformer = {
 export type TTasksAnalitics = {
   total_tasks_on_time: number;
   total_tasks_with_delay: number;
-  performers_analytics: {
-    [performerId: string]: TAnaliticsPerformer;
-  };
+  performers_analytics: TAnaliticsPerformer[];
 };
 
 export type TAnaliticsPerformer = {

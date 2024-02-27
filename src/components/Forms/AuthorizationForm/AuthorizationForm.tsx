@@ -2,16 +2,14 @@ import React from 'react';
 import EmailInput from 'ui-lib/Inputs/EmailInput/EmailInput';
 import PasswordInput from 'ui-lib/Inputs/PasswordInput/PasswordInput';
 import loginUserThunk from 'thunks/login-user-thunk';
-import Preloader from 'components/Preloader/Preloader';
 import { NavLink } from 'react-router-dom';
 import { UniversalButton } from 'ui-lib/Buttons';
 import { FormValues, useForm } from 'utils/useForm';
-import { useDispatch, useSelector } from '../../../services/hooks';
+import { useDispatch } from '../../../services/hooks';
 import styles from './AuthorizationForm.module.scss';
 
 const AuthorizationForm = () => {
   const dispatch = useDispatch();
-  const { isLoading } = useSelector((state) => state.system);
 
   const onSubmitLogin = (values: FormValues) => {
     dispatch(
@@ -25,7 +23,6 @@ const AuthorizationForm = () => {
   });
   return (
     <form className={styles.AuthorizationForm} onSubmit={handleSubmit}>
-      {isLoading && <Preloader />}
       <div className={styles.AuthorizationForm__container}>
         <EmailInput id='email' name='email' onBlur={handleBlur} error={errors.email} />
         <PasswordInput

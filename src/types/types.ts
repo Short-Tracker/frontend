@@ -89,6 +89,26 @@ export type TPerformer = {
 };
 // конец типов Task
 
+// типы для аналитики
+export type TTasksAnalitics = {
+  total_tasks_on_time: number;
+  total_tasks_with_delay: number;
+  performers_analytics: {
+    [performerId: string]: TAnaliticsPerformer;
+  };
+};
+
+export type TAnaliticsPerformer = {
+  performer_name: string;
+  total_tasks: number;
+  on_time_count: number;
+  with_delay_count: number;
+  avg_time_create_date_to_inprogress_date: string;
+  avg_time_create_date_to_done_date: string;
+  avg_time_inprogress_date_to_done_date: string;
+};
+// конец типов для аналитики
+
 export type TCreateTask = {
   description: string;
   status: TaskStatus;

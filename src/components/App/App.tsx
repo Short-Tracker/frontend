@@ -32,7 +32,7 @@ const App = () => {
         <Route element={<PrivateRoute path='/' />}>
           <Route element={<Main />} path='/main' />
           <Route element={<TaskPage />} path='/tasks/:taskId' />
-          <Route element={<Analitics />} path='/task-analitics' />
+          <Route element={<Analitics />} path='/task-analytics' />
         </Route>
         <Route path='/error' element={<Error />} />
         <Route path='/error-server' element={<ErrorServer />} />

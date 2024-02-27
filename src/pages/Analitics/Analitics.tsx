@@ -25,11 +25,22 @@ const Analitics = () => {
   const taskAnalitics = useSelector((state) => state.taskAnalitics);
   const performers = taskAnalitics.performers_analytics;
 
+  // Обособление 2х рэйтингов, получаемых из 1 state
+  const [ratingPerformers, setRatingPerformers] =
+    React.useState<TAnaliticsPerformer[]>(performers);
+  const [speedPerformers, setSpeedPerformers] =
+    React.useState<TAnaliticsPerformer[]>(performers);
+
+  // TO DO - убрать после исправлений получаемых данных на бэке
+  const ratingPerformer: string[] = [];
+  const speedPerformer: string[] = [];
+  //
+
   // по умолчанию аналитика рассчитывается за последнюю неделю, включая текущую дату
   const currentDate = new Date();
   const endDate = new Date(currentDate);
   const startDate = new Date(endDate);
-  // startDate.setDate(startDate.getDate() - 10);
+  // startDate.setDate(startDate.getDate() - 6);
   startDate.setDate(1);
 
   // форматирование даты для страницы
@@ -66,11 +77,14 @@ const Analitics = () => {
   const changeLeftFilter = () => {
     if (leftFilter === 'Todo') {
       setLeftFilter('In progress');
+      setSpeedPerformers(performers);
       if (rightFilter === 'In progress') {
         setRightFilter('Done');
+        setSpeedPerformers(performers);
       }
     } else {
       setLeftFilter('Todo');
+      setSpeedPerformers(performers);
     }
     setIsCollapsedLeft(!isCollapsedLeft);
   };
@@ -78,10 +92,13 @@ const Analitics = () => {
   const changeRightFilter = () => {
     if (rightFilter === 'In progress') {
       setRightFilter('Done');
+      setSpeedPerformers(performers);
     } else {
       setRightFilter('In progress');
+      setSpeedPerformers(performers);
       if (leftFilter === 'In progress') {
         setLeftFilter('Todo');
+        setSpeedPerformers(performers);
       }
     }
     setIsCollapsedRight(!isCollapsedRight);
@@ -124,15 +141,27 @@ const Analitics = () => {
 
   const rateInTime = () => {
     setActiveRating('on_time_count');
+    setRatingPerformers(performers);
   };
 
   const rateAfterDeadline = () => {
     setActiveRating('with_delay_count');
+    setRatingPerformers(performers);
   };
 
   const rateAllDone = () => {
     setActiveRating('total_tasks');
+    setRatingPerformers(performers);
   };
+
+  function formatTime(minutes: string) {
+    const num = parseInt(minutes, 10);
+    const days = Math.floor(num / 1440);
+    const hours = Math.floor((num % 1440) / 60);
+    const mins = num % 60;
+
+    return `${days ? `${days} д ` : ''}${hours ? `${hours} ч ` : ''}${mins} мин`;
+  }
 
   useEffect(() => {
     dispatch(
@@ -142,8 +171,8 @@ const Analitics = () => {
         sort_by: activeRating,
       })
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoggedIn, activeRating]);
+  }, [isLoggedIn, activeRating, dispatch, formattedStartDate, formattedEndDate]);
+
   return (
     <div className={styles.page_container}>
       {isLoading && <Preloader />}
@@ -212,19 +241,26 @@ const Analitics = () => {
               </li>
             </ul>
             <div className={styles.analitics_performers}>
-              {Object.keys(performers).map((performerId, index) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <div key={index}>
-                  <AnaliticsString
-                    performer={performers[performerId].performer_name}
-                    index={index}
-                    inTime={performers[performerId].on_time_count}
-                    afterDeadline={performers[performerId].with_delay_count}
-                    all={performers[performerId].total_tasks}
-                    activeColumn={activeRating}
-                  />
-                </div>
-              ))}
+              {ratingPerformers.map((performer, index) => {
+                if (!ratingPerformer.includes(performer.performer_name)) {
+                  ratingPerformer.push(performer.performer_name);
+                  const newIndex = ratingPerformer.length - 1;
+                  return (
+                    // eslint-disable-next-line react/no-array-index-key
+                    <div key={index}>
+                      <AnaliticsString
+                        performer={performer.performer_name}
+                        index={newIndex}
+                        inTime={performer.on_time_count}
+                        afterDeadline={performer.with_delay_count}
+                        all={performer.total_tasks}
+                        activeColumn={activeRating}
+                      />
+                    </div>
+                  );
+                }
+                return '';
+              })}
             </div>
           </div>
           <div className={styles.analitics_speed}>
@@ -279,16 +315,23 @@ const Analitics = () => {
               </div>
             </div>
             <div className={styles.analitics_performers}>
-              {Object.keys(performers).map((performerId, index) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <div key={index}>
-                  <AnaliticsString
-                    performer={performers[performerId].performer_name}
-                    index={index}
-                    time={chooseAvgTime(performers[performerId])}
-                  />
-                </div>
-              ))}
+              {speedPerformers.map((performer, index) => {
+                if (!speedPerformer.includes(performer.performer_name)) {
+                  speedPerformer.push(performer.performer_name);
+                  const newIndexP = speedPerformer.length - 1;
+                  return (
+                    // eslint-disable-next-line react/no-array-index-key
+                    <div key={index}>
+                      <AnaliticsString
+                        performer={performer.performer_name}
+                        index={newIndexP}
+                        time={formatTime(chooseAvgTime(performer))}
+                      />
+                    </div>
+                  );
+                }
+                return '';
+              })}
             </div>
           </div>
         </div>

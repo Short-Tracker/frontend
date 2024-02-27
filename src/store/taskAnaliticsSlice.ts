@@ -4,7 +4,7 @@ import { TTasksAnalitics } from '../types/types';
 const initialState: TTasksAnalitics = {
   total_tasks_on_time: 0,
   total_tasks_with_delay: 0,
-  performers_analytics: {},
+  performers_analytics: [],
 };
 
 const taskAnaliticsSlice = createSlice({
